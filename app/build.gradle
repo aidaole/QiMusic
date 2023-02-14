@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -37,6 +39,16 @@ android {
 
 dependencies {
 
+    implementation project(":base:datas")
+    implementation project(":base:utils")
+
+    implementation deps.hilt
+    implementation deps.livedata
+    implementation deps.viewmodel
+    kapt deps.hiltCompiler
+    implementation deps.naviUiExt
+    implementation deps.naviFragmentExt
+
     implementation deps.ktxCore
     implementation deps.appcompat
     implementation deps.material
@@ -45,4 +57,8 @@ dependencies {
     androidTestImplementation deps.junitExt
     androidTestImplementation deps.espresso
     implementation deps.okhttp
+}
+
+kapt {
+    correctErrorTypes true
 }

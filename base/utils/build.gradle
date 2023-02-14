@@ -1,11 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
 }
 
 android {
-    namespace config.applicationId
+    namespace 'com.aidaole.base.utils'
     compileSdk config.compileSdk
 
     defaultConfig {
@@ -32,16 +31,5 @@ android {
 }
 
 dependencies {
-
-    implementation project(":base:utils")
-
-    implementation deps.hilt
-    kapt deps.hiltCompiler
-    implementation deps.okhttp
-    implementation deps.okhttpLog
-
     implementation deps.ktxCore
-    testImplementation deps.junit
-    androidTestImplementation deps.junitExt
-    androidTestImplementation deps.espresso
 }

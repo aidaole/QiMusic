@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "AiMusic"
 include ':app'
 include ':base:datas'
+include ':base:utils'
