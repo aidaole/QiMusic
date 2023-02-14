@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.aidaole.datas'
+    namespace config.applicationId
     compileSdk config.compileSdk
 
     defaultConfig {
