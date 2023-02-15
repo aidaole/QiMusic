@@ -42,6 +42,7 @@ dependencies {
     kapt Deps.hiltCompiler
     implementation Deps.okhttp
     implementation Deps.okhttpLog
+    implementation Deps.gson
 
     implementation Deps.ktxCore
     testImplementation Deps.junit

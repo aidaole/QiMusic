@@ -1,5 +1,6 @@
 package com.aidaole.base.datas.network
 
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,5 +19,10 @@ object NetworkModule {
                 level = HttpLoggingInterceptor.Level.BASIC
             })
             .build()
+    }
+
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 }

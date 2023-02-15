@@ -52,6 +52,7 @@ dependencies {
     kapt Deps.hiltCompiler
     implementation Deps.naviUiExt
     implementation Deps.naviFragmentExt
+    implementation Deps.coil
 
     implementation Deps.ktxCore
     implementation Deps.appcompat

@@ -2,6 +2,7 @@ package com.aidaole.base.datas
 
 import com.aidaole.base.datas.network.NeteaseApi
 import com.aidaole.base.datas.network.NeteaseApiImpl
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,8 +15,9 @@ object DataModule {
 
     @Provides
     fun provideNeteaseApi(
-        okhttp: OkHttpClient
+        okhttp: OkHttpClient,
+        gson: Gson
     ): NeteaseApi {
-        return NeteaseApiImpl(okhttp)
+        return NeteaseApiImpl(okhttp, gson)
     }
 }
