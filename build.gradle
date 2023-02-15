@@ -5,32 +5,3 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.7.21' apply false
     id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
-
-project.ext {
-    config = [
-            applicationId: "com.aidaole.aimusic",
-            versionCode  : 1,
-            versionName  : "1.0.0",
-            minSdk       : 24,
-            targetSdk    : 33,
-            compileSdk   : 33,
-    ]
-    deps = [
-            livedata        : "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1",
-            viewmodel       : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1",
-            hilt            : "com.google.dagger:hilt-android:2.44",
-            hiltCompiler    : "com.google.dagger:hilt-compiler:2.44",
-            naviFragmentExt : "androidx.navigation:navigation-fragment-ktx:2.5.3",
-            naviUiExt       : "androidx.navigation:navigation-ui-ktx:2.5.3",
-            okhttp          : "com.squareup.okhttp3:okhttp:4.10.0",
-            okhttpLog       : "com.squareup.okhttp3:logging-interceptor:4.10.0",
-            ktxCore         : "androidx.core:core-ktx:1.7.0",
-            appcompat       : "androidx.appcompat:appcompat:1.4.1",
-            material        : "com.google.android.material:material:1.5.0",
-            constraintlayout: "androidx.constraintlayout:constraintlayout:2.1.3",
-
-            junit           : "junit:junit:4.13.2",
-            junitExt        : "androidx.test.ext:junit:1.1.3",
-            espresso        : "androidx.test.espresso:espresso-core:3.4.0",
-    ]
-}

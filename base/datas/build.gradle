@@ -1,16 +1,19 @@
+import com.aidaole.plugin.version.*
+
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id "com.aidaole.plugin.version"
 }
 
 android {
-    namespace config.applicationId
-    compileSdk config.compileSdk
+    namespace Config.applicationId
+    compileSdk Config.compileSdk
 
     defaultConfig {
-        minSdk config.minSdk
-        targetSdk config.targetSdk
+        minSdk Config.minSdk
+        targetSdk Config.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,13 +38,13 @@ dependencies {
 
     implementation project(":base:utils")
 
-    implementation deps.hilt
-    kapt deps.hiltCompiler
-    implementation deps.okhttp
-    implementation deps.okhttpLog
+    implementation Deps.hilt
+    kapt Deps.hiltCompiler
+    implementation Deps.okhttp
+    implementation Deps.okhttpLog
 
-    implementation deps.ktxCore
-    testImplementation deps.junit
-    androidTestImplementation deps.junitExt
-    androidTestImplementation deps.espresso
+    implementation Deps.ktxCore
+    testImplementation Deps.junit
+    androidTestImplementation Deps.junitExt
+    androidTestImplementation Deps.espresso
 }

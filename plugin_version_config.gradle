@@ -1,0 +1,5 @@
+import com.aidaole.plugin.version.*
+
+plugins {
+    id 'com.aidaole.plugin.version'
+}

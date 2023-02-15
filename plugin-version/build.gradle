@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+    id("java-gradle-plugin")
+    id 'org.jetbrains.kotlin.jvm' version("1.7.20")
+}
+
+repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation(gradleApi())
+}
+
+gradlePlugin {
+    plugins {
+        create("versionControl") {
+            id = "com.aidaole.plugin.version"
+            implementationClass = "com.aidaole.plugin.version.VersionPlugin"
+        }
+    }
+}
+

@@ -1,15 +1,19 @@
+import com.aidaole.plugin.version.Config
+import com.aidaole.plugin.version.Deps
+
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'com.aidaole.plugin.version'
 }
 
 android {
     namespace 'com.aidaole.base.utils'
-    compileSdk config.compileSdk
+    compileSdk Config.compileSdk
 
     defaultConfig {
-        minSdk config.minSdk
-        targetSdk config.targetSdk
+        minSdk Config.minSdk
+        targetSdk Config.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -31,5 +35,5 @@ android {
 }
 
 dependencies {
-    implementation deps.ktxCore
+    implementation Deps.ktxCore
 }
