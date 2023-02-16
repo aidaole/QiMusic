@@ -1,6 +1,7 @@
 package com.aidaole.base.datas.network
 
 import com.aidaole.base.datas.entities.QrCheckParams
+import com.aidaole.base.datas.entities.RespCheckLoginQr
 import com.aidaole.base.datas.entities.RespQrImg
 import com.aidaole.base.datas.entities.RespQrKey
 import com.aidaole.base.utils.logi
@@ -33,26 +34,22 @@ class NeteaseApiImpl(
         return QrCheckParams(qrImgBase64, qrKey)
     }
 
-    override fun checkQrScaned(qrKey: String): String? {
-        val request = Request.Builder()
-            .url("$BASE_URL/login/qr/check?key=$qrKey".addTimeStamp())
-            .build()
+    override fun getQrScannedCode(qrKey: String): RespCheckLoginQr? {
+        val request = createRequest("$BASE_URL/login/qr/check?key=$qrKey".addTimeStamp()).build()
         okHttpClient.newCall(request).execute().use {
             if (it.isSuccessful) {
-                return it.body?.string()
-//                val respContent = gson.fromJson(it.body?.string(), RespQrImg::class.java)
-//                if (respContent.code == 200) {
-//                    return respContent.data.qrimg
-//                }
+                val result = gson.fromJson(it.body?.string(), RespCheckLoginQr::class.java)
+                "checkQrScanedCode-> $result".logi(TAG)
+                return result
+            } else {
+                "checkQrScanedCode-> failed: ${it.code}".logi(TAG)
             }
         }
         return null
     }
 
     private fun getLoginQrKey(): String? {
-        val request = Request.Builder()
-            .url("$BASE_URL/login/qr/key".addTimeStamp())
-            .build()
+        val request = createRequest("$BASE_URL/login/qr/key".addTimeStamp()).build()
         okHttpClient.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = gson.fromJson(it.body?.string(), RespQrKey::class.java)
@@ -65,9 +62,8 @@ class NeteaseApiImpl(
     }
 
     private fun getLoginQrImg(qrKey: String): String? {
-        val request = Request.Builder()
-            .url("$BASE_URL/login/qr/create?key=$qrKey&qrimg=true".addTimeStamp())
-            .build()
+        val request =
+            createRequest("$BASE_URL/login/qr/create?key=$qrKey&qrimg=true".addTimeStamp()).build()
         okHttpClient.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = gson.fromJson(it.body?.string(), RespQrImg::class.java)

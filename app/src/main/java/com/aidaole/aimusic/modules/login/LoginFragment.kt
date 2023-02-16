@@ -1,9 +1,6 @@
 package com.aidaole.aimusic.modules.login
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import com.aidaole.aimusic.databinding.FragmentLoginBinding
-import com.aidaole.base.utils.logi
 import com.aidaole.base.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,24 +37,20 @@ class LoginFragment : Fragment() {
     }
 
     private fun initVM() {
-        loginVM.qrImgUrl.observe(this.viewLifecycleOwner) { qrParams ->
-            qrParams?.let {
-                layout.qrImg.load(it.base64Img.base64toBitmap())
-                loginVM.checkQrScaned(it.keyCode)
+        loginVM.qrImgBitmap.observe(this.viewLifecycleOwner) { bitmap ->
+            bitmap?.let {
+                layout.qrImg.load(bitmap)
+                loginVM.checkQrScaned()
             } ?: run {
                 "加载登录二维码失败！".toast(requireContext())
             }
         }
-    }
-
-    private fun String.base64toBitmap(): Bitmap? {
-        var bitmap: Bitmap? = null
-        try {
-            val bitmapArray: ByteArray = Base64.decode(this.split(",")[1], Base64.DEFAULT)
-            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.size)
-        } catch (e: Exception) {
-            "base64toBitmap-> e: $e".logi(TAG)
+        loginVM.finalQrLoginState.observe(this.viewLifecycleOwner) { state ->
+            if (state < 0) {
+                "登录失败，请刷新二维码！".toast(requireContext())
+            } else {
+                "登录成功".toast(requireContext())
+            }
         }
-        return bitmap
     }
 }

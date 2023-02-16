@@ -14,5 +14,21 @@ public class RespQrImg {
         public String qrurl;
         @SerializedName("qrimg")
         public String qrimg;
+
+        @Override
+        public String toString() {
+            return "DataEntity{" +
+                    "qrurl='" + qrurl + '\'' +
+                    ", qrimg='" + qrimg + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "RespQrImg{" +
+                "code=" + code +
+                ", data=" + data +
+                '}';
     }
 }
