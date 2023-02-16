@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import coil.load
+import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentLoginBinding
 import com.aidaole.base.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +35,9 @@ class LoginFragment : Fragment() {
         layout.refreshBtn.setOnClickListener {
             loginVM.refreshQr()
         }
-        loginVM.refreshQr()
+        layout.userinfoBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_userinfoFragment)
+        }
     }
 
     private fun initVM() {
@@ -46,10 +50,13 @@ class LoginFragment : Fragment() {
             }
         }
         loginVM.finalQrLoginState.observe(this.viewLifecycleOwner) { state ->
-            if (state < 0) {
-                "登录失败，请刷新二维码！".toast(requireContext())
-            } else {
-                "登录成功".toast(requireContext())
+            when {
+                state > 0 -> {
+                    "登录成功".toast(requireContext())
+                }
+                state < 0 -> {
+                    "登录失败，请刷新二维码！".toast(requireContext())
+                }
             }
         }
     }

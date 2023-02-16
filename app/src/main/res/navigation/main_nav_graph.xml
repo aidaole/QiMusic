@@ -3,16 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph.xml"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/userinfoFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.aidaole.aimusic.modules.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_userinfoFragment"
+            app:destination="@id/userinfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/playlistFragment"
         android:name="com.aidaole.aimusic.modules.playlist.PlaylistFragment"
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist" />
+    <fragment
+        android:id="@+id/userinfoFragment"
+        android:name="com.aidaole.aimusic.modules.user.UserInfoFragment"
+        android:label="fragment_userinfo"
+        tools:layout="@layout/fragment_userinfo" >
+        <action
+            android:id="@+id/action_userinfoFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

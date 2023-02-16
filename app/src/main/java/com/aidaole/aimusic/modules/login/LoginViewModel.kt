@@ -27,7 +27,8 @@ class LoginViewModel @Inject constructor(
 
     companion object {
         private const val TAG = "LoginViewModel"
-        private const val STATE_SUCC = 0
+        private const val STATE_INI = 0
+        private const val STATE_SUCC = 1
         private const val STATE_FAIL = -1
     }
 
@@ -39,7 +40,7 @@ class LoginViewModel @Inject constructor(
 
     private var qrCheckParams: QrCheckParams? = null
     private var loginCookie: String = ""
-    val finalQrLoginState = MutableLiveData<Int>(0)
+    val finalQrLoginState = MutableLiveData<Int>(STATE_INI)
 
     fun refreshQr() {
         viewModelScope.launch {
