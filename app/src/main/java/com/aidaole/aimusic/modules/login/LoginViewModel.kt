@@ -55,7 +55,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun checkQrScaned() {
+    fun checkQrScanned() {
         viewModelScope.launch {
             qrCheckParams?.let {
                 val result = withContext(Dispatchers.IO) {
@@ -84,7 +84,7 @@ class LoginViewModel @Inject constructor(
                                 delay(5 * 1000)
                             }
                             else -> {
-                                "checkQrScaned-> code: $code".logi(TAG)
+                                "checkQrScanned-> code: $code".logi(TAG)
                                 break
                             }
                         }
@@ -98,7 +98,7 @@ class LoginViewModel @Inject constructor(
                     finalQrLoginState.value = STATE_SUCC
                 }
             } ?: run {
-                "checkQrScaned-> qrCheckParams:$qrCheckParams".logi(TAG)
+                "checkQrScanned-> qrCheckParams:$qrCheckParams".logi(TAG)
             }
         }
     }

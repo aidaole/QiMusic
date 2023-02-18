@@ -30,11 +30,7 @@ class UserInfoViewModel @Inject constructor(
     fun loadUserInfo() {
         viewModelScope.launch {
             coroutineIO {
-                val spInfo = UserInfoManager.getUserInfoFromSp(App.getContext())
-                var userinfo: RespUserInfo? = null
-                if (spInfo.isNotBlank()) {
-                    userinfo = spInfo.toJsonObject(gson, RespUserInfo::class.java)
-                }
+                val userinfo = neteaseApi.getUserInfo(App.getContext())
                 userInfoData.postValue(userinfo)
                 "loadUserInfo-> userInfo: $userinfo".logi(TAG)
             }

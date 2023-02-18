@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
         loginVM.qrImgBitmap.observe(this.viewLifecycleOwner) { bitmap ->
             bitmap?.let {
                 layout.qrImg.load(bitmap)
-                loginVM.checkQrScaned()
+                loginVM.checkQrScanned()
             } ?: run {
                 "加载登录二维码失败！".toast(requireContext())
             }
