@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aidaole.aimusic.App
 import com.aidaole.aimusic.R
+import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.QrCheckParams
 import com.aidaole.base.datas.network.NeteaseApi
 import com.aidaole.base.utils.base64toBitmap
@@ -30,17 +31,19 @@ class LoginViewModel @Inject constructor(
         private const val STATE_INI = 0
         private const val STATE_SUCC = 1
         private const val STATE_FAIL = -1
+
+        private const val QR_FAILED_800 = 800
+        private const val QR_SUCC_803 = 803
     }
 
 
     private val defaultQrBitmap =
         App.getContext().resources.getDrawable(R.mipmap.ic_launcher).toBitmap(200, 200)
-    private val _qrImgBitmap = MutableLiveData<Bitmap?>(defaultQrBitmap)
-    val qrImgBitmap = _qrImgBitmap as LiveData<Bitmap?>
+    private val _qrImgBitmap = MutableLiveData(StateValue(defaultQrBitmap))
+    val qrImgBitmap = _qrImgBitmap as LiveData<StateValue<Bitmap>>
 
     private var qrCheckParams: QrCheckParams? = null
-    private var loginCookie: String = ""
-    val finalQrLoginState = MutableLiveData<Int>(STATE_INI)
+    val finalQrLoginState = MutableLiveData(StateValue<Int>())
 
     fun refreshQr() {
         viewModelScope.launch {
@@ -48,9 +51,15 @@ class LoginViewModel @Inject constructor(
                 return@withContext neteaseApi.getQrImg()
             }
             qrCheckParams = qrParams
-            qrCheckParams?.let {
-                "doLogin-> result: $it".logd(TAG, true)
-                _qrImgBitmap.value = it.base64Img.base64toBitmap()
+            qrCheckParams?.let { it ->
+                StateValue.succ<Bitmap>()
+
+                "refreshQr-> result: $it".logd(TAG, true)
+                it.base64Img.base64toBitmap()?.let {
+                    _qrImgBitmap.value = StateValue.succ(it)
+                } ?: run {
+                    _qrImgBitmap.value = StateValue.fail(null)
+                }
             }
         }
     }
@@ -58,9 +67,8 @@ class LoginViewModel @Inject constructor(
     fun checkQrScanned() {
         viewModelScope.launch {
             qrCheckParams?.let {
-                val result = withContext(Dispatchers.IO) {
+                withContext(Dispatchers.IO) {
                     var checkTimes = 10
-                    var state = STATE_FAIL
                     while (checkTimes > 0) {
                         val scanReps =
                             neteaseApi.getQrScannedCode(it.keyCode) ?: return@withContext STATE_FAIL
@@ -69,14 +77,12 @@ class LoginViewModel @Inject constructor(
                         when (code) {
                             803 -> {
                                 // 成功
-                                loginCookie = scanReps.cookie
-                                state = STATE_SUCC
+                                finalQrLoginState.postValue(StateValue.succ(QR_SUCC_803))
                                 break
                             }
                             800 -> {
                                 // 过期，需要刷新
-                                loginCookie = ""
-                                _qrImgBitmap.value = defaultQrBitmap
+                                finalQrLoginState.postValue(StateValue.fail(QR_FAILED_800))
                                 break
                             }
                             801, 802 -> {
@@ -85,20 +91,16 @@ class LoginViewModel @Inject constructor(
                             }
                             else -> {
                                 "checkQrScanned-> code: $code".logi(TAG)
+                                finalQrLoginState.postValue(StateValue.fail(code))
                                 break
                             }
                         }
                         checkTimes--
                     }
-                    return@withContext state
-                }
-                if (result < 0) {
-                    finalQrLoginState.value = STATE_FAIL
-                } else {
-                    finalQrLoginState.value = STATE_SUCC
                 }
             } ?: run {
                 "checkQrScanned-> qrCheckParams:$qrCheckParams".logi(TAG)
+                finalQrLoginState.value = StateValue.fail(-1)
             }
         }
     }
