@@ -6,8 +6,8 @@
     tools:context=".modules.playlist.PlaylistFragment">
 
     <TextView
+        android:id="@+id/nickname"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

@@ -53,8 +53,9 @@ class NeteaseApiImpl(
             if (it.isSuccessful) {
                 val result = it.body?.string()
                 "getUserInfo-> $result".logi(TAG)
-                UserInfoManager.writeUserInfoToSp(context, result)
-                return@use result?.toJsonObject(gson, RespUserInfo::class.java)
+                return@use result?.toJsonObject(gson, RespUserInfo::class.java).also {
+                    UserInfoManager.writeUserInfoToSp(context, result)
+                }
             } else {
                 return@use null
             }

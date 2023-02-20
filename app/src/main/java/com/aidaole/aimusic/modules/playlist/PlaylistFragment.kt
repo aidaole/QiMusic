@@ -1,32 +1,37 @@
 package com.aidaole.aimusic.modules.playlist
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aidaole.aimusic.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.aidaole.aimusic.databinding.FragmentPlaylistBinding
+import com.aidaole.base.datas.UserInfoManager
+import com.aidaole.base.utils.logi
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaylistFragment : Fragment() {
-
     companion object {
-        fun newInstance() = PlaylistFragment()
+        private const val TAG = "PlaylistFragment"
     }
 
-    private lateinit var viewModel: PlaylistViewModel
+    private val viewModel: PlaylistViewModel by viewModels()
+    private val layout by lazy { FragmentPlaylistBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_playlist, container, false)
+    ): View {
+        return layout.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PlaylistViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val userinfo = UserInfoManager.getUserInfo(requireContext())
+        "onViewCreated-> $userinfo".logi(TAG)
+        userinfo?.let {
+            layout.nickname.text = it.profile.nickname
+        }
     }
-
 }
