@@ -55,6 +55,7 @@ class QrLoginFragment : Fragment() {
                     layout.scanText.text = "请用网易云音乐扫码登录"
                 }
                 is StateValue.Fail -> {
+                    layout.qrImg.load(R.mipmap.ic_launcher)
                     layout.scanText.text = "请刷新二维码"
                 }
             }

@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentUserinfoBinding
-import com.aidaole.base.datas.UserInfoManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +35,10 @@ class UserInfoFragment : Fragment() {
         }
         userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
             userInfo?.let {
-                layout.userName.text = it.account.userName
+                layout.avatarImg.load(it.profile.avatarUrl) {
+                    placeholder(R.mipmap.ic_launcher)
+                }
+                layout.nickname.text = it.profile.nickname
             }
         }
         userinfoVM.loadUserInfo()
