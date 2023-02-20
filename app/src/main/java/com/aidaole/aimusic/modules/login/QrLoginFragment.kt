@@ -49,23 +49,23 @@ class QrLoginFragment : Fragment() {
     private fun initVM() {
         loginVM.qrImgBitmap.observe(this.viewLifecycleOwner) { bitmapState ->
             when (bitmapState) {
-                is StateValue.succ -> {
+                is StateValue.Succ -> {
                     layout.qrImg.load(bitmapState.value)
                     loginVM.checkQrScanned()
                     layout.scanText.text = "请用网易云音乐扫码登录"
                 }
-                is StateValue.fail -> {
+                is StateValue.Fail -> {
                     layout.scanText.text = "请刷新二维码"
                 }
             }
         }
         loginVM.finalQrLoginState.observe(this.viewLifecycleOwner) { state ->
             when (state) {
-                is StateValue.succ -> {
+                is StateValue.Succ -> {
                     "登录成功".toast(requireContext())
                     findNavController().navigate(R.id.action_qrLoginFragment_to_userinfoFragment)
                 }
-                is StateValue.fail -> {
+                is StateValue.Fail -> {
                     "登录失败，请刷新二维码！".toast(requireContext())
                 }
             }

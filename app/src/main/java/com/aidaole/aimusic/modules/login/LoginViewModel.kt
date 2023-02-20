@@ -28,8 +28,6 @@ class LoginViewModel @Inject constructor(
 
     companion object {
         private const val TAG = "LoginViewModel"
-        private const val STATE_INI = 0
-        private const val STATE_SUCC = 1
         private const val STATE_FAIL = -1
 
         private const val QR_FAILED_800 = 800
@@ -52,13 +50,12 @@ class LoginViewModel @Inject constructor(
             }
             qrCheckParams = qrParams
             qrCheckParams?.let { it ->
-                StateValue.succ<Bitmap>()
-
+                StateValue.Succ<Bitmap>()
                 "refreshQr-> result: $it".logd(TAG, true)
                 it.base64Img.base64toBitmap()?.let {
-                    _qrImgBitmap.value = StateValue.succ(it)
+                    _qrImgBitmap.value = StateValue.Succ(it)
                 } ?: run {
-                    _qrImgBitmap.value = StateValue.fail(null)
+                    _qrImgBitmap.value = StateValue.Fail(null)
                 }
             }
         }
@@ -77,12 +74,12 @@ class LoginViewModel @Inject constructor(
                         when (code) {
                             803 -> {
                                 // 成功
-                                finalQrLoginState.postValue(StateValue.succ(QR_SUCC_803))
+                                finalQrLoginState.postValue(StateValue.Succ(QR_SUCC_803))
                                 break
                             }
                             800 -> {
                                 // 过期，需要刷新
-                                finalQrLoginState.postValue(StateValue.fail(QR_FAILED_800))
+                                finalQrLoginState.postValue(StateValue.Fail(QR_FAILED_800))
                                 break
                             }
                             801, 802 -> {
@@ -91,7 +88,7 @@ class LoginViewModel @Inject constructor(
                             }
                             else -> {
                                 "checkQrScanned-> code: $code".logi(TAG)
-                                finalQrLoginState.postValue(StateValue.fail(code))
+                                finalQrLoginState.postValue(StateValue.Fail(code))
                                 break
                             }
                         }
@@ -100,7 +97,7 @@ class LoginViewModel @Inject constructor(
                 }
             } ?: run {
                 "checkQrScanned-> qrCheckParams:$qrCheckParams".logi(TAG)
-                finalQrLoginState.value = StateValue.fail(-1)
+                finalQrLoginState.value = StateValue.Fail(-1)
             }
         }
     }
