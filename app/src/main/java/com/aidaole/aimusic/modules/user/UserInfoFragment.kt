@@ -36,7 +36,7 @@ class UserInfoFragment : Fragment() {
         userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
             userInfo?.let {
                 layout.avatarImg.load(it.profile.avatarUrl) {
-                    placeholder(R.mipmap.ic_launcher)
+                    error(R.mipmap.ic_launcher)
                 }
                 layout.nickname.text = it.profile.nickname
             }
