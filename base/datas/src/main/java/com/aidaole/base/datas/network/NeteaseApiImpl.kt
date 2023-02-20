@@ -16,14 +16,6 @@ class NeteaseApiImpl(
         const val BASE_URL = "http://10.101.81.229:3000"
     }
 
-    private fun String.addTimeStamp(): String {
-        return if (this.contains("?")) {
-            "${this}&timestamp=${System.currentTimeMillis()}"
-        } else {
-            "${this}?timestamp=${System.currentTimeMillis()}"
-        }
-    }
-
     override fun getQrImg(): QrCheckParams? {
         val qrKey = getLoginQrKey() ?: return null
         "1. getQrImg-> qrKey: $qrKey".logi(TAG)
@@ -34,7 +26,7 @@ class NeteaseApiImpl(
 
     override fun getQrScannedCode(qrKey: String): RespCheckLoginQr? {
         val request =
-            createRequest("$BASE_URL/login/qr/check?key=$qrKey".addTimeStamp()).build()
+            createRequest("$BASE_URL/login/qr/check?key=$qrKey").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val result = gson.fromJson(it.body?.string(), RespCheckLoginQr::class.java)
@@ -48,7 +40,7 @@ class NeteaseApiImpl(
     }
 
     override fun getUserInfo(context: Context): RespUserInfo? {
-        val request = createRequest("$BASE_URL/user/account".addTimeStamp()).build()
+        val request = createRequest("$BASE_URL/user/account").build()
         return client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val result = it.body?.string()
@@ -62,8 +54,21 @@ class NeteaseApiImpl(
         }
     }
 
+    override fun loadTopPlayList(id: Int): RespPlayList? {
+        val request =
+            createRequest("$BASE_URL/top/playlist/highquality?limit=10&order=new").build()
+        client.newCall(request).execute().use {
+            if (it.isSuccessful) {
+                val respContent = it.body?.string()
+                "loadTopPlayList-> $respContent".logi(TAG)
+                return gson.fromJson(respContent, RespPlayList::class.java)
+            }
+            return null
+        }
+    }
+
     private fun getLoginQrKey(): String? {
-        val request = createRequest("$BASE_URL/login/qr/key".addTimeStamp()).build()
+        val request = createRequest("$BASE_URL/login/qr/key").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = gson.fromJson(it.body?.string(), RespQrKey::class.java)
@@ -77,7 +82,7 @@ class NeteaseApiImpl(
 
     private fun getLoginQrImg(qrKey: String): String? {
         val request =
-            createRequest("$BASE_URL/login/qr/create?key=$qrKey&qrimg=true".addTimeStamp()).build()
+            createRequest("$BASE_URL/login/qr/create?key=$qrKey&qrimg=true").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = gson.fromJson(it.body?.string(), RespQrImg::class.java)

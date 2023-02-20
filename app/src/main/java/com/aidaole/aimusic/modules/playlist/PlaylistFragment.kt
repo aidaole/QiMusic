@@ -17,7 +17,7 @@ class PlaylistFragment : Fragment() {
         private const val TAG = "PlaylistFragment"
     }
 
-    private val viewModel: PlaylistViewModel by viewModels()
+    private val playlistVM: PlaylistViewModel by viewModels()
     private val layout by lazy { FragmentPlaylistBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
@@ -33,5 +33,6 @@ class PlaylistFragment : Fragment() {
         userinfo?.let {
             layout.nickname.text = it.profile.nickname
         }
+        playlistVM.loadDefaultPlayList()
     }
 }
