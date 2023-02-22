@@ -30,7 +30,11 @@
         android:id="@+id/playlistFragment"
         android:name="com.aidaole.aimusic.modules.playlist.PlaylistFragment"
         android:label="fragment_playlist"
-        tools:layout="@layout/fragment_playlist" />
+        tools:layout="@layout/fragment_playlist" >
+        <action
+            android:id="@+id/action_playlistFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userinfoFragment"
         android:name="com.aidaole.aimusic.modules.user.UserInfoFragment"

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentPlaylistBinding
 import com.aidaole.base.datas.UserInfoManager
 import com.aidaole.base.utils.logi
@@ -30,9 +32,11 @@ class PlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val userinfo = UserInfoManager.getUserInfo(requireContext())
         "onViewCreated-> $userinfo".logi(TAG)
-        userinfo?.let {
-            layout.nickname.text = it.profile.nickname
+        if (userinfo == null) {
+            findNavController().navigate(R.id.action_playlistFragment_to_loginFragment)
+            return
         }
+        layout.nickname.text = userinfo.profile.nickname
         playlistVM.loadDefaultPlayList()
     }
 }
