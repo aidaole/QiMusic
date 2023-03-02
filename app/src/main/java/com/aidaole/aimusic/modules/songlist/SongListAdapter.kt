@@ -17,8 +17,8 @@ class SongListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SongListViewHolder, position: Int) {
-        holder.coverImg.load(datas[position].coverImgUrl)
-        holder.playlistName.text = datas[position].name
+        holder.layout.playlistCover.load(datas[position].coverImgUrl)
+        holder.layout.playlistName.text = datas[position].name
     }
 
     override fun getItemCount(): Int {
@@ -32,9 +32,7 @@ class SongListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
 }
 
 class SongListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private lateinit var layout: SongListItemBinding
-    val coverImg = layout.playlistCover
-    val playlistName = layout.playlistName
+    val layout: SongListItemBinding
 
     companion object {
         fun inflate(inflater: LayoutInflater) =
