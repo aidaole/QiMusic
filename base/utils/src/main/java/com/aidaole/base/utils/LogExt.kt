@@ -3,7 +3,7 @@ package com.aidaole.base.utils
 import android.util.Log
 
 const val TAG = "AiMusic"
-const val LOG_SUB_LEN = 3000
+const val LOG_SUB_LEN = 2000
 
 fun String.logd(tag: String = TAG, needThreadInfo: Boolean = false) {
     if (this.length > LOG_SUB_LEN) {

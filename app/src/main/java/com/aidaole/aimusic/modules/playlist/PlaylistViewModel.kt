@@ -20,7 +20,7 @@ class PlaylistViewModel @Inject constructor(
         val userInfo = UserInfoManager.getUserInfo(App.getContext())
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                neteaseApiImpl.loadTopPlayList(userInfo!!.account.id)
+                neteaseApiImpl.loadTopPlayList()
             }
         }
     }

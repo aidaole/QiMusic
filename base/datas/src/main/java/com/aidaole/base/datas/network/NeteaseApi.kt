@@ -14,5 +14,5 @@ interface NeteaseApi {
 
     fun getUserInfo(context: Context): RespUserInfo?
 
-    fun loadTopPlayList(id: Int): RespPlayList?
+    fun loadTopPlayList(): RespPlayList?
 }
