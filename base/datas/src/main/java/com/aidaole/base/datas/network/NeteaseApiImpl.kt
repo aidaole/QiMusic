@@ -13,7 +13,7 @@ class NeteaseApiImpl(
 ) : NeteaseApi {
     companion object {
         private const val TAG = "NeteaseApiImpl"
-        const val BASE_URL = "http://10.101.81.229:3000"
+        const val BASE_URL = "http://192.168.31.148:3000"
     }
 
     override fun getQrImg(): QrCheckParams? {
@@ -60,7 +60,7 @@ class NeteaseApiImpl(
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = it.body?.string()
-                "loadTopPlayList-> $respContent".logi(TAG)
+//                "loadTopPlayList-> $respContent".logi(TAG)
                 return gson.fromJson(respContent, RespPlayList::class.java)
             }
             return null
