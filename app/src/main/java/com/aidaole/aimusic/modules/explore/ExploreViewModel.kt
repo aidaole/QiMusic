@@ -1,4 +1,4 @@
-package com.aidaole.aimusic.modules.songlist
+package com.aidaole.aimusic.modules.explore
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,17 +13,17 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SongListViewModel @Inject constructor(
+class ExploreViewModel @Inject constructor(
     private val neteaseApi: NeteaseApi
 ) : ViewModel() {
 
-    private val _topPlaylist = MutableLiveData<RespPlayList>()
-    val topPlayList = _topPlaylist as LiveData<RespPlayList>
+    private val _recommendPlaylist = MutableLiveData<RespPlayList>()
+    val recommendPlayList = _recommendPlaylist as LiveData<RespPlayList>
 
     fun loadSongLists() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _topPlaylist.postValue(neteaseApi.loadTopPlayList())
+                _recommendPlaylist.postValue(neteaseApi.loadTopPlayList())
             }
         }
     }

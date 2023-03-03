@@ -1,4 +1,4 @@
-package com.aidaole.aimusic.modules.songlist
+package com.aidaole.aimusic.modules.explore
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.SongListItemBinding
 import com.aidaole.base.datas.entities.RespPlayList
 
-class SongListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
+class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
     private var datas = listOf<RespPlayList.PlaylistsEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongListViewHolder {

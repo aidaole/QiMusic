@@ -37,6 +37,5 @@ class PlaylistFragment : Fragment() {
             return
         }
         layout.nickname.text = userinfo.profile.nickname
-//        playlistVM.loadDefaultPlayList()
     }
 }

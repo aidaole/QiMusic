@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".modules.songlist.SongListFragment">
+    tools:context=".modules.explore.ExploreFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +13,7 @@
         android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recommend_song_list"
+        android:id="@+id/recommend_play_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

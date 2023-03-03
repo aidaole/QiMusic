@@ -1,25 +1,22 @@
-package com.aidaole.aimusic.modules.songlist
+package com.aidaole.aimusic.modules.explore
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.aidaole.aimusic.databinding.FragmentSongListBinding
+import com.aidaole.aimusic.databinding.FragmentExploreBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SongListFragment : Fragment() {
+class ExploreFragment : Fragment() {
 
-    private val layout by lazy { FragmentSongListBinding.inflate(layoutInflater) }
-    private val songListVM by viewModels<SongListViewModel>()
-    private val songsListRecyclerAdapter = SongListAdapter()
+    private val layout by lazy { FragmentExploreBinding.inflate(layoutInflater) }
+    private val exploreVM by viewModels<ExploreViewModel>()
+    private val recommendPlayListAdapter = RecommendPlayListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,18 +28,18 @@ class SongListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
         initVM()
-        songListVM.loadSongLists()
+        exploreVM.loadSongLists()
     }
 
     private fun initViews() {
-        layout.recommendSongList.layoutManager =
+        layout.recommendPlayList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-        layout.recommendSongList.adapter = songsListRecyclerAdapter
+        layout.recommendPlayList.adapter = recommendPlayListAdapter
     }
 
     private fun initVM() {
-        songListVM.topPlayList.observe(viewLifecycleOwner) {
-            songsListRecyclerAdapter.updateDatas(it.playlists)
+        exploreVM.recommendPlayList.observe(viewLifecycleOwner) {
+            recommendPlayListAdapter.updateDatas(it.playlists)
         }
     }
 }
