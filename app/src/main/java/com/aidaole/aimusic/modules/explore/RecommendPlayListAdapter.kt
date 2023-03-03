@@ -13,7 +13,9 @@ class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
     private var datas = listOf<RespPlayList.PlaylistsEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongListViewHolder {
-        return SongListViewHolder.inflate(LayoutInflater.from(parent.context))
+        return SongListViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.song_list_item, null, false)
+        )
     }
 
     override fun onBindViewHolder(holder: SongListViewHolder, position: Int) {
@@ -33,11 +35,6 @@ class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
 
 class SongListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val layout: SongListItemBinding
-
-    companion object {
-        fun inflate(inflater: LayoutInflater) =
-            SongListViewHolder(inflater.inflate(R.layout.song_list_item, null, false))
-    }
 
     init {
         layout = SongListItemBinding.bind(itemView)

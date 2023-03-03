@@ -1,10 +1,7 @@
 package com.aidaole.base.datas.network
 
 import android.content.Context
-import com.aidaole.base.datas.entities.QrCheckParams
-import com.aidaole.base.datas.entities.RespCheckLoginQr
-import com.aidaole.base.datas.entities.RespPlayList
-import com.aidaole.base.datas.entities.RespUserInfo
+import com.aidaole.base.datas.entities.*
 
 interface NeteaseApi {
 
@@ -15,4 +12,8 @@ interface NeteaseApi {
     fun getUserInfo(context: Context): RespUserInfo?
 
     fun loadTopPlayList(): RespPlayList?
+
+    fun loadCatlist(): Catlist?
+
+    fun loadHotPlaylistTags(): HotPlayListTags?
 }

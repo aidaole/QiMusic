@@ -60,8 +60,31 @@ class NeteaseApiImpl(
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = it.body?.string()
-//                "loadTopPlayList-> $respContent".logi(TAG)
                 return gson.fromJson(respContent, RespPlayList::class.java)
+            }
+            return null
+        }
+    }
+
+    override fun loadCatlist(): Catlist? {
+        val request = createRequest("$BASE_URL/playlist/catlist").build()
+        client.newCall(request).execute().use {
+            if (it.isSuccessful) {
+                val respContent = it.body?.string()
+                "loadCatlist-> $respContent".logi(TAG)
+                return gson.fromJson(respContent, Catlist::class.java)
+            }
+            return null
+        }
+    }
+
+    override fun loadHotPlaylistTags(): HotPlayListTags? {
+        val request = createRequest("$BASE_URL/playlist/hot").build()
+        client.newCall(request).execute().use {
+            if (it.isSuccessful) {
+                val respContent = it.body?.string()
+                "loadHotPlaylistTags-> $respContent".logi(TAG)
+                return gson.fromJson(respContent, HotPlayListTags::class.java)
             }
             return null
         }
