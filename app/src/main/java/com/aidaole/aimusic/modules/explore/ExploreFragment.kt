@@ -41,7 +41,7 @@ class ExploreFragment : Fragment() {
         layout.recommendPlayList.adapter = recommendPlayListAdapter
 
         layout.hotPlayList.layoutManager = GridLayoutManager(
-            requireContext(), 1, RecyclerView.HORIZONTAL, false
+            requireContext(), 2, RecyclerView.HORIZONTAL, false
         )
         layout.hotPlayList.adapter = hotPlayListTagListAdapter
     }

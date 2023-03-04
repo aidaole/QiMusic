@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="歌曲标签>"
+        android:text="曲风>"
         android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView

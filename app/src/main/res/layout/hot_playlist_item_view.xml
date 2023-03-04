@@ -3,19 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="#3300ff00"
-    android:padding="10dp"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tag_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        tools:text="曲风名" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tag_bg"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="#330000ff"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp">
 
+        <TextView
+            android:id="@+id/tag_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_margin="6dp"
+            tools:text="曲风名" />
+    </androidx.cardview.widget.CardView>
 </FrameLayout>
