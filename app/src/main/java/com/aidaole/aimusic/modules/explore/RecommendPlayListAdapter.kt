@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.aidaole.aimusic.R
-import com.aidaole.aimusic.databinding.SongListItemBinding
+import com.aidaole.aimusic.databinding.RecommendPlaylistItemViewBinding
 import com.aidaole.base.datas.entities.RespPlayList
 
 class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
@@ -14,7 +14,7 @@ class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongListViewHolder {
         return SongListViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.song_list_item, null, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.recommend_playlist_item_view, null, false)
         )
     }
 
@@ -34,9 +34,9 @@ class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
 }
 
 class SongListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val layout: SongListItemBinding
+    val layout: RecommendPlaylistItemViewBinding
 
     init {
-        layout = SongListItemBinding.bind(itemView)
+        layout = RecommendPlaylistItemViewBinding.bind(itemView)
     }
 }

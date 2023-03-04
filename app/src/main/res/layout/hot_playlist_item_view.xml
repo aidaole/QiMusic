@@ -11,15 +11,15 @@
         android:layout_height="80dp"
         android:layout_margin="5dp"
         app:cardBackgroundColor="#330000ff"
-        app:cardCornerRadius="10dp"
+        app:cardCornerRadius="@dimen/default_radius_size"
         app:cardElevation="0dp">
 
         <TextView
             android:id="@+id/tag_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:layout_margin="6dp"
+            android:textSize="16sp"
             tools:text="曲风名" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>

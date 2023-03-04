@@ -36,8 +36,9 @@ class ExploreFragment : Fragment() {
     }
 
     private fun initViews() {
-        layout.recommendPlayList.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+        layout.recommendPlayList.layoutManager = GridLayoutManager(
+            requireContext(), 2, RecyclerView.HORIZONTAL, false
+        )
         layout.recommendPlayList.adapter = recommendPlayListAdapter
 
         layout.hotPlayList.layoutManager = GridLayoutManager(

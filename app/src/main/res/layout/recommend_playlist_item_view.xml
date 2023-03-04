@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/default_radius_size"
+        android:layout_margin="5dp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/playlist_cover"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            tools:src="@drawable/ic_100tb" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/playlist_name"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        tools:text="专辑名称" />
+</LinearLayout>

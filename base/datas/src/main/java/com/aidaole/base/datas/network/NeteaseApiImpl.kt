@@ -56,7 +56,7 @@ class NeteaseApiImpl(
 
     override fun loadTopPlayList(): RespPlayList? {
         val request =
-            createRequest("$BASE_URL/top/playlist/highquality?limit=6&order=new").build()
+            createRequest("$BASE_URL/top/playlist/highquality?limit=14&order=new").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = it.body?.string()
