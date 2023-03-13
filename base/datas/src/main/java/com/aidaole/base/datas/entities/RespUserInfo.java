@@ -63,7 +63,7 @@ public class RespUserInfo implements Serializable {
 
     public static class ProfileEntity implements Serializable {
         @SerializedName("userId")
-        public int userId;
+        public long userId;
         @SerializedName("userType")
         public int userType;
         @SerializedName("nickname")

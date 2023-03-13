@@ -113,7 +113,7 @@ public class TopPlayList implements Serializable {
             @SerializedName("birthday")
             public long birthday;
             @SerializedName("userId")
-            public int userId;
+            public long userId;
             @SerializedName("userType")
             public int userType;
             @SerializedName("nickname")
@@ -185,7 +185,7 @@ public class TopPlayList implements Serializable {
             @SerializedName("birthday")
             public long birthday;
             @SerializedName("userId")
-            public int userId;
+            public long userId;
             @SerializedName("userType")
             public int userType;
             @SerializedName("nickname")

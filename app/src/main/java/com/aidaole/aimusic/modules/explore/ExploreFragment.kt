@@ -47,7 +47,11 @@ class ExploreFragment : Fragment() {
         )
         layout.hotPlayList.adapter = hotPlayListTagListAdapter
 
-        layout.topSongs.layoutManager = LinearLayoutManager(requireContext())
+        layout.topSongs.layoutManager = object: LinearLayoutManager(requireContext()) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
         layout.topSongs.adapter = topSongsAdapter
     }
 

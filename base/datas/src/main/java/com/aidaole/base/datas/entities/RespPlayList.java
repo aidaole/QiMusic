@@ -28,7 +28,7 @@ public class RespPlayList implements Serializable {
         @SerializedName("status")
         public int status;
         @SerializedName("userId")
-        public int userId;
+        public long userId;
         @SerializedName("createTime")
         public long createTime;
         @SerializedName("updateTime")
@@ -114,7 +114,7 @@ public class RespPlayList implements Serializable {
             @SerializedName("birthday")
             public long birthday;
             @SerializedName("userId")
-            public int userId;
+            public long userId;
             @SerializedName("userType")
             public int userType;
             @SerializedName("nickname")

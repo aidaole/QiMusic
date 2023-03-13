@@ -44,7 +44,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/top_songs"
             android:layout_width="match_parent"
-            android:layout_height="800dp" />
+            android:layout_height="700dp" />
 
     </LinearLayout>
 </ScrollView>
