@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.aidaole.aimusic.databinding.FragmentExploreBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,6 +19,7 @@ class ExploreFragment : Fragment() {
     private val exploreVM by viewModels<ExploreViewModel>()
     private val recommendPlayListAdapter = RecommendPlayListAdapter()
     private val hotPlayListTagListAdapter = HotplayListTagListAdapter()
+    private val topSongsAdapter = TopSongsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +46,9 @@ class ExploreFragment : Fragment() {
             requireContext(), 2, RecyclerView.HORIZONTAL, false
         )
         layout.hotPlayList.adapter = hotPlayListTagListAdapter
+
+        layout.topSongs.layoutManager = LinearLayoutManager(requireContext())
+        layout.topSongs.adapter = topSongsAdapter
     }
 
     private fun initVM() {
@@ -54,6 +57,9 @@ class ExploreFragment : Fragment() {
         }
         exploreVM.hotplaylistTags.observe(viewLifecycleOwner) {
             hotPlayListTagListAdapter.updateDatas(it.tags)
+        }
+        exploreVM.topSongs.observe(viewLifecycleOwner) {
+            topSongsAdapter.updateDatas(it.songs)
         }
     }
 }

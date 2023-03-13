@@ -94,21 +94,20 @@ class NeteaseApiImpl(
         val topPlaylist = getTopPlayList()
         val playlistId = topPlaylist?.playlists?.get(0)?.id
         playlistId?.let {
-            val songs = getPlaylistSongs(playlistId)
-            val results = gson.fromJson(songs, PlayListSongs::class.java)
+            val results = getPlaylistSongs(playlistId)
             "loadTopPlaylistSongs-> $results".logi(TAG)
             return results
         }
         return null
     }
 
-    override fun getPlaylistSongs(playlistId: Long): String? {
-        val request = createRequest("$BASE_URL/playlist/track/all?id=$playlistId&offset=0&limit=5").build()
+    override fun getPlaylistSongs(playlistId: Long): PlayListSongs? {
+        val request = createRequest("$BASE_URL/playlist/track/all?id=$playlistId&offset=0&limit=40").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = it.body?.string()
                 "getPlaylistSongs-> $respContent".logi(TAG)
-                return respContent
+                return gson.fromJson(respContent, PlayListSongs::class.java)
             }
             return null
         }

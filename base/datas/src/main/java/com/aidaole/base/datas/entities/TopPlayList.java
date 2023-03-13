@@ -27,7 +27,7 @@ public class TopPlayList implements Serializable {
         @SerializedName("status")
         public int status;
         @SerializedName("userId")
-        public int userId;
+        public long userId;
         @SerializedName("createTime")
         public long createTime;
         @SerializedName("updateTime")

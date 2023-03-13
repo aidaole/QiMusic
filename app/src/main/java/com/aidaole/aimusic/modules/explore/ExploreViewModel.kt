@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aidaole.base.datas.entities.HotPlayListTags
+import com.aidaole.base.datas.entities.PlayListSongs
 import com.aidaole.base.datas.entities.RespPlayList
+import com.aidaole.base.datas.entities.TopPlayList
 import com.aidaole.base.datas.network.NeteaseApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +25,9 @@ class ExploreViewModel @Inject constructor(
 
     private val _hotplaylistTags = MutableLiveData<HotPlayListTags>()
     val hotplaylistTags = _hotplaylistTags as LiveData<HotPlayListTags>
+
+    private val _topSongs = MutableLiveData<PlayListSongs>()
+    val topSongs = _topSongs as LiveData<PlayListSongs>
 
     fun loadRecommendLists() {
         viewModelScope.launch {
@@ -42,7 +47,7 @@ class ExploreViewModel @Inject constructor(
 
     fun loadTopPlaylistSongs() {
         viewModelScope.launch(Dispatchers.IO) {
-            neteaseApi.loadTopPlaylistSongs()
+            _topSongs.postValue(neteaseApi.loadTopPlaylistSongs())
         }
     }
 }
