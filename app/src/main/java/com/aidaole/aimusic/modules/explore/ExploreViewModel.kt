@@ -40,11 +40,9 @@ class ExploreViewModel @Inject constructor(
         }
     }
 
-    fun loadCatlist() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                neteaseApi.loadCatlist()
-            }
+    fun loadTopPlaylistSongs() {
+        viewModelScope.launch(Dispatchers.IO) {
+            neteaseApi.loadTopPlaylistSongs()
         }
     }
 }

@@ -33,6 +33,7 @@ class ExploreFragment : Fragment() {
         initVM()
         exploreVM.loadRecommendLists()
         exploreVM.loadHotPlaylistTags()
+        exploreVM.loadTopPlaylistSongs()
     }
 
     private fun initViews() {

@@ -66,7 +66,7 @@ class NeteaseApiImpl(
         }
     }
 
-    override fun loadCatlist(): Catlist? {
+    private fun loadCatlist(): Catlist? {
         val request = createRequest("$BASE_URL/playlist/catlist").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
@@ -85,6 +85,42 @@ class NeteaseApiImpl(
                 val respContent = it.body?.string()
                 "loadHotPlaylistTags-> $respContent".logi(TAG)
                 return gson.fromJson(respContent, HotPlayListTags::class.java)
+            }
+            return null
+        }
+    }
+
+    override fun loadTopPlaylistSongs(): PlayListSongs? {
+        val topPlaylist = getTopPlayList()
+        val playlistId = topPlaylist?.playlists?.get(0)?.id
+        playlistId?.let {
+            val songs = getPlaylistSongs(playlistId)
+            val results = gson.fromJson(songs, PlayListSongs::class.java)
+            "loadTopPlaylistSongs-> $results".logi(TAG)
+            return results
+        }
+        return null
+    }
+
+    override fun getPlaylistSongs(playlistId: Long): String? {
+        val request = createRequest("$BASE_URL/playlist/track/all?id=$playlistId&offset=0&limit=5").build()
+        client.newCall(request).execute().use {
+            if (it.isSuccessful) {
+                val respContent = it.body?.string()
+                "getPlaylistSongs-> $respContent".logi(TAG)
+                return respContent
+            }
+            return null
+        }
+    }
+
+    private fun getTopPlayList(): TopPlayList? {
+        val request = createRequest("$BASE_URL/top/playlist?limit=1&order=hot").build()
+        client.newCall(request).execute().use {
+            if (it.isSuccessful) {
+                val respContent = it.body?.string()
+                "getTopPlayList-> $respContent".logi(TAG)
+                return gson.fromJson(respContent, TopPlayList::class.java)
             }
             return null
         }

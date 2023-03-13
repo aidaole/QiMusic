@@ -13,7 +13,9 @@ interface NeteaseApi {
 
     fun loadTopPlayList(): RespPlayList?
 
-    fun loadCatlist(): Catlist?
-
     fun loadHotPlaylistTags(): HotPlayListTags?
+
+    fun loadTopPlaylistSongs(): PlayListSongs?
+
+    fun getPlaylistSongs(playlistId: Long): String?
 }
