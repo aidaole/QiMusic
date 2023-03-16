@@ -26,7 +26,7 @@ class TopSongsAdapter : RecyclerView.Adapter<SongViewHolder>() {
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val item = datas[position]
-        holder.layout.number.text = "$position"
+        holder.layout.number.text = "${position + 1}"
         holder.layout.songName.text = item.name
         holder.layout.author.text = item.al.name
     }

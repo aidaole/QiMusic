@@ -3,23 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:padding="5dp">
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="排名" />
 
     <TextView
         android:id="@+id/song_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -48,7 +49,7 @@
         android:textColor="#88000000"
         android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@id/author"
-        app:layout_constraintTop_toBottomOf="@id/song_name"
+        app:layout_constraintTop_toTopOf="@id/author"
         tools:text="专辑名" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
