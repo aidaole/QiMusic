@@ -2,6 +2,7 @@ package com.aidaole.base.datas.network
 
 import android.content.Context
 import com.aidaole.base.datas.entities.*
+import kotlinx.coroutines.flow.Flow
 
 interface NeteaseApi {
 
@@ -11,7 +12,7 @@ interface NeteaseApi {
 
     fun getUserInfo(context: Context): RespUserInfo?
 
-    fun loadTopPlayList(): RespPlayList?
+    fun loadTopPlayList(): Flow<RespPlayList?>
 
     fun loadHotPlaylistTags(): HotPlayListTags?
 

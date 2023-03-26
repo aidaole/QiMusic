@@ -6,11 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.databinding.FragmentExploreBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExploreFragment : Fragment() {
@@ -56,8 +61,14 @@ class ExploreFragment : Fragment() {
     }
 
     private fun initVM() {
-        exploreVM.recommendPlayList.observe(viewLifecycleOwner) {
-            recommendPlayListAdapter.updateDatas(it.playlists)
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                exploreVM.recommendPlayList.collect {
+                    it?.let {
+                        recommendPlayListAdapter.updateDatas(it.playlists)
+                    }
+                }
+            }
         }
         exploreVM.hotplaylistTags.observe(viewLifecycleOwner) {
             hotPlayListTagListAdapter.updateDatas(it.tags)

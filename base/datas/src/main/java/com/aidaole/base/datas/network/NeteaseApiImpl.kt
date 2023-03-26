@@ -5,6 +5,9 @@ import com.aidaole.base.datas.UserInfoManager
 import com.aidaole.base.datas.entities.*
 import com.aidaole.base.utils.logi
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import okhttp3.OkHttpClient
 
 class NeteaseApiImpl(
@@ -54,17 +57,17 @@ class NeteaseApiImpl(
         }
     }
 
-    override fun loadTopPlayList(): RespPlayList? {
+    override fun loadTopPlayList() = flow {
         val request =
             createRequest("$BASE_URL/top/playlist/highquality?limit=14&order=new").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = it.body?.string()
-                return gson.fromJson(respContent, RespPlayList::class.java)
+                emit(gson.fromJson(respContent, RespPlayList::class.java))
             }
-            return null
+            emit(null)
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     private fun loadCatlist(): Catlist? {
         val request = createRequest("$BASE_URL/playlist/catlist").build()

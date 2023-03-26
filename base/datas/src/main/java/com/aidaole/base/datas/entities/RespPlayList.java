@@ -3,6 +3,7 @@ package com.aidaole.base.datas.entities;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 public class RespPlayList implements Serializable {
@@ -16,7 +17,7 @@ public class RespPlayList implements Serializable {
     @SerializedName("total")
     public int total;
     @SerializedName("playlists")
-    public List<PlaylistsEntity> playlists;
+    public List<PlaylistsEntity> playlists = Collections.emptyList();
 
     public static class PlaylistsEntity implements Serializable {
         @SerializedName("name")
