@@ -16,7 +16,7 @@ class NeteaseApiImpl(
 ) : NeteaseApi {
     companion object {
         private const val TAG = "NeteaseApiImpl"
-        const val BASE_URL = "http://10.101.81.229:3000"
+        const val BASE_URL = "http://192.168.31.148:3000"
     }
 
     override fun getQrImg(): QrCheckParams? {
@@ -81,17 +81,17 @@ class NeteaseApiImpl(
         }
     }
 
-    override fun loadHotPlaylistTags(): HotPlayListTags? {
+    override fun loadHotPlaylistTags() = flow {
         val request = createRequest("$BASE_URL/playlist/hot").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = it.body?.string()
                 "loadHotPlaylistTags-> $respContent".logi(TAG)
-                return gson.fromJson(respContent, HotPlayListTags::class.java)
+                emit(gson.fromJson(respContent, HotPlayListTags::class.java))
             }
-            return null
+            emit(null)
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
     override fun loadTopPlaylistSongs(): PlayListSongs? {
         val topPlaylist = getTopPlayList()

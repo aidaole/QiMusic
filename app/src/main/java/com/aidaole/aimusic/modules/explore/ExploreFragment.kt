@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.databinding.FragmentExploreBinding
+import com.aidaole.base.ext.toVisible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -52,7 +52,7 @@ class ExploreFragment : Fragment() {
         )
         layout.hotPlayList.adapter = hotPlayListTagListAdapter
 
-        layout.topSongs.layoutManager = object: LinearLayoutManager(requireContext()) {
+        layout.topSongs.layoutManager = object : LinearLayoutManager(requireContext()) {
             override fun canScrollVertically(): Boolean {
                 return false
             }
@@ -65,15 +65,20 @@ class ExploreFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 exploreVM.recommendPlayList.collect {
                     it?.let {
+                        layout.recommendPlaylistText.toVisible()
                         recommendPlayListAdapter.updateDatas(it.playlists)
+                    }
+                }
+                exploreVM.hotplaylistTags.collect {
+                    it?.let {
+                        layout.musicTagsText.toVisible()
+                        hotPlayListTagListAdapter.updateDatas(it.tags)
                     }
                 }
             }
         }
-        exploreVM.hotplaylistTags.observe(viewLifecycleOwner) {
-            hotPlayListTagListAdapter.updateDatas(it.tags)
-        }
         exploreVM.topSongs.observe(viewLifecycleOwner) {
+            layout.topSongsText.toVisible()
             topSongsAdapter.updateDatas(it.songs)
         }
     }

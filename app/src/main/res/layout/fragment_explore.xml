@@ -11,11 +11,13 @@
         tools:context=".modules.explore.ExploreFragment">
 
         <TextView
+            android:id="@+id/music_tags_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="曲风>"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/hot_play_list"
@@ -23,11 +25,13 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/recommend_playlist_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="歌单推荐>"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recommend_play_list"
@@ -35,11 +39,13 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/top_songs_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="推荐歌曲>"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/top_songs"
