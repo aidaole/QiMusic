@@ -18,5 +18,5 @@ interface NeteaseApi {
 
     fun getPlaylistSongs(playlistId: Long): PlayListSongs?
 
-    fun loadTopPlaylistSongs(): PlayListSongs?
+    fun loadTopPlaylistSongs(): Flow<PlayListSongs?>
 }

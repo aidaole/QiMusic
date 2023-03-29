@@ -1,14 +1,10 @@
 package com.aidaole.aimusic.modules.explore
 
-import androidx.lifecycle.*
-import com.aidaole.base.datas.entities.HotPlayListTags
-import com.aidaole.base.datas.entities.PlayListSongs
-import com.aidaole.base.datas.entities.RespPlayList
+import androidx.lifecycle.ViewModel
 import com.aidaole.base.datas.network.NeteaseApi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,34 +12,15 @@ class ExploreViewModel @Inject constructor(
     private val neteaseApi: NeteaseApi
 ) : ViewModel() {
 
-    private val _recommendPlaylist = MutableStateFlow<RespPlayList?>(null)
-    val recommendPlayList = _recommendPlaylist.asLiveData()
+    val recommendPlayList = neteaseApi.loadTopPlayList()
+    val hotplaylistTags = neteaseApi.loadHotPlaylistTags()
+    val topSongs = neteaseApi.loadTopPlaylistSongs()
 
-    private val _hotplaylistTags = MutableStateFlow<HotPlayListTags?>(null)
-    val hotplaylistTags = _hotplaylistTags.asLiveData()
+    fun refresh() {
 
-    private val _topSongs = MutableLiveData<PlayListSongs>()
-    val topSongs = _topSongs as LiveData<PlayListSongs>
-
-    fun loadRecommendLists() {
-        viewModelScope.launch {
-            neteaseApi.loadTopPlayList().collect {
-                _recommendPlaylist.value = it
-            }
-        }
-    }
-
-    fun loadHotPlaylistTags() {
-        viewModelScope.launch {
-            neteaseApi.loadHotPlaylistTags().collect {
-                _hotplaylistTags.value = it
-            }
-        }
-    }
-
-    fun loadTopPlaylistSongs() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _topSongs.postValue(neteaseApi.loadTopPlaylistSongs())
-        }
     }
 }
+
+fun <T> Flow<T>.toStateFlow(scope: CoroutineScope, initialValue: T): StateFlow<T> =
+    this.onStart { emit(initialValue) }
+        .stateIn(scope, SharingStarted.Eagerly, initialValue)

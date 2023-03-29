@@ -6,9 +6,7 @@ import com.aidaole.base.datas.entities.*
 import com.aidaole.base.utils.logi
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.*
 import okhttp3.OkHttpClient
 
 class NeteaseApiImpl(
@@ -17,7 +15,7 @@ class NeteaseApiImpl(
 ) : NeteaseApi {
     companion object {
         private const val TAG = "NeteaseApiImpl"
-        const val BASE_URL = "http://192.168.31.149:3000"
+        const val BASE_URL = "http://10.101.81.229:3000"
     }
 
     override fun getQrImg(): QrCheckParams? {
@@ -58,7 +56,7 @@ class NeteaseApiImpl(
         }
     }
 
-    override fun loadTopPlayList() = flow {
+    override fun loadTopPlayList(): Flow<RespPlayList?> = flow {
         val request =
             createRequest("$BASE_URL/top/playlist/highquality?limit=14&order=new").build()
         client.newCall(request).execute().use {
@@ -97,16 +95,19 @@ class NeteaseApiImpl(
     }.flowOn(Dispatchers.IO)
         .catch { emit(null) }
 
-    override fun loadTopPlaylistSongs(): PlayListSongs? {
+    override fun loadTopPlaylistSongs() = flow {
         val topPlaylist = getTopPlayList()
         val playlistId = topPlaylist?.playlists?.get(0)?.id
         playlistId?.let {
             val results = getPlaylistSongs(playlistId)
             "loadTopPlaylistSongs-> $results".logi(TAG)
-            return results
+            emit(results)
         }
-        return null
+        emit(null)
     }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
+
 
     override fun getPlaylistSongs(playlistId: Long): PlayListSongs? {
         val request = createRequest("$BASE_URL/playlist/track/all?id=$playlistId&offset=0&limit=40").build()
