@@ -6,6 +6,7 @@ import com.aidaole.base.datas.entities.*
 import com.aidaole.base.utils.logi
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.OkHttpClient
@@ -16,7 +17,7 @@ class NeteaseApiImpl(
 ) : NeteaseApi {
     companion object {
         private const val TAG = "NeteaseApiImpl"
-        const val BASE_URL = "http://192.168.31.148:3000"
+        const val BASE_URL = "http://192.168.31.149:3000"
     }
 
     override fun getQrImg(): QrCheckParams? {
@@ -67,7 +68,9 @@ class NeteaseApiImpl(
             }
             emit(null)
         }
-    }.flowOn(Dispatchers.IO)
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
 
     private fun loadCatlist(): Catlist? {
         val request = createRequest("$BASE_URL/playlist/catlist").build()
@@ -92,6 +95,7 @@ class NeteaseApiImpl(
             emit(null)
         }
     }.flowOn(Dispatchers.IO)
+        .catch { emit(null) }
 
     override fun loadTopPlaylistSongs(): PlayListSongs? {
         val topPlaylist = getTopPlayList()

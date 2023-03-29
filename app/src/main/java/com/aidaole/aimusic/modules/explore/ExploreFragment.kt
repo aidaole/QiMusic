@@ -6,16 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.databinding.FragmentExploreBinding
 import com.aidaole.base.ext.toVisible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExploreFragment : Fragment() {
@@ -61,20 +57,16 @@ class ExploreFragment : Fragment() {
     }
 
     private fun initVM() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                exploreVM.recommendPlayList.collect {
-                    it?.let {
-                        layout.recommendPlaylistText.toVisible()
-                        recommendPlayListAdapter.updateDatas(it.playlists)
-                    }
-                }
-                exploreVM.hotplaylistTags.collect {
-                    it?.let {
-                        layout.musicTagsText.toVisible()
-                        hotPlayListTagListAdapter.updateDatas(it.tags)
-                    }
-                }
+        exploreVM.recommendPlayList.observe(viewLifecycleOwner) {
+            it?.let {
+                layout.recommendPlaylistText.toVisible()
+                recommendPlayListAdapter.updateDatas(it.playlists)
+            }
+        }
+        exploreVM.hotplaylistTags.observe(viewLifecycleOwner) {
+            it?.let {
+                layout.musicTagsText.toVisible()
+                hotPlayListTagListAdapter.updateDatas(it.tags)
             }
         }
         exploreVM.topSongs.observe(viewLifecycleOwner) {

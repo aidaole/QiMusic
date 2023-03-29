@@ -1,9 +1,6 @@
 package com.aidaole.aimusic.modules.explore
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.aidaole.base.datas.entities.HotPlayListTags
 import com.aidaole.base.datas.entities.PlayListSongs
 import com.aidaole.base.datas.entities.RespPlayList
@@ -11,7 +8,6 @@ import com.aidaole.base.datas.network.NeteaseApi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,10 +17,10 @@ class ExploreViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _recommendPlaylist = MutableStateFlow<RespPlayList?>(null)
-    val recommendPlayList = _recommendPlaylist as StateFlow<RespPlayList?>
+    val recommendPlayList = _recommendPlaylist.asLiveData()
 
     private val _hotplaylistTags = MutableStateFlow<HotPlayListTags?>(null)
-    val hotplaylistTags = _hotplaylistTags as StateFlow<HotPlayListTags?>
+    val hotplaylistTags = _hotplaylistTags.asLiveData()
 
     private val _topSongs = MutableLiveData<PlayListSongs>()
     val topSongs = _topSongs as LiveData<PlayListSongs>
