@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="#000000"
+    tools:context="com.aidaole.aimusic.modules.MainFragment">
+
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/modules_container"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginBottom="@dimen/main_fragment_bottom_tab_height"-->
+<!--        app:defaultNavHost="true"-->
+<!--        app:navGraph="@navigation/main_modules_graph" />-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_fragment_bottom_tab_height"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/music_btn"
+            android:layout_width="@dimen/main_fragment_bottom_nav_icon_size"
+            android:layout_height="@dimen/main_fragment_bottom_nav_icon_size"
+            android:src="@drawable/ic_muaic_play"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/explore_btn"
+            android:layout_width="@dimen/main_fragment_bottom_nav_icon_size"
+            android:layout_height="@dimen/main_fragment_bottom_nav_icon_size"
+            android:layout_marginLeft="@dimen/main_fragment_bottom_item_margin"
+            android:padding="3dp"
+            android:src="@drawable/ic_headphone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/user_btn"
+            android:layout_width="@dimen/main_fragment_bottom_nav_icon_size"
+            android:layout_height="@dimen/main_fragment_bottom_nav_icon_size"
+            android:layout_marginRight="@dimen/main_fragment_bottom_item_margin"
+            android:src="@drawable/ic_user"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

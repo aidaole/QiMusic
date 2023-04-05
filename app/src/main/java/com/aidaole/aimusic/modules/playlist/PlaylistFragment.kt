@@ -33,7 +33,7 @@ class PlaylistFragment : Fragment() {
         val userinfo = UserInfoManager.getUserInfo(requireContext())
         "onViewCreated-> $userinfo".logi(TAG)
         if (userinfo == null) {
-            findNavController().navigate(R.id.action_playlistFragment_to_loginFragment)
+//            findNavController().navigate(R.id.action_playlistFragment_to_loginFragment)
             return
         }
         layout.nickname.text = userinfo.profile.nickname

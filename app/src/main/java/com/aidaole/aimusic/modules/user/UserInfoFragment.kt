@@ -31,7 +31,7 @@ class UserInfoFragment : Fragment() {
             userinfoVM.loadUserInfo()
         }
         layout.loginPageBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_userinfoFragment_to_loginFragment)
+//            findNavController().navigate(R.id.action_userinfoFragment_to_loginFragment)
         }
         userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
             userInfo?.let {

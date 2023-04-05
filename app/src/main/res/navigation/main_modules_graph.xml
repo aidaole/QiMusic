@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph.xml"
+    app:startDestination="@id/exploreFragment">
+
+    <fragment
+        android:id="@+id/playlistFragment"
+        android:name="com.aidaole.aimusic.modules.playlist.PlaylistFragment"
+        android:label="fragment_playlist"
+        tools:layout="@layout/fragment_playlist" />
+    <fragment
+        android:id="@+id/userinfoFragment"
+        android:name="com.aidaole.aimusic.modules.user.UserInfoFragment"
+        android:label="fragment_userinfo"
+        tools:layout="@layout/fragment_userinfo" />
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.aidaole.aimusic.modules.explore.ExploreFragment"
+        android:label="fragment_song_list"
+        tools:layout="@layout/fragment_explore" />
+</navigation>
