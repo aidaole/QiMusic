@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentUserinfoBinding
@@ -34,11 +33,13 @@ class UserInfoFragment : Fragment() {
 //            findNavController().navigate(R.id.action_userinfoFragment_to_loginFragment)
         }
         userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
-            userInfo?.let {
-                layout.avatarImg.load(it.profile.avatarUrl) {
-                    error(R.mipmap.ic_launcher)
+            userInfo?.let { userinfo->
+                userinfo.profile?.let {
+                    layout.avatarImg.load(it.avatarUrl) {
+                        error(R.mipmap.ic_launcher)
+                    }
+                    layout.nickname.text = it.nickname
                 }
-                layout.nickname.text = it.profile.nickname
             }
         }
         userinfoVM.loadUserInfo()

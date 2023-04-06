@@ -15,7 +15,7 @@ public class RespUserInfo implements Serializable {
 
     public static class AccountEntity implements Serializable {
         @SerializedName("id")
-        public int id;
+        public long id;
         @SerializedName("userName")
         public String userName;
         @SerializedName("type")

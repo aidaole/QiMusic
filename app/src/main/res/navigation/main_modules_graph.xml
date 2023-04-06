@@ -6,6 +6,15 @@
     app:startDestination="@id/exploreFragment">
 
     <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.aidaole.aimusic.modules.explore.ExploreFragment"
+        android:label="fragment_song_list"
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/to_exploreFragment"
+            app:destination="@id/exploreFragment"/>
+    </fragment>
+    <fragment
         android:id="@+id/playlistFragment"
         android:name="com.aidaole.aimusic.modules.playlist.PlaylistFragment"
         android:label="fragment_playlist"
@@ -14,10 +23,9 @@
         android:id="@+id/userinfoFragment"
         android:name="com.aidaole.aimusic.modules.user.UserInfoFragment"
         android:label="fragment_userinfo"
-        tools:layout="@layout/fragment_userinfo" />
-    <fragment
-        android:id="@+id/exploreFragment"
-        android:name="com.aidaole.aimusic.modules.explore.ExploreFragment"
-        android:label="fragment_song_list"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_userinfo">
+        <action
+            android:id="@+id/to_userinfoFragment"
+            app:destination="@id/userinfoFragment"/>
+    </fragment>
 </navigation>

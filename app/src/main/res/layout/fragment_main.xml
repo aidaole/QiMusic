@@ -24,7 +24,8 @@
             android:id="@+id/menu_music"
             android:layout_width="@dimen/main_fragment_bottom_nav_icon_size"
             android:layout_height="@dimen/main_fragment_bottom_nav_icon_size"
-            android:src="@drawable/ic_music_play"
+            android:padding="@dimen/click_icon_default_padding"
+            android:src="@drawable/selector_play_music"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -41,7 +42,8 @@
                 android:layout_width="@dimen/main_fragment_bottom_nav_icon_size"
                 android:layout_height="@dimen/main_fragment_bottom_nav_icon_size"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_headphone" />
+                android:padding="@dimen/click_icon_default_padding"
+                android:src="@drawable/selector_explore" />
         </FrameLayout>
 
         <FrameLayout
@@ -55,7 +57,8 @@
                 android:layout_width="@dimen/main_fragment_bottom_nav_icon_size"
                 android:layout_height="@dimen/main_fragment_bottom_nav_icon_size"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_user" />
+                android:padding="@dimen/click_icon_default_padding"
+                android:src="@drawable/selector_user" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
