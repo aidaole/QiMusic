@@ -66,7 +66,7 @@ class MainFragment : Fragment() {
     private fun selectItem(view: View) {
         layout.pageContainer.navigate(view.tag.toString())
         layout.bottomTabs.children.filter {
-            (it is FrameLayout) //  or (it is ImageView)
+            (it is FrameLayout) or (it is ImageView)
         }.forEach {
             if (it is ImageView) {
                 it.isSelected = it == view

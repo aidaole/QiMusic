@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,32 +12,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.databinding.FragmentExploreBinding
+import com.aidaole.aimusic.framework.ViewBindingFragment
 import com.aidaole.base.ext.toVisible
 import com.aidaole.base.utils.logi
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment() {
+class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
 
     companion object {
         private const val TAG = "ExploreFragment"
     }
 
-    private val layout by lazy { FragmentExploreBinding.inflate(layoutInflater) }
     private val exploreVM by viewModels<ExploreViewModel>()
     private val recommendPlayListAdapter = RecommendPlayListAdapter()
     private val hotPlayListTagListAdapter = HotplayListTagListAdapter()
     private val topSongsAdapter = TopSongsAdapter()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return layout.root
-    }
+    override fun getViewBinding(): FragmentExploreBinding = FragmentExploreBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
