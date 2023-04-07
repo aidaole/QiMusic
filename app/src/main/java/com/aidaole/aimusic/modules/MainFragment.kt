@@ -8,10 +8,10 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentMainBinding
+import com.aidaole.aimusic.modules.explore.ExploreFragment
+import com.aidaole.aimusic.modules.playlist.PlaylistFragment
+import com.aidaole.aimusic.modules.user.UserInfoFragment
 import com.aidaole.base.utils.toast
 
 class MainFragment : Fragment() {
@@ -29,25 +29,42 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        doAfterInit()
     }
 
     private fun initViews() {
+        layout.pageContainer.apply {
+            init(childFragmentManager, mapOf(
+                ExploreFragment::class.java.simpleName to ExploreFragment(),
+                PlaylistFragment::class.java.simpleName to PlaylistFragment(),
+                UserInfoFragment::class.java.simpleName to UserInfoFragment()
+            ))
+            layout.menuMusic.tag = PlaylistFragment::class.java.simpleName
+            layout.menuExplore.tag = ExploreFragment::class.java.simpleName
+            layout.menuUser.tag = UserInfoFragment::class.java.simpleName
+        }
+
         layout.menuMusic.setOnClickListener {
             selectItem(it)
         }
         layout.menuExplore.setOnClickListener {
             selectItem(it)
-            "点击了explore".toast(context)
-            layout.modulesContainer.findNavController().navigate(R.id.exploreFragment)
         }
         layout.menuUser.setOnClickListener {
             selectItem(it)
-            "点击了user".toast(context)
-            layout.modulesContainer.findNavController().navigate(R.id.userinfoFragment)
         }
     }
 
+    private fun doAfterInit() {
+        loadDefaultFragment()
+    }
+
+    private fun loadDefaultFragment() {
+        layout.pageContainer.navigate(PlaylistFragment::class.java)
+    }
+
     private fun selectItem(view: View) {
+        layout.pageContainer.navigate(view.tag.toString())
         layout.bottomTabs.children.filter {
             (it is FrameLayout) //  or (it is ImageView)
         }.forEach {
@@ -58,7 +75,6 @@ class MainFragment : Fragment() {
                     item.isSelected = item == view
                 }
             }
-
         }
     }
 }

@@ -36,6 +36,6 @@ class PlaylistFragment : Fragment() {
 //            findNavController().navigate(R.id.action_playlistFragment_to_loginFragment)
             return
         }
-        layout.nickname.text = userinfo.profile.nickname
+        layout.nickname.text = userinfo.profile?.nickname ?: "用户加载失败，请重新登录"
     }
 }

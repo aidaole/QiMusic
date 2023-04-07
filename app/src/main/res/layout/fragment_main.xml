@@ -5,14 +5,12 @@
     android:layout_height="match_parent"
     android:background="#22000000">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/modules_container"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <com.aidaole.aimusic.widget.FragmentCacheLayout
+        android:id="@+id/page_container"
         android:layout_width="match_parent"
+        android:background="#2200ff00"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/main_fragment_bottom_tab_height"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_modules_graph" />
+        android:layout_marginBottom="@dimen/main_fragment_bottom_tab_height" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottom_tabs"
