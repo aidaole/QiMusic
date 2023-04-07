@@ -10,9 +10,8 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.aidaole.aimusic.databinding.FragmentMainBinding
 import com.aidaole.aimusic.modules.explore.ExploreFragment
-import com.aidaole.aimusic.modules.playlist.PlaylistFragment
+import com.aidaole.aimusic.modules.playlist.PlayingFragment
 import com.aidaole.aimusic.modules.user.UserInfoFragment
-import com.aidaole.base.utils.toast
 
 class MainFragment : Fragment() {
 
@@ -34,12 +33,14 @@ class MainFragment : Fragment() {
 
     private fun initViews() {
         layout.pageContainer.apply {
-            init(childFragmentManager, mapOf(
-                ExploreFragment::class.java.simpleName to ExploreFragment(),
-                PlaylistFragment::class.java.simpleName to PlaylistFragment(),
-                UserInfoFragment::class.java.simpleName to UserInfoFragment()
-            ))
-            layout.menuMusic.tag = PlaylistFragment::class.java.simpleName
+            init(
+                childFragmentManager, mapOf(
+                    ExploreFragment::class.java.simpleName to ExploreFragment(),
+                    PlayingFragment::class.java.simpleName to PlayingFragment(),
+                    UserInfoFragment::class.java.simpleName to UserInfoFragment()
+                )
+            )
+            layout.menuMusic.tag = PlayingFragment::class.java.simpleName
             layout.menuExplore.tag = ExploreFragment::class.java.simpleName
             layout.menuUser.tag = UserInfoFragment::class.java.simpleName
         }
@@ -60,7 +61,7 @@ class MainFragment : Fragment() {
     }
 
     private fun loadDefaultFragment() {
-        layout.pageContainer.navigate(PlaylistFragment::class.java)
+        layout.pageContainer.navigate(PlayingFragment::class.java)
     }
 
     private fun selectItem(view: View) {

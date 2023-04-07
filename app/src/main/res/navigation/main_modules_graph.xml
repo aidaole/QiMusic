@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_explore" />
     <fragment
         android:id="@+id/playlistFragment"
-        android:name="com.aidaole.aimusic.modules.playlist.PlaylistFragment"
+        android:name="com.aidaole.aimusic.modules.playlist.PlayingFragment"
         android:label="fragment_playlist"
         tools:layout="@layout/fragment_playlist" />
     <fragment

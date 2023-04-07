@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PlaylistViewModel @Inject constructor(
+class PlayingViewModel @Inject constructor(
     private val neteaseApi: NeteaseApi
 ) : ViewModel() {
 
