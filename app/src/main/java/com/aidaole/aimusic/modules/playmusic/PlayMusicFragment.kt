@@ -16,8 +16,17 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
 
     private val playingVM: PlayMusicViewModel by viewModels()
     override fun getViewBinding(): FragmentPlayMusicBinding = FragmentPlayMusicBinding.inflate(layoutInflater)
+    private lateinit var playListViewAdapter: PlayListViewAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val userinfo = UserInfoManager.getUserInfo(requireContext())
+        initViews()
+    }
+
+    private fun initViews() {
+        playListViewAdapter = PlayListViewAdapter()
+        layout.playListView.adapter = playListViewAdapter
+        playListViewAdapter.updateMusicItems(listOf("1", "2", "3"))
     }
 }

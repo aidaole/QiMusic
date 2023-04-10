@@ -28,9 +28,11 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/menu_music">
 
@@ -38,24 +40,22 @@
                 android:id="@+id/menu_explore"
                 android:layout_width="@dimen/nav_icon_size"
                 android:layout_height="@dimen/nav_icon_size"
-                android:layout_gravity="center|top"
-                android:layout_margin="8dp"
                 android:src="@drawable/selector_explore" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_marginBottom="3dp"
                 android:text="发现"
                 android:textColor="@color/white"
                 android:textSize="@dimen/nav_text_size" />
-        </FrameLayout>
+        </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
             app:layout_constraintLeft_toRightOf="@id/menu_music"
             app:layout_constraintRight_toRightOf="parent">
 
@@ -63,19 +63,15 @@
                 android:id="@+id/menu_user"
                 android:layout_width="@dimen/nav_icon_size"
                 android:layout_height="@dimen/nav_icon_size"
-                android:layout_gravity="center|top"
-                android:layout_margin="8dp"
                 android:src="@drawable/selector_user" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_marginBottom="3dp"
                 android:text="我的"
                 android:textColor="@color/white"
                 android:textSize="@dimen/nav_text_size" />
-        </FrameLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
