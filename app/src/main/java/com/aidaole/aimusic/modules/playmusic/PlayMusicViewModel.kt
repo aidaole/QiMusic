@@ -1,4 +1,4 @@
-package com.aidaole.aimusic.modules.playlist
+package com.aidaole.aimusic.modules.playmusic
 
 import androidx.lifecycle.ViewModel
 import com.aidaole.base.datas.network.NeteaseApi
@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PlayingViewModel @Inject constructor(
+class PlayMusicViewModel @Inject constructor(
     private val neteaseApi: NeteaseApi
 ) : ViewModel() {
 

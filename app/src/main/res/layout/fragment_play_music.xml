@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@color/black_600"
-    tools:context=".modules.playlist.PlayingFragment">
+    tools:context=".modules.playmusic.PlayMusicFragment">
 
     <ImageView
         android:layout_width="@dimen/icon_mid_size"
