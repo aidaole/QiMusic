@@ -16,26 +16,26 @@ public class PlayListSongs implements Serializable {
         public String name;
         @SerializedName("id")
         public int id;
-        @SerializedName("pst")
-        public int pst;
-        @SerializedName("t")
-        public int t;
         @SerializedName("pop")
         public int pop;
-        @SerializedName("st")
-        public int st;
-        @SerializedName("rt")
-        public Object rt;
-        @SerializedName("fee")
-        public int fee;
-        @SerializedName("v")
-        public int v;
         @SerializedName("al")
         public Al al;
         @SerializedName("mv")
         public int mv;
         @SerializedName("publishTime")
         public long publishTime;
+
+        @Override
+        public String toString() {
+            return "Songs{" +
+                    "name='" + name + '\'' +
+                    ", id=" + id +
+                    ", pop=" + pop +
+                    ", al=" + al +
+                    ", mv=" + mv +
+                    ", publishTime=" + publishTime +
+                    '}';
+        }
 
         public static class Al implements Serializable {
             @SerializedName("id")
@@ -48,8 +48,17 @@ public class PlayListSongs implements Serializable {
             public String picStr;
             @SerializedName("pic")
             public long pic;
-            @SerializedName("tns")
-            public List<?> tns;
+
+            @Override
+            public String toString() {
+                return "Al{" +
+                        "id=" + id +
+                        ", name='" + name + '\'' +
+                        ", picUrl='" + picUrl + '\'' +
+                        ", picStr='" + picStr + '\'' +
+                        ", pic=" + pic +
+                        '}';
+            }
         }
     }
 }

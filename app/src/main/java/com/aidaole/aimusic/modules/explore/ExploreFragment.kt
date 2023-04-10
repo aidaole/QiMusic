@@ -1,9 +1,7 @@
 package com.aidaole.aimusic.modules.explore
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +13,7 @@ import com.aidaole.aimusic.databinding.FragmentExploreBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
 import com.aidaole.base.ext.toVisible
 import com.aidaole.base.utils.logi
+import com.aidaole.base.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -85,6 +84,10 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                         it?.let {
                             layout.topSongsText.toVisible()
                             topSongsAdapter.updateDatas(it.songs)
+                            topSongsAdapter.onItemClick = {
+                                "${it.name}".toast(context)
+                                exploreVM.clickSong(it)
+                            }
                         }
                     }
                 }

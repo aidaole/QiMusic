@@ -14,10 +14,26 @@ import okhttp3.CookieJar
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Provides
+    fun provideNeteaseApi(retrofit: Retrofit): RetrofitNeteaseApi {
+        return retrofit.create(RetrofitNeteaseApi::class.java)
+    }
+
+    @Provides
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(NeteaseApi.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+    }
 
     @Provides
     fun provideOkhttpClient(

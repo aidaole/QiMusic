@@ -63,6 +63,7 @@ dependencies {
     androidTestImplementation Deps.junitExt
     androidTestImplementation Deps.espresso
     implementation Deps.okhttp
+    implementation Deps.retrofit
 }
 
 kapt {

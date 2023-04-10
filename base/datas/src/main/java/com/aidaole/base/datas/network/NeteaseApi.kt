@@ -5,6 +5,9 @@ import com.aidaole.base.datas.entities.*
 import kotlinx.coroutines.flow.Flow
 
 interface NeteaseApi {
+    companion object {
+        var BASE_URL = "http://192.168.31.148:3000"
+    }
 
     fun getQrImg(): QrCheckParams?
 
@@ -19,4 +22,6 @@ interface NeteaseApi {
     fun getPlaylistSongs(playlistId: Long): PlayListSongs?
 
     fun loadTopPlaylistSongs(): Flow<PlayListSongs?>
+
+    fun getMusic(id: Int): String?
 }

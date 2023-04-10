@@ -3,6 +3,7 @@ package com.aidaole.base.datas.network
 import android.content.Context
 import com.aidaole.base.datas.UserInfoManager
 import com.aidaole.base.datas.entities.*
+import com.aidaole.base.datas.network.NeteaseApi.Companion.BASE_URL
 import com.aidaole.base.utils.logi
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -12,13 +13,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.OkHttpClient
 
+
 class NeteaseApiImpl(
     private val client: OkHttpClient,
     private val gson: Gson
 ) : NeteaseApi {
     companion object {
         private const val TAG = "NeteaseApiImpl"
-        private var BASE_URL = "http://192.168.31.148:3000"
     }
 
     override fun getQrImg(): QrCheckParams? {
@@ -80,6 +81,18 @@ class NeteaseApiImpl(
                 val respContent = it.body?.string()
                 "loadCatlist-> $respContent".logi(TAG)
                 return gson.fromJson(respContent, Catlist::class.java)
+            }
+            return null
+        }
+    }
+
+    override fun getMusic(id: Int): String? {
+        val request = createRequest("$BASE_URL/song/url/v1?id=$id&level=exhigh").build()
+        client.newCall(request).execute().use {
+            if (it.isSuccessful) {
+                val respContent = it.body?.string()
+                "getMusic-> $respContent".logi(TAG)
+                return respContent
             }
             return null
         }

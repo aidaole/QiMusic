@@ -9,6 +9,8 @@ object Deps {
     const val naviUiExt = "androidx.navigation:navigation-ui-ktx:2.5.3"
     const val okhttp = "com.squareup.okhttp3:okhttp:4.10.0"
     const val okhttpLog = "com.squareup.okhttp3:logging-interceptor:4.10.0"
+    const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
+    const val retrofitGson = "com.squareup.retrofit2:converter-gson:2.9.0"
     const val ktxCore = "androidx.core:core-ktx:1.7.0"
     const val appcompat = "androidx.appcompat:appcompat:1.4.1"
     const val material = "com.google.android.material:material:1.5.0"

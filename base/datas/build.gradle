@@ -43,7 +43,8 @@ dependencies {
     implementation Deps.okhttp
     implementation Deps.okhttpLog
     implementation Deps.gson
-
+    implementation Deps.retrofit
+    implementation Deps.retrofitGson
     implementation Deps.ktxCore
     testImplementation Deps.junit
     androidTestImplementation Deps.junitExt
