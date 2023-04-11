@@ -30,6 +30,7 @@ object NetworkModule {
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(NeteaseApi.BASE_URL)
+            .addConverterFactory(StringConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

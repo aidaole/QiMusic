@@ -87,7 +87,7 @@ class NeteaseApiImpl(
     }
 
     override fun getMusic(id: Int): String? {
-        val request = createRequest("$BASE_URL/song/url/v1?id=$id&level=exhigh").build()
+        val request = createRequest("$BASE_URL/song/url/v1?id=$id&level=standard").build()
         client.newCall(request).execute().use {
             if (it.isSuccessful) {
                 val respContent = it.body?.string()
