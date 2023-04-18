@@ -2,6 +2,8 @@ package com.aidaole.base.datas.network
 
 import android.content.Context
 import com.aidaole.base.datas.CookieManager
+import com.aidaole.base.datas.network.retrofit.calladapter.RespCallAdapterFactory
+import com.aidaole.base.datas.network.retrofit.converter.StringConverterFactory
 import com.aidaole.base.utils.logi
 import com.google.gson.Gson
 import dagger.Module
@@ -32,6 +34,7 @@ object NetworkModule {
             .baseUrl(NeteaseApi.BASE_URL)
             .addConverterFactory(StringConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RespCallAdapterFactory.create())
             .client(client)
             .build()
     }

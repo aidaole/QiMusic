@@ -15,9 +15,9 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
     }
 
     private val playingVM: PlayMusicViewModel by viewModels()
-    override fun getViewBinding(): FragmentPlayMusicBinding = FragmentPlayMusicBinding.inflate(layoutInflater)
     private lateinit var playListViewAdapter: PlayListViewAdapter
 
+    override fun getViewBinding(): FragmentPlayMusicBinding = FragmentPlayMusicBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val userinfo = UserInfoManager.getUserInfo(requireContext())

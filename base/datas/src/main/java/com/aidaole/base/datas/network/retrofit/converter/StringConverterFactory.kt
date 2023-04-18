@@ -1,4 +1,4 @@
-package com.aidaole.base.datas.network
+package com.aidaole.base.datas.network.retrofit.converter
 
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody

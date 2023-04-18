@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface NeteaseApi {
     companion object {
-        var BASE_URL = "http://192.168.31.148:3000"
+        var BASE_URL = "http://10.101.80.59:3000"
     }
 
     fun getQrImg(): QrCheckParams?
