@@ -43,16 +43,16 @@ class MainFragment : Fragment() {
             layout.menuMusic.tag = PlayMusicFragment::class.java.simpleName
             layout.menuExplore.tag = ExploreFragment::class.java.simpleName
             layout.menuUser.tag = UserInfoFragment::class.java.simpleName
-        }
 
-        layout.menuMusic.setOnClickListener {
-            selectItem(it)
-        }
-        layout.menuExplore.setOnClickListener {
-            selectItem(it)
-        }
-        layout.menuUser.setOnClickListener {
-            selectItem(it)
+            layout.menuMusic.setOnClickListener {
+                selectItem(it)
+            }
+            layout.menuExplore.setOnClickListener {
+                selectItem(it)
+            }
+            layout.menuUser.setOnClickListener {
+                selectItem(it)
+            }
         }
     }
 
