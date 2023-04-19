@@ -15,8 +15,6 @@ public class RespSongs {
         public long id;
         @SerializedName("al")
         public Al al;
-        @SerializedName("mark")
-        public int mark;
 
         public static class Al {
             @SerializedName("id")
@@ -48,7 +46,6 @@ public class RespSongs {
                     "name='" + name + '\'' +
                     ", id=" + id +
                     ", al=" + al +
-                    ", mark=" + mark +
                     '}';
         }
     }
