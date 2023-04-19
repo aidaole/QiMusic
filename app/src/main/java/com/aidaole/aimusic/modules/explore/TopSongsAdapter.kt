@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.TopPlaylistSongItemViewBinding
-import com.aidaole.base.datas.entities.PlayListSongs.Songs
+import com.aidaole.base.datas.entities.RespSongs.Song
 import com.aidaole.base.utils.logi
 
 class TopSongsAdapter : RecyclerView.Adapter<SongViewHolder>() {
@@ -15,10 +15,10 @@ class TopSongsAdapter : RecyclerView.Adapter<SongViewHolder>() {
         private const val TAG = "TopSongsAdapter"
     }
 
-    private var datas: List<Songs> = emptyList()
-    var onItemClick: ((item: Songs) -> Unit)? = null
+    private var datas: List<Song> = emptyList()
+    var onItemClick: ((item: Song) -> Unit)? = null
 
-    fun updateDatas(songs: List<Songs>) {
+    fun updateDatas(songs: List<Song>) {
         datas = songs
         notifyDataSetChanged()
     }

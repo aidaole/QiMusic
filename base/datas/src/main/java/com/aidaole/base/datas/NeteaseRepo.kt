@@ -1,8 +1,8 @@
 package com.aidaole.base.datas
 
 import com.aidaole.base.datas.entities.HotPlayListTags
-import com.aidaole.base.datas.entities.PlayListSongs
 import com.aidaole.base.datas.entities.RespPlayList
+import com.aidaole.base.datas.entities.RespSongs
 import com.aidaole.base.datas.network.RetrofitNeteaseApi
 import com.aidaole.base.datas.network.retrofit.calladapter.Resp
 import kotlinx.coroutines.Dispatchers
@@ -27,20 +27,20 @@ class NeteaseRepo @Inject constructor(
         emit(if (resp.isSuccessful) resp.body() else null)
     }.flowOn(Dispatchers.IO)
 
-    fun loadTopPlaylistSongs(): Flow<PlayListSongs?> = flow {
+    fun loadTopPlaylistSongs(): Flow<RespSongs?> = flow {
         val playlistId = retrofitNeteaseApi.playlistHighQuality().run()?.body()?.playlists?.get(0)?.id ?: 0
         val resp = retrofitNeteaseApi.playlistTrackAll(playlistId).run()
         emit(if (resp.isSuccessful) resp.body() else null)
     }.flowOn(Dispatchers.IO)
 
-    fun loadPlaylistTrackAll(
-        playlistId: Long,
-        offset: Int = 0,
-        limit: Int = 20
-    ): Flow<PlayListSongs?> = flow {
-        val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, offset, limit).run()
-        emit(if (resp.isSuccessful) resp.body() else null)
-    }
+//    fun loadPlaylistTrackAll(
+//        playlistId: Long,
+//        offset: Int = 0,
+//        limit: Int = 20
+//    ): Flow<PlayListSongs?> = flow {
+//        val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, offset, limit).run()
+//        emit(if (resp.isSuccessful) resp.body() else null)
+//    }
 
     fun loadSongUrl(
         id: Int,
@@ -50,8 +50,8 @@ class NeteaseRepo @Inject constructor(
         emit(retrofitNeteaseApi.songUrl(id, level, timestamp))
     }
 
-    fun loadSongDetail(ids: String): Flow<String> = flow {
+    fun loadSongDetail(ids: String): Flow<RespSongs?> = flow {
         val resp = retrofitNeteaseApi.songDetail(ids).run()
-        (if (resp.isSuccessful) resp.body() else "")?.let { emit(it) }
-    }
+        emit(if (resp.isSuccessful) resp.body() else null)
+    }.flowOn(Dispatchers.IO)
 }

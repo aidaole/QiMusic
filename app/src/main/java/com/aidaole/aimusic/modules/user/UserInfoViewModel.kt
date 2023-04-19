@@ -38,7 +38,6 @@ class UserInfoViewModel @Inject constructor(
     }
 }
 
-
 suspend inline fun coroutineIO(crossinline runBody: () -> Unit) {
     withContext(Dispatchers.IO) {
         runBody.invoke()

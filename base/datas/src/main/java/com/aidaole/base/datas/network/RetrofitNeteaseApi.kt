@@ -1,8 +1,8 @@
 package com.aidaole.base.datas.network
 
 import com.aidaole.base.datas.entities.HotPlayListTags
-import com.aidaole.base.datas.entities.PlayListSongs
 import com.aidaole.base.datas.entities.RespPlayList
+import com.aidaole.base.datas.entities.RespSongs
 import com.aidaole.base.datas.network.retrofit.calladapter.Resp
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -23,7 +23,7 @@ interface RetrofitNeteaseApi {
         @Query("id") id: Long,
         @Query("offset") offset: Int = 0,
         @Query("limit") limit: Int = 20
-    ): Resp<PlayListSongs?>
+    ): Resp<RespSongs?>
 
     @GET("/song/url/v1")
     fun songUrl(
@@ -33,5 +33,5 @@ interface RetrofitNeteaseApi {
     ): Resp<String>
 
     @GET("/song/detail")
-    fun songDetail(@Query("ids") ids: String): Resp<String>
+    fun songDetail(@Query("ids") ids: String): Resp<RespSongs?>
 }
