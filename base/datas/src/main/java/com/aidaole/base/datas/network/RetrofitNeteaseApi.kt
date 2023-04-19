@@ -1,26 +1,37 @@
 package com.aidaole.base.datas.network
 
+import com.aidaole.base.datas.entities.HotPlayListTags
+import com.aidaole.base.datas.entities.PlayListSongs
+import com.aidaole.base.datas.entities.RespPlayList
 import com.aidaole.base.datas.network.retrofit.calladapter.Resp
-import kotlinx.coroutines.flow.Flow
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RetrofitNeteaseApi {
 
     @GET("/top/playlist/highquality")
-    fun topPlaylistHighquality(
+    fun playlistHighQuality(
         @Query("limit") limit: Int = 14,
         @Query("order") order: String = "new"
-    ): Flow<String>
+    ): Resp<RespPlayList?>
+
+    @GET("/playlist/hot")
+    fun playlistHot(): Resp<HotPlayListTags?>
+
+    @GET("/playlist/track/all")
+    fun playlistTrackAll(
+        @Query("id") id: Long,
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 20
+    ): Resp<PlayListSongs?>
 
     @GET("/song/url/v1")
-    fun getMusicUrl(
+    fun songUrl(
         @Query("id") id: Int,
         @Query("level") level: String = "standard",
         @Query("timestamp") timestamp: Long = System.currentTimeMillis()
-    ): Call<String>
+    ): Resp<String>
 
     @GET("/song/detail")
-    suspend fun getMusicDetail(@Query("ids") ids: String): String
+    fun songDetail(@Query("ids") ids: String): Resp<String>
 }

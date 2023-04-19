@@ -7,6 +7,9 @@ import retrofit2.Response
 import java.io.IOException
 
 class Resp<R>(private val call: Call<R>) {
+
+    fun run() = call.execute()
+
     fun run(responseHandler: (R?, Throwable?) -> Unit) {
         try {
             val response = call.execute()

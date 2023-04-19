@@ -2,6 +2,7 @@ package com.aidaole.base.datas
 
 import com.aidaole.base.datas.network.NeteaseApi
 import com.aidaole.base.datas.network.NeteaseApiImpl
+import com.aidaole.base.datas.network.RetrofitNeteaseApi
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -19,5 +20,13 @@ object DataModule {
         gson: Gson
     ): NeteaseApi {
         return NeteaseApiImpl(okhttp, gson)
+    }
+
+    @Provides
+    fun provideNeteaseRepo(
+        neteaseApi: NeteaseApi,
+        retrofitNeteaseApi: RetrofitNeteaseApi
+    ): NeteaseRepo {
+        return NeteaseRepo(retrofitNeteaseApi)
     }
 }
