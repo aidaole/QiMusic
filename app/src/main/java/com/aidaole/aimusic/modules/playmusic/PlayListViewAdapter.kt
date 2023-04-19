@@ -5,13 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import coil.load
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.PlayingItemSimpleViewBinding
+import com.aidaole.base.datas.entities.RespSongs
 
 class PlayListViewAdapter : RecyclerView.Adapter<MusicItemViewHolder>() {
-    private val datas = mutableListOf<String>()
+    private val datas = mutableListOf<RespSongs.Song>()
 
-    fun updateMusicItems(musicItems: List<String>) {
+    fun updateMusicItems(musicItems: List<RespSongs.Song>) {
         datas.clear()
         datas.addAll(musicItems)
         notifyDataSetChanged()
@@ -33,13 +35,15 @@ class PlayListViewAdapter : RecyclerView.Adapter<MusicItemViewHolder>() {
 class MusicItemViewHolder(itemView: View) : ViewHolder(itemView) {
     private val layout = PlayingItemSimpleViewBinding.bind(itemView)
 
-    fun bind(data: String) {
+    fun bind(song: RespSongs.Song) {
         val lp = itemView.layoutParams
         if (lp == null) {
-            itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            itemView.layoutParams =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         } else {
             itemView.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         }
-        layout.songName.text = data
+        layout.songName.text = song.name
+        layout.songPic.load(song.al.picUrl)
     }
 }

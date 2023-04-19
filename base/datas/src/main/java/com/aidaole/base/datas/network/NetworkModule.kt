@@ -11,10 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -44,6 +41,7 @@ object NetworkModule {
         @ApplicationContext context: Context
     ): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(timestampInterceptor())
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BASIC
             })
@@ -66,6 +64,19 @@ object NetworkModule {
                 }
             })
             .build()
+    }
+
+    private fun timestampInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val oldRequest = chain.request()
+            val newUrl = oldRequest.url.newBuilder()
+                .addQueryParameter("timestamp", "${System.currentTimeMillis()}")
+                .build()
+            val newRequest = oldRequest.newBuilder()
+                .url(newUrl)
+                .build()
+            chain.proceed(newRequest)
+        }
     }
 
     @Provides

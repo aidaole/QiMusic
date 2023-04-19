@@ -2,6 +2,7 @@ package com.aidaole.aimusic.modules.explore
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.databinding.FragmentExploreBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
+import com.aidaole.aimusic.modules.playmusic.PlayMusicViewModel
 import com.aidaole.base.ext.toVisible
 import com.aidaole.base.utils.logi
 import com.aidaole.base.utils.toast
@@ -25,6 +27,7 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
     }
 
     private val exploreVM by viewModels<ExploreViewModel>()
+    private val playMusicVM by activityViewModels<PlayMusicViewModel>()
     private val recommendPlayListAdapter = RecommendPlayListAdapter()
     private val hotPlayListTagListAdapter = HotplayListTagListAdapter()
     private val topSongsAdapter = TopSongsAdapter()
@@ -85,8 +88,7 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                             layout.topSongsText.toVisible()
                             topSongsAdapter.updateDatas(it.songs)
                             topSongsAdapter.onItemClick = {
-                                "${it.name}".toast(context)
-                                exploreVM.clickSong(it)
+                                playMusicVM.play(it)
                             }
                         }
                     }
