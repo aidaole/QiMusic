@@ -33,14 +33,14 @@ class NeteaseRepo @Inject constructor(
         emit(if (resp.isSuccessful) resp.body() else null)
     }.flowOn(Dispatchers.IO)
 
-//    fun loadPlaylistTrackAll(
-//        playlistId: Long,
-//        offset: Int = 0,
-//        limit: Int = 20
-//    ): Flow<PlayListSongs?> = flow {
-//        val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, offset, limit).run()
-//        emit(if (resp.isSuccessful) resp.body() else null)
-//    }
+    fun loadPlaylistTrackAll(
+        playlistId: Long,
+        offset: Int = 0,
+        limit: Int = 20
+    ): Flow<MutableList<RespSongs.Song>?> = flow {
+        val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, offset, limit).run()
+        emit(if (resp.isSuccessful) resp.body()?.songs else null)
+    }.flowOn(Dispatchers.IO)
 
     fun loadSongUrl(
         id: Int,

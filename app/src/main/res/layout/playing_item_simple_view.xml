@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,16 +12,22 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_edge"
-        android:paddingRight="@dimen/padding_edge"
+        android:paddingLeft="@dimen/padding_20"
+        android:paddingRight="@dimen/padding_20"
         android:paddingBottom="@dimen/navbar_height">
 
-        <ImageView
-            android:id="@+id/song_pic"
-            android:layout_width="@dimen/playing_photo_size"
-            android:layout_height="@dimen/playing_photo_size"
-            android:layout_marginTop="60dp"
-            android:src="@drawable/ic_photo" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            app:cardCornerRadius="@dimen/radius_20">
+
+            <ImageView
+                android:id="@+id/song_pic"
+                android:layout_width="@dimen/playing_photo_size"
+                android:layout_height="@dimen/playing_photo_size"
+                android:src="@drawable/ic_photo" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/song_lyr"
@@ -29,7 +36,7 @@
             android:layout_marginTop="40dp"
             android:textColor="@color/white"
             android:textFontWeight="500"
-            android:textSize="@dimen/font_size_mid"
+            android:textSize="@dimen/font_size_18"
             tools:text="Not gonna cry cry cry" />
 
         <TextView
@@ -39,7 +46,7 @@
             android:layout_marginTop="40dp"
             android:textColor="@color/white"
             android:textFontWeight="500"
-            android:textSize="@dimen/font_size_big"
+            android:textSize="@dimen/font_size_24"
             tools:text="Salt" />
 
         <TextView
@@ -49,7 +56,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
             android:textFontWeight="500"
-            android:textSize="@dimen/font_size_mid"
+            android:textSize="@dimen/font_size_18"
             tools:text="Ava Max" />
 
         <LinearLayout
@@ -58,20 +65,20 @@
             android:layout_marginTop="10dp">
 
             <ImageView
-                android:layout_width="@dimen/icon_mid_size"
-                android:layout_height="@dimen/icon_mid_size"
+                android:layout_width="@dimen/icon_size_32"
+                android:layout_height="@dimen/icon_size_32"
                 android:layout_margin="@dimen/like_icon_margin"
                 android:src="@drawable/ic_like" />
 
             <ImageView
-                android:layout_width="@dimen/icon_mid_size"
-                android:layout_height="@dimen/icon_mid_size"
+                android:layout_width="@dimen/icon_size_32"
+                android:layout_height="@dimen/icon_size_32"
                 android:layout_margin="@dimen/like_icon_margin"
                 android:src="@drawable/ic_share" />
 
             <ImageView
-                android:layout_width="@dimen/icon_mid_size"
-                android:layout_height="@dimen/icon_mid_size"
+                android:layout_width="@dimen/icon_size_32"
+                android:layout_height="@dimen/icon_size_32"
                 android:layout_margin="@dimen/like_icon_margin"
                 android:src="@drawable/ic_more" />
         </LinearLayout>

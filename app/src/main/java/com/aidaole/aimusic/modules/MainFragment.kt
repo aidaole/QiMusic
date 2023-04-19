@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.aidaole.aimusic.databinding.FragmentMainBinding
 import com.aidaole.aimusic.modules.explore.ExploreFragment
 import com.aidaole.aimusic.modules.playmusic.PlayMusicFragment
@@ -16,6 +17,7 @@ import com.aidaole.aimusic.modules.user.UserInfoFragment
 class MainFragment : Fragment() {
 
     private val layout by lazy { FragmentMainBinding.inflate(layoutInflater) }
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +30,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        initViewModels()
         doAfterInit()
     }
 
@@ -45,14 +48,20 @@ class MainFragment : Fragment() {
             layout.menuUser.tag = UserInfoFragment::class.java.simpleName
 
             layout.menuMusic.setOnClickListener {
-                selectItem(it)
+                mainViewModel.naviTo(MainPage.MUSIC)
             }
             layout.menuExplore.setOnClickListener {
-                selectItem(it)
+                mainViewModel.naviTo(MainPage.EXPLORE)
             }
             layout.menuUser.setOnClickListener {
-                selectItem(it)
+                mainViewModel.naviTo(MainPage.USER)
             }
+        }
+    }
+
+    private fun initViewModels() {
+        mainViewModel.pageTag.observe(viewLifecycleOwner) {
+            naviToPage(it)
         }
     }
 
@@ -64,8 +73,8 @@ class MainFragment : Fragment() {
         layout.pageContainer.navigate(PlayMusicFragment::class.java)
     }
 
-    private fun selectItem(view: View) {
-        layout.pageContainer.navigate(view.tag.toString())
+    private fun naviToPage(tag: String) {
+        layout.pageContainer.navigate(tag)
         layout.bottomTabs.children.filter {
             (it is FrameLayout) or (it is ImageView)
         }.forEach {

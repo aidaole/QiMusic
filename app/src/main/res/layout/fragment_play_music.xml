@@ -8,9 +8,9 @@
     tools:context=".modules.playmusic.PlayMusicFragment">
 
     <ImageView
-        android:layout_width="@dimen/icon_mid_size"
-        android:layout_height="@dimen/icon_mid_size"
-        android:layout_margin="@dimen/padding_edge"
+        android:layout_width="@dimen/icon_size_32"
+        android:layout_height="@dimen/icon_size_32"
+        android:layout_margin="@dimen/padding_20"
         android:src="@drawable/ic_search"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

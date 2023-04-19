@@ -4,9 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.aidaole.base.datas.NeteaseRepo
+import com.aidaole.base.datas.entities.RespPlayList
 import com.aidaole.base.datas.entities.RespSongs
+import com.aidaole.base.utils.toast
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +25,15 @@ class PlayMusicViewModel @Inject constructor(
 
     init {
         _playingSongs.value = mutableListOf()
+    }
+
+    fun playList(playList: RespPlayList.PlaylistsEntity) {
+        viewModelScope.launch {
+            val songs = neteaseApi.loadPlaylistTrackAll(playList.id).single()
+            songs?.let {
+                _playingSongs.value = it
+            }
+        }
     }
 
     fun play(song: RespSongs.Song) {

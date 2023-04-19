@@ -11,6 +11,7 @@ import com.aidaole.base.datas.entities.RespPlayList
 
 class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
     private var datas = listOf<RespPlayList.PlaylistsEntity>()
+    var onItemClick: ((item: RespPlayList.PlaylistsEntity) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongListViewHolder {
         return SongListViewHolder(
@@ -21,6 +22,9 @@ class RecommendPlayListAdapter : RecyclerView.Adapter<SongListViewHolder>() {
     override fun onBindViewHolder(holder: SongListViewHolder, position: Int) {
         holder.layout.playlistCover.load(datas[position].coverImgUrl)
         holder.layout.playlistName.text = datas[position].name
+        holder.layout.root.setOnClickListener {
+            onItemClick?.invoke(datas[position])
+        }
     }
 
     override fun getItemCount(): Int {

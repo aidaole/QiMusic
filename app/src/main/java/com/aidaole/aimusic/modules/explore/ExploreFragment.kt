@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.databinding.FragmentExploreBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
+import com.aidaole.aimusic.modules.MainPage
+import com.aidaole.aimusic.modules.MainViewModel
 import com.aidaole.aimusic.modules.playmusic.PlayMusicViewModel
 import com.aidaole.base.ext.toVisible
 import com.aidaole.base.utils.logi
-import com.aidaole.base.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,6 +29,8 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
 
     private val exploreVM by viewModels<ExploreViewModel>()
     private val playMusicVM by activityViewModels<PlayMusicViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
+
     private val recommendPlayListAdapter = RecommendPlayListAdapter()
     private val hotPlayListTagListAdapter = HotplayListTagListAdapter()
     private val topSongsAdapter = TopSongsAdapter()
@@ -77,6 +80,10 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                         it?.let {
                             layout.recommendPlaylistText.toVisible()
                             recommendPlayListAdapter.updateDatas(it.playlists)
+                            recommendPlayListAdapter.onItemClick = {
+                                playMusicVM.playList(it)
+                                mainViewModel.naviTo(MainPage.MUSIC)
+                            }
                         }
                     }
                 }
@@ -89,6 +96,7 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                             topSongsAdapter.updateDatas(it.songs)
                             topSongsAdapter.onItemClick = {
                                 playMusicVM.play(it)
+                                mainViewModel.naviTo(MainPage.MUSIC)
                             }
                         }
                     }
