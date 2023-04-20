@@ -17,6 +17,7 @@ object Deps {
     const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
     const val gson = "com.google.code.gson:gson:2.10.1"
     const val coil = "io.coil-kt:coil:2.2.2"
+    const val palette = "androidx.palette:palette:1.0.0"
 
     const val junit = "junit:junit:4.13.2"
     const val junitExt = "androidx.test.ext:junit:1.1.3"
