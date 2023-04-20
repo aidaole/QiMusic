@@ -15,6 +15,7 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,7 +29,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(NeteaseApi.BASE_URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(StringConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RespCallAdapterFactory.create())
@@ -36,6 +37,7 @@ object NetworkModule {
             .build()
     }
 
+    @Singleton
     @Provides
     fun provideOkhttpClient(
         @ApplicationContext context: Context

@@ -26,19 +26,21 @@ class MusicListRecyclerView @JvmOverloads constructor(
         addOnScrollListener(object : OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 when (newState) {
-                    RecyclerView.SCROLL_STATE_IDLE -> {
-                        val view = snapHelper.findSnapView(layoutManager)!!
-                        val position = recyclerView.getChildAdapterPosition(view)
-                        if (currentPosition != position) {
-                            // 滑动了
-                            "onScrollStateChanged-> $position".logi(TAG)
+                    SCROLL_STATE_IDLE -> {
+                        val view = snapHelper.findSnapView(layoutManager)
+                        view?.let {
+                            val position = recyclerView.getChildAdapterPosition(it)
+                            if (currentPosition != position) {
+                                // 滑动了
+                                "onScrollStateChanged-> $position".logi(TAG)
+                            }
+                            currentPosition = position
                         }
-                        currentPosition = position
                     }
-                    RecyclerView.SCROLL_STATE_DRAGGING -> {
+                    SCROLL_STATE_DRAGGING -> {
 
                     }
-                    RecyclerView.SCROLL_STATE_SETTLING -> {
+                    SCROLL_STATE_SETTLING -> {
 
                     }
                 }

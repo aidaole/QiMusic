@@ -36,7 +36,7 @@ class LoginViewModel @Inject constructor(
 
 
     private val defaultQrBitmap =
-        App.getContext().resources.getDrawable(R.mipmap.ic_launcher).toBitmap(200, 200)
+        App.get().resources.getDrawable(R.mipmap.ic_launcher).toBitmap(200, 200)
     private val _qrImgBitmap = MutableLiveData(StateValue(defaultQrBitmap))
     val qrImgBitmap = _qrImgBitmap as LiveData<StateValue<Bitmap>>
 

@@ -4,10 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aidaole.aimusic.App
-import com.aidaole.base.datas.UserInfoManager
 import com.aidaole.base.datas.entities.RespUserInfo
 import com.aidaole.base.datas.network.NeteaseApi
-import com.aidaole.base.datas.network.toJsonObject
 import com.aidaole.base.utils.logi
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +28,7 @@ class UserInfoViewModel @Inject constructor(
     fun loadUserInfo() {
         viewModelScope.launch {
             coroutineIO {
-                val userinfo = neteaseApi.getUserInfo(App.getContext())
+                val userinfo = neteaseApi.getUserInfo(App.get())
                 userInfoData.postValue(userinfo)
                 "loadUserInfo-> userInfo: $userinfo".logi(TAG)
             }
