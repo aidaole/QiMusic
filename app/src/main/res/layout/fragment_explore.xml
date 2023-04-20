@@ -1,57 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_explore"
+    android:paddingLeft="@dimen/padding_10"
+    android:paddingRight="@dimen/padding_10"
     android:paddingBottom="@dimen/navbar_height">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".modules.explore.ExploreFragment">
+        android:layout_height="@dimen/action_bar_height"
+        android:translationZ="1dp">
 
         <TextView
-            android:id="@+id/music_tags_text"
+            style="@style/TextTitleStyle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="曲风>"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            android:text="发现"
+            android:textFontWeight="800"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/hot_play_list"
+        <ImageView
+            android:layout_width="@dimen/icon_size_24"
+            android:layout_height="@dimen/icon_size_24"
+            android:layout_margin="@dimen/padding_20"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/recommend_playlist_text"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="歌单推荐>"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            android:layout_marginTop="@dimen/action_bar_height"
+            android:orientation="vertical"
+            tools:context=".modules.explore.ExploreFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recommend_play_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/music_tags_text"
+                style="@style/TextNormalStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:text="曲风"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/top_songs_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="推荐歌曲>"
-            android:textSize="18sp"
-            android:visibility="gone" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hot_play_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/top_songs"
-            android:layout_width="match_parent"
-            android:layout_height="700dp" />
+            <TextView
+                android:id="@+id/recommend_playlist_text"
+                style="@style/TextNormalStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:text="歌单推荐"
+                android:textSize="18sp"
+                android:visibility="gone" />
 
-    </LinearLayout>
-</ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommend_play_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/top_songs_text"
+                style="@style/TextNormalStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:text="推荐歌曲"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top_songs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/top_song_list_height" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/navbar_height" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

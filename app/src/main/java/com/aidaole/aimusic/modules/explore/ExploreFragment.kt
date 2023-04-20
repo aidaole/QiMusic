@@ -31,8 +31,8 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
     private val playMusicVM by activityViewModels<PlayMusicViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-    private val recommendPlayListAdapter = RecommendPlayListAdapter()
     private val hotPlayListTagListAdapter = HotplayListTagListAdapter()
+    private val recommendPlayListAdapter = RecommendPlayListAdapter()
     private val topSongsAdapter = TopSongsAdapter()
     override fun getViewBinding(): FragmentExploreBinding = FragmentExploreBinding.inflate(layoutInflater)
 
@@ -42,15 +42,15 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
     }
 
     private fun initViews() {
-        layout.recommendPlayList.layoutManager = GridLayoutManager(
-            requireContext(), 2, RecyclerView.HORIZONTAL, false
-        )
-        layout.recommendPlayList.adapter = recommendPlayListAdapter
-
         layout.hotPlayList.layoutManager = GridLayoutManager(
             requireContext(), 2, RecyclerView.HORIZONTAL, false
         )
         layout.hotPlayList.adapter = hotPlayListTagListAdapter
+
+        layout.recommendPlayList.layoutManager = GridLayoutManager(
+            requireContext(), 2, RecyclerView.HORIZONTAL, false
+        )
+        layout.recommendPlayList.adapter = recommendPlayListAdapter
 
         layout.topSongs.layoutManager = object : LinearLayoutManager(requireContext()) {
             override fun canScrollVertically(): Boolean {

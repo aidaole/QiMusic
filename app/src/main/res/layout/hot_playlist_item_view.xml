@@ -16,6 +16,7 @@
 
         <TextView
             android:id="@+id/tag_name"
+            style="@style/TextNormalStyle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"

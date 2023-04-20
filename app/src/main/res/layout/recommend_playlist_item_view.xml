@@ -10,11 +10,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/radius_10"
         android:layout_margin="5dp"
+        app:cardCornerRadius="@dimen/radius_10"
         app:cardElevation="0dp">
 
-        <androidx.constraintlayout.utils.widget.ImageFilterView
+        <ImageView
             android:id="@+id/playlist_cover"
             android:layout_width="120dp"
             android:layout_height="120dp"
@@ -23,11 +23,10 @@
 
     <TextView
         android:id="@+id/playlist_name"
+        style="@style/TextNormalStyle2"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:gravity="center_horizontal"
         android:maxLines="2"
-        android:textColor="@color/black"
         tools:text="专辑名称" />
 </LinearLayout>

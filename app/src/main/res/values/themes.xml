@@ -13,4 +13,28 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="TextTitleStyle1" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textSize">@dimen/font_size_18</item>
+        <item name="android:textFontWeight">800</item>
+    </style>
+
+    <style name="TextTitleStyle2" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textSize">@dimen/font_size_18</item>
+        <item name="android:textFontWeight">800</item>
+    </style>
+
+    <style name="TextNormalStyle1" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textSize">@dimen/font_size_16</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+
+    <style name="TextNormalStyle2" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text_color_white</item>
+        <item name="android:textSize">@dimen/font_size_12</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
 </resources>

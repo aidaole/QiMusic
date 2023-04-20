@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/top_song_item_height"
     android:padding="10dp">
 
     <TextView
         android:id="@+id/number"
+        style="@style/TextNormalStyle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,36 +18,33 @@
 
     <TextView
         android:id="@+id/song_name"
+        style="@style/TextNormalStyle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:maxLines="1"
-        android:textColor="@color/black"
-        android:textSize="14sp"
         app:layout_constraintLeft_toRightOf="@id/number"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="歌曲名" />
 
     <TextView
         android:id="@+id/author"
+        style="@style/TextNormalStyle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:maxLines="1"
-        android:textColor="#88000000"
-        android:textSize="12sp"
         app:layout_constraintLeft_toLeftOf="@id/song_name"
         app:layout_constraintTop_toBottomOf="@id/song_name"
         tools:text="作者" />
 
     <TextView
         android:id="@+id/playlist_name"
+        style="@style/TextNormalStyle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:maxLines="1"
-        android:textColor="#88000000"
-        android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@id/author"
         app:layout_constraintTop_toTopOf="@id/author"
         tools:text="专辑名" />

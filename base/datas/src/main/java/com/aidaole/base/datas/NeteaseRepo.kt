@@ -7,6 +7,7 @@ import com.aidaole.base.datas.network.RetrofitNeteaseApi
 import com.aidaole.base.datas.network.retrofit.calladapter.Resp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -17,7 +18,9 @@ class NeteaseRepo @Inject constructor(
     fun loadPlaylistHot(): Flow<HotPlayListTags?> = flow {
         val resp = retrofitNeteaseApi.playlistHot().run()
         emit(if (resp.isSuccessful) resp.body() else null)
-    }.flowOn(Dispatchers.IO)
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
 
     fun loadPlaylistHighQuality(
         limit: Int = 14,
@@ -25,13 +28,17 @@ class NeteaseRepo @Inject constructor(
     ): Flow<RespPlayList?> = flow {
         val resp = retrofitNeteaseApi.playlistHighQuality(limit, order).run()
         emit(if (resp.isSuccessful) resp.body() else null)
-    }.flowOn(Dispatchers.IO)
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
 
     fun loadTopPlaylistSongs(): Flow<RespSongs?> = flow {
-        val playlistId = retrofitNeteaseApi.playlistHighQuality().run()?.body()?.playlists?.get(0)?.id ?: 0
-        val resp = retrofitNeteaseApi.playlistTrackAll(playlistId).run()
+        val playlistId = retrofitNeteaseApi.playlistHighQuality().run()?.body()?.playlists?.get(1)?.id ?: 0
+        val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, 0, 10).run()
         emit(if (resp.isSuccessful) resp.body() else null)
-    }.flowOn(Dispatchers.IO)
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
 
     fun loadPlaylistTrackAll(
         playlistId: Long,
@@ -40,7 +47,9 @@ class NeteaseRepo @Inject constructor(
     ): Flow<MutableList<RespSongs.Song>?> = flow {
         val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, offset, limit).run()
         emit(if (resp.isSuccessful) resp.body()?.songs else null)
-    }.flowOn(Dispatchers.IO)
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
 
     fun loadSongUrl(
         id: Int,
@@ -53,5 +62,7 @@ class NeteaseRepo @Inject constructor(
     fun loadSongDetail(ids: String): Flow<RespSongs?> = flow {
         val resp = retrofitNeteaseApi.songDetail(ids).run()
         emit(if (resp.isSuccessful) resp.body() else null)
-    }.flowOn(Dispatchers.IO)
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
 }
