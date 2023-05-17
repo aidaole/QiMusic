@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
     private fun initViews() {
         layout.pageContainer.apply {
             init(
-                childFragmentManager, mapOf(
+                parentFragmentManager, mapOf(
                     ExploreFragment::class.java.simpleName to ExploreFragment(),
                     PlayMusicFragment::class.java.simpleName to PlayMusicFragment(),
                     UserInfoFragment::class.java.simpleName to UserInfoFragment()

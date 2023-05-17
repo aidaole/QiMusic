@@ -18,9 +18,6 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
     private val userinfoVM: UserInfoViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        layout.refreshBtn.setOnClickListener {
-            userinfoVM.loadUserInfo()
-        }
         layout.loginPageBtn.setOnClickListener {
             findNavController().navigate(R.id.action_global_login_graph)
         }
