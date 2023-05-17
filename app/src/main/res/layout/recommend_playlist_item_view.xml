@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/playlist_name"
-        style="@style/TextNormalStyle2"
+        style="@style/TextMedium12"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"

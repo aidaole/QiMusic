@@ -1,3 +1,3 @@
 package com.aidaole.base.datas.network
 
-const val BASE_URL = "http://192.168.31.148:3000"
+const val BASE_URL = "http://10.101.80.59:3000"

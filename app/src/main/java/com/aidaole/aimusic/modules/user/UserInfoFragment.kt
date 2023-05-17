@@ -3,10 +3,12 @@ package com.aidaole.aimusic.modules.user
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentUserinfoBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
+import com.aidaole.base.datas.entities.RespUserInfo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,18 +22,23 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
             userinfoVM.loadUserInfo()
         }
         layout.loginPageBtn.setOnClickListener {
-//            findNavController().navigate(R.id.action_userinfoFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_global_login_graph)
         }
         userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
             userInfo?.let { userinfo ->
                 userinfo.profile?.let {
-                    layout.avatarImg.load(it.avatarUrl) {
-                        error(R.mipmap.ic_launcher)
-                    }
-                    layout.nickname.text = it.nickname
+                    updateUserProfileUi(it)
                 }
             }
         }
         userinfoVM.loadUserInfo()
+    }
+
+    private fun updateUserProfileUi(it: RespUserInfo.ProfileEntity) {
+        layout.avatarImg.load(it.avatarUrl) {
+            error(R.mipmap.ic_launcher)
+        }
+        layout.userName.text = it.nickname
+        layout.userSignature.text = it.signature
     }
 }

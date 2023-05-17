@@ -15,6 +15,7 @@
     <dimen name="font_weight_500">500</dimen>
     <dimen name="font_weight_200">200</dimen>
 
+    <dimen name="radius_100">100dp</dimen>
     <dimen name="radius_20">20dp</dimen>
     <dimen name="radius_10">10dp</dimen>
     <dimen name="radius_5">5dp</dimen>

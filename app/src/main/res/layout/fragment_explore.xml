@@ -14,7 +14,7 @@
         android:translationZ="1dp">
 
         <TextView
-            style="@style/TextTitleStyle1"
+            style="@style/TextBold18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="发现"
@@ -46,7 +46,7 @@
 
             <TextView
                 android:id="@+id/music_tags_text"
-                style="@style/TextNormalStyle1"
+                style="@style/TextMedium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
@@ -62,7 +62,7 @@
 
             <TextView
                 android:id="@+id/recommend_playlist_text"
-                style="@style/TextNormalStyle1"
+                style="@style/TextMedium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
@@ -78,7 +78,7 @@
 
             <TextView
                 android:id="@+id/top_songs_text"
-                style="@style/TextNormalStyle1"
+                style="@style/TextMedium16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
