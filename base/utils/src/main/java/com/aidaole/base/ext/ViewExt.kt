@@ -6,11 +6,11 @@ fun View.toVisible() {
     this.visibility = View.VISIBLE
 }
 
-internal fun View.toGone() {
+fun View.toGone() {
     this.visibility = View.GONE
 }
 
-internal fun View.toInvisible() {
+fun View.toInvisible() {
     this.visibility = View.INVISIBLE
 }
 

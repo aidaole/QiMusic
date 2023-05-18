@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.aidaole.aimusic.modules.user.widget.UserProfileNestedScrollParent xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/user_profile_scroll_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/navbar_height">
 
-    <ScrollView
+    <View
+        android:id="@+id/songs_list_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="200dp"
+        android:background="@color/purple_700"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="400dp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:id="@+id/user_info_layout"
                 android:layout_width="match_parent"
-                android:layout_height="800dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/bg_user_profile"
-                android:clipChildren="false"
-                android:orientation="vertical">
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/avatar_card_view"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="-50dp"
-                    app:cardCornerRadius="@dimen/radius_100"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:cardCornerRadius="@dimen/radius_100">
 
                     <ImageView
                         android:id="@+id/avatarImg"
@@ -52,32 +54,50 @@
                     style="@style/TextBold18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/avatar_card_view" />
+                    android:layout_marginTop="10dp" />
 
                 <TextView
                     android:id="@+id/user_signature"
                     style="@style/TextSize12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/user_name" />
+                    android:layout_marginTop="4dp" />
 
                 <Button
                     android:id="@+id/login_page_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="跳转到登录界面"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/user_lists"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:background="@color/purple_200"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_info_layout" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/action_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/teal_700"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@id/user_lists">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_size_24"
+                    android:layout_height="@dimen/icon_size_24"
+                    android:layout_marginRight="@dimen/padding_20"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/user_signature" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.aidaole.aimusic.modules.user.widget.UserProfileNestedScrollParent>
