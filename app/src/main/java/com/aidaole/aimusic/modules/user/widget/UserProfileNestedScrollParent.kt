@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import androidx.core.view.NestedScrollingParent2
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.R
 import com.aidaole.base.ext.toInvisible
 import com.aidaole.base.ext.toVisible
@@ -29,12 +30,14 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
     private var songListBgHeight = 0
     private lateinit var userInfoLayout: View
     private var userInfoLayoutHeight = 0
+    private lateinit var recyclerView: RecyclerView
 
     override fun onFinishInflate() {
         super.onFinishInflate()
         actionBarLayout = this.findViewById(R.id.action_bar_layout)
         songsListBg = this.findViewById(R.id.songs_list_bg)
         userInfoLayout = this.findViewById(R.id.user_info_layout)
+        recyclerView = this.findViewById(R.id.user_lists)
         actionBarLayout.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 actionBarLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -56,21 +59,32 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
         val topGap = songListBgHeight + userInfoLayoutHeight - actionBarHeight
         "onNestedPreScroll-> dy: $dy, scrollY: $scrollY, topGap: $topGap".logi(TAG)
-        if (dy > 0 && scrollY < topGap) {
-            if (dy + scrollY > topGap) {
-                consumed[1] = dy
-                scrollTo(0, topGap)
-            } else {
-                consumed[1] = dy
-                scrollBy(0, dy)
+        if (dy > 0) {
+            // 向上
+//            if (!recyclerView.canScrollVertically(1)) {
+//                 可向上
+//            } else
+            if (scrollY < topGap) {
+                if (dy + scrollY > topGap) {
+                    consumed[1] = dy
+                    scrollTo(0, topGap)
+                } else {
+                    consumed[1] = dy
+                    scrollBy(0, dy)
+                }
             }
-        } else if (dy < 0 && scrollY > 0) {
-            if (dy + scrollY < 0) {
-                consumed[1] = dy
-                scrollTo(0, 0)
-            } else {
-                consumed[1] = dy
-                scrollBy(0, dy)
+        } else if (dy < 0) {
+            // 向下
+            if (recyclerView.canScrollVertically(-1)) {
+                // 可向下
+            } else if (scrollY > 0) {
+                if (dy + scrollY < 0) {
+                    consumed[1] = dy
+                    scrollTo(0, 0)
+                } else {
+                    consumed[1] = dy
+                    scrollBy(0, dy)
+                }
             }
         }
 
