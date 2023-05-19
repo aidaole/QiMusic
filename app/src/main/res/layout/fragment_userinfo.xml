@@ -17,8 +17,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#00ff00"
         android:orientation="vertical">
 
         <LinearLayout
@@ -65,33 +67,32 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/user_lists"
-            android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:background="@color/explore_user_profile"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_info_layout"
-            android:paddingBottom="160dp"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/action_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/teal_700"
+            android:translationZ="1dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/user_lists">
 
             <ImageView
                 android:layout_width="@dimen/icon_size_24"
                 android:layout_height="@dimen/icon_size_24"
-                android:layout_marginRight="@dimen/padding_20"
                 android:src="@drawable/ic_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/user_lists"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0000ff"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_info_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.aidaole.aimusic.modules.user.widget.UserProfileNestedScrollParent>

@@ -45,9 +45,6 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
             add("8")
             add("9")
             add("10")
-            add("11")
-            add("12")
-            add("13")
         })
     }
 

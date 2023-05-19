@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Handler
+import android.view.WindowManager
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +21,17 @@ class App : Application() {
     lateinit var okHttpClient: OkHttpClient
     private lateinit var mainHandler: Handler
 
+
     companion object {
         private lateinit var appContext: App
+        private val windowManager by lazy { appContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager }
+
         fun get(): App {
             return appContext
+        }
+
+        fun getScreenHeight(): Int {
+            return windowManager.defaultDisplay.height
         }
 
         val mainScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
