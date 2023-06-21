@@ -66,11 +66,7 @@ class MainFragment : Fragment() {
     }
 
     private fun doAfterInit() {
-        loadDefaultFragment()
-    }
 
-    private fun loadDefaultFragment() {
-        layout.pageContainer.navigate(PlayMusicFragment::class.java)
     }
 
     private fun naviToPage(tag: String) {

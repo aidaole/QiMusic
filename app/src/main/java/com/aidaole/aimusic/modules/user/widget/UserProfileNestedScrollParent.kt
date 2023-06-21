@@ -2,14 +2,15 @@ package com.aidaole.aimusic.modules.user.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.NestedScrollingParent2
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.aidaole.aimusic.App
 import com.aidaole.aimusic.R
 import com.aidaole.base.ext.toInvisible
@@ -20,7 +21,7 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr), NestedScrollingParent2 {
+) : LinearLayout(context, attrs, defStyleAttr), NestedScrollingParent2 {
     companion object {
         private const val TAG = "UserProfileNestedScrollParent"
     }
@@ -28,8 +29,8 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
     private val parentHelper = NestedScrollingParentHelper(this)
     private lateinit var actionBarLayout: View
     private var actionBarHeight = 0
-    private lateinit var songsListBg: View
-    private var songListBgHeight = 0
+    private lateinit var topBg: View
+    private var topBgHeight = 0
     private lateinit var userInfoLayout: View
     private var userInfoLayoutHeight = 0
     private lateinit var recyclerView: View
@@ -38,62 +39,36 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
     override fun onFinishInflate() {
         super.onFinishInflate()
         actionBarLayout = this.findViewById(R.id.action_bar_layout)
-        songsListBg = this.findViewById(R.id.songs_list_bg)
-        userInfoLayout = this.findViewById(R.id.user_info_layout)
-        recyclerView = this.findViewById(R.id.user_lists)
+        topBg = this.findViewById(R.id.top_bg)
         bottomContentContainer = this.findViewById(R.id.bottom_content_container)
+        userInfoLayout = this.findViewById(R.id.user_info_layout)
+        recyclerView = this.findViewById(R.id.recyclerview)
         actionBarLayout.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 actionBarLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 actionBarHeight = actionBarLayout.measuredHeight
-                songListBgHeight = songsListBg.measuredHeight
+                topBgHeight = topBg.measuredHeight
                 userInfoLayoutHeight = userInfoLayout.measuredHeight
+                "onGlobalLayout-> actionbarheight: $actionBarHeight".logi(TAG)
+                "onGlobalLayout-> songlisbgheight: $topBgHeight".logi(TAG)
+                "onGlobalLayout-> userinfolayoutheight: $userInfoLayoutHeight".logi(TAG)
             }
         })
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        "onMeasure-> ".logi(TAG)
-
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
         val newHeightSpec = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.UNSPECIFIED)
 
-        "onMeasure-> parent: ${this@UserProfileNestedScrollParent.measuredHeight}, actionbar: ${actionBarLayout.measuredHeight}".logi(
-            TAG
-        )
-        val spec2 = MeasureSpec.makeMeasureSpec(
-            this@UserProfileNestedScrollParent.measuredHeight,
-            MeasureSpec.UNSPECIFIED
-        )
-        bottomContentContainer.measure(widthMeasureSpec, spec2)
-        val recyclerviewHeightSpec = MeasureSpec.makeMeasureSpec(
-            this@UserProfileNestedScrollParent.measuredHeight - actionBarLayout.measuredHeight,
-            MeasureSpec.UNSPECIFIED
-        )
-        recyclerView.measure(widthMeasureSpec, recyclerviewHeightSpec)
-
+        ("onMeasure-> " +
+                "screenHeight: ${App.getScreenHeight()}, " +
+                "parent: ${this@UserProfileNestedScrollParent.measuredHeight}, " +
+                "actionbar: ${actionBarLayout.measuredHeight}, " +
+                "topBg: ${topBg.measuredHeight}, " +
+                "userInfoLayout: ${userInfoLayout.measuredHeight}, " +
+                "bottomContentContainer: ${bottomContentContainer.measuredHeight}")
+            .logi(TAG)
         super.onMeasure(widthMeasureSpec, newHeightSpec)
-    }
-
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        val childCount = childCount
-        var topMargin = 0
-        for (i in 0 until childCount) {
-            val childView = getChildAt(i)
-            "onLayout-> ${childView}".logi(TAG)
-            if (childView.visibility != View.GONE) {
-                if (childView is ConstraintLayout) {
-                    "onLayout-> ${App.getScreenHeight()}".logi(TAG)
-                    val parentHeight = this@UserProfileNestedScrollParent.measuredHeight + (userInfoLayoutHeight + 120)
-                    childView.layout(0, topMargin, childView.measuredWidth, parentHeight)
-                    topMargin += parentHeight
-                } else {
-                    childView.layout(0, topMargin, childView.measuredWidth, topMargin + childView.measuredHeight)
-                    topMargin += childView.measuredHeight
-                }
-            }
-        }
     }
 
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
@@ -105,7 +80,7 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
     }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
-        val topGap = songListBgHeight + userInfoLayoutHeight - actionBarHeight
+        val topGap = topBgHeight + userInfoLayoutHeight - actionBarHeight
 //        "onNestedPreScroll-> dy: $dy, scrollY: $scrollY, topGap: $topGap".logi(TAG)
         if (dy > 0) {
             // 向上

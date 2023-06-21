@@ -33,8 +33,8 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
         layout.loginPageBtn.setOnClickListener {
             findNavController().navigate(R.id.action_global_login_graph)
         }
-        layout.userLists.layoutManager = LinearLayoutManager(context)
-        layout.userLists.adapter = UserProfileListAdapter(mutableListOf<String>().apply {
+        layout.recyclerview.layoutManager = LinearLayoutManager(context)
+        layout.recyclerview.adapter = UserProfileListAdapter(mutableListOf<String>().apply {
             add("1")
             add("2")
             add("3")

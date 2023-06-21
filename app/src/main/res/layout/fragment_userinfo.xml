@@ -4,14 +4,12 @@
     android:id="@+id/user_profile_scroll_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/navbar_height">
+    android:orientation="vertical">
 
     <View
-        android:id="@+id/songs_list_bg"
+        android:id="@+id/top_bg"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/purple_700"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,14 +18,12 @@
         android:id="@+id/bottom_content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00ff00"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/user_info_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_user_profile"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:padding="10dp"
@@ -50,14 +46,16 @@
                 style="@style/TextBold18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:text="Suger" />
 
             <TextView
                 android:id="@+id/user_signature"
                 style="@style/TextSize12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp" />
+                android:layout_marginTop="4dp"
+                android:text="爱听音乐的人" />
 
             <Button
                 android:id="@+id/login_page_btn"
@@ -71,14 +69,15 @@
             android:id="@+id/action_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/teal_700"
+            android:background="#44000000"
             android:translationZ="1dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/user_lists">
+            app:layout_constraintBottom_toTopOf="@id/recyclerview">
 
             <ImageView
                 android:layout_width="@dimen/icon_size_24"
                 android:layout_height="@dimen/icon_size_24"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/ic_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -86,10 +85,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/user_lists"
+            android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#0000ff"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/user_info_layout" />
