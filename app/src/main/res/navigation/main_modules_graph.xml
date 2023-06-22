@@ -14,7 +14,7 @@
         android:id="@+id/playlistFragment"
         android:name="com.aidaole.aimusic.modules.playmusic.PlayMusicFragment"
         android:label="fragment_playlist"
-        tools:layout="@layout/fragment_playlist" />
+        tools:layout="@layout/fragment_play_music" />
     <fragment
         android:id="@+id/userinfoFragment"
         android:name="com.aidaole.aimusic.modules.user.UserInfoFragment"

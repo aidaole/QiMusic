@@ -40,9 +40,6 @@ class QrLoginFragment : Fragment() {
         layout.refreshBtn.setOnClickListener {
             loginVM.refreshQr()
         }
-//        layout.userinfoBtn.setOnClickListener {
-//            findNavController().navigate(R.id.action_loginFragment_to_userinfoFragment)
-//        }
         loginVM.refreshQr()
     }
 
@@ -64,7 +61,7 @@ class QrLoginFragment : Fragment() {
             when (state) {
                 is StateValue.Succ -> {
                     "登录成功".toast(requireContext())
-//                    findNavController().navigate(R.id.action_qrLoginFragment_to_userinfoFragment)
+                    findNavController().navigate(R.id.action_global_mainFragment)
                 }
                 is StateValue.Fail -> {
                     "登录失败，请刷新二维码！".toast(requireContext())

@@ -1,8 +1,6 @@
 package com.aidaole.base.datas.network
 
-import com.aidaole.base.datas.entities.HotPlayListTags
-import com.aidaole.base.datas.entities.RespPlayList
-import com.aidaole.base.datas.entities.RespSongs
+import com.aidaole.base.datas.entities.*
 import com.aidaole.base.datas.network.retrofit.calladapter.Resp
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -34,4 +32,23 @@ interface RetrofitNeteaseApi {
 
     @GET("/song/detail")
     fun songDetail(@Query("ids") ids: String): Resp<RespSongs?>
+
+    // login相关
+    @GET("/login/qr/key")
+    fun getLoginQrKey(): Resp<RespQrKey>
+
+    @GET("/login/qr/create")
+    fun getLoginQrImg(
+        @Query("key") qrKey: String,
+        @Query("qrimg") qrimg: Boolean = true
+    ): Resp<RespQrImg>
+
+    @GET("/login/qr/check")
+    fun getQrScannedCode(
+        @Query("key") qrKey: String
+    ): Resp<RespCheckLoginQr?>
+    // login相关
+
+    @GET("/user/account")
+    fun getUserInfo(): Resp<String?>
 }

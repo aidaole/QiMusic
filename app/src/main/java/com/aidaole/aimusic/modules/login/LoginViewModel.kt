@@ -8,22 +8,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aidaole.aimusic.App
 import com.aidaole.aimusic.R
+import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.QrCheckParams
-import com.aidaole.base.datas.network.NeteaseApi
 import com.aidaole.base.utils.base64toBitmap
 import com.aidaole.base.utils.logd
 import com.aidaole.base.utils.logi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val neteaseApi: NeteaseApi
+    private var neteaseRepo: NeteaseRepo
 ) : ViewModel() {
 
     companion object {
@@ -33,7 +34,6 @@ class LoginViewModel @Inject constructor(
         private const val QR_FAILED_800 = 800
         private const val QR_SUCC_803 = 803
     }
-
 
     private val defaultQrBitmap =
         App.get().resources.getDrawable(R.mipmap.ic_launcher).toBitmap(200, 200)
@@ -45,9 +45,7 @@ class LoginViewModel @Inject constructor(
 
     fun refreshQr() {
         viewModelScope.launch {
-            val qrParams = withContext(Dispatchers.IO) {
-                return@withContext neteaseApi.getQrImg()
-            }
+            val qrParams = neteaseRepo.getQrImg().single()
             qrCheckParams = qrParams
             qrCheckParams?.let { it ->
                 StateValue.Succ<Bitmap>()
@@ -67,13 +65,14 @@ class LoginViewModel @Inject constructor(
                 withContext(Dispatchers.IO) {
                     var checkTimes = 10
                     while (checkTimes > 0) {
-                        val scanReps =
-                            neteaseApi.getQrScannedCode(it.keyCode) ?: return@withContext STATE_FAIL
+                        val scanReps = neteaseRepo.getQrScannedCode(it.keyCode).single()
+                            ?: return@withContext STATE_FAIL
                         val code = scanReps.code
                         "checkQrScaned-> code: $code".logi(TAG)
                         when (code) {
                             803 -> {
                                 // 成功
+                                neteaseRepo.updateUserInfo(App.get())
                                 finalQrLoginState.postValue(StateValue.Succ(QR_SUCC_803))
                                 break
                             }
@@ -93,6 +92,10 @@ class LoginViewModel @Inject constructor(
                             }
                         }
                         checkTimes--
+                        if (checkTimes == 0) {
+                            finalQrLoginState.postValue(StateValue.Fail(QR_FAILED_800))
+                            break
+                        }
                     }
                 }
             } ?: run {
