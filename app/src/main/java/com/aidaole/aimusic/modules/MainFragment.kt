@@ -7,24 +7,19 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.view.children
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.aidaole.aimusic.databinding.FragmentMainBinding
+import com.aidaole.aimusic.framework.ViewBindingFragment
 import com.aidaole.aimusic.modules.explore.ExploreFragment
 import com.aidaole.aimusic.modules.playmusic.PlayMusicFragment
 import com.aidaole.aimusic.modules.user.UserInfoFragment
 
-class MainFragment : Fragment() {
+class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
 
-    private val layout by lazy { FragmentMainBinding.inflate(layoutInflater) }
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return layout.root
+    override fun getViewBinding(): FragmentMainBinding {
+        return FragmentMainBinding.inflate(layoutInflater)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

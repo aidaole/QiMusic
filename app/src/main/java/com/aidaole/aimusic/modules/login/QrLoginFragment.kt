@@ -1,15 +1,13 @@
 package com.aidaole.aimusic.modules.login
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentQrLoginBinding
+import com.aidaole.aimusic.framework.ViewBindingFragment
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,27 +18,22 @@ import dagger.hilt.android.AndroidEntryPoint
  * @constructor Create empty Qr login fragment
  */
 @AndroidEntryPoint
-class QrLoginFragment : Fragment() {
+class QrLoginFragment : ViewBindingFragment<FragmentQrLoginBinding>() {
 
     private val loginVM: LoginViewModel by viewModels()
-    private val layout by lazy {
-        FragmentQrLoginBinding.inflate(layoutInflater)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return layout.root
-    }
+    override fun getViewBinding() = FragmentQrLoginBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initViews()
         initVM()
+
+        loginVM.refreshQr()
+    }
+
+    private fun initViews() {
         layout.refreshBtn.setOnClickListener {
             loginVM.refreshQr()
         }
-        loginVM.refreshQr()
     }
 
     private fun initVM() {
