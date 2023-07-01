@@ -114,8 +114,10 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
     private fun computeActionBarAlpha(scrollY: Int, topGap: Int) {
         if (scrollY >= topGap) {
             actionBarLayout.toVisible()
+            userInfoLayout.toInvisible()
         } else if (scrollY < topGap) {
             actionBarLayout.toInvisible()
+            userInfoLayout.toVisible()
         }
     }
 
