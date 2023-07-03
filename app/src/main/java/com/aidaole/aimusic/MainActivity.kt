@@ -1,7 +1,7 @@
 package com.aidaole.aimusic
 
 import android.os.Bundle
-import android.view.ViewGroup.LayoutParams
+import android.view.WindowManager
 import androidx.activity.viewModels
 import com.aidaole.aimusic.databinding.ActivityMainBinding
 import com.aidaole.aimusic.framework.ViewBindingActivity
@@ -20,6 +20,7 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     }
 
     private fun fitStatusBarHeight() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         layout.rootLayout.setPadding(0, statusBarHeight(), 0, 0)
     }
 
