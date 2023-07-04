@@ -15,6 +15,7 @@ import com.aidaole.aimusic.framework.ViewBindingFragment
 import com.aidaole.aimusic.modules.MainPage
 import com.aidaole.aimusic.modules.MainViewModel
 import com.aidaole.aimusic.modules.playmusic.PlayMusicViewModel
+import com.aidaole.base.datas.StateValue
 import com.aidaole.base.ext.toVisible
 import com.aidaole.base.utils.logi
 import dagger.hilt.android.AndroidEntryPoint
@@ -91,12 +92,17 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                 launch {
                     exploreVM.topSongs.collect {
                         "initVM-> topSongs.collect".logi(TAG)
-                        it?.let {
-                            layout.topSongsText.toVisible()
-                            topSongsAdapter.updateDatas(it.songs)
-                            topSongsAdapter.onItemClick = {
-                                playMusicVM.play(it)
-                                mainViewModel.naviTo(MainPage.MUSIC)
+                        when (it) {
+                            is StateValue.Succ -> {
+                                layout.topSongsText.toVisible()
+                                topSongsAdapter.updateDatas(it.value!!.songs)
+                                topSongsAdapter.onItemClick = {
+                                    playMusicVM.play(it)
+                                    mainViewModel.naviTo(MainPage.MUSIC)
+                                }
+                            }
+                            else -> {
+                                "加载热门歌曲失败".logi(TAG)
                             }
                         }
                     }

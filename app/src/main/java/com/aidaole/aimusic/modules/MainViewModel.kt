@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
-    private val _pageTag = MutableLiveData(UserInfoFragment::class.java.simpleName)
+    private val _pageTag = MutableLiveData(PlayMusicFragment::class.java.simpleName)
     val pageTag = _pageTag as LiveData<String>
 
     fun naviTo(page: MainPage) {

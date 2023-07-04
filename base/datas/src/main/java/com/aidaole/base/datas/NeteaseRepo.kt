@@ -35,13 +35,13 @@ class NeteaseRepo @Inject constructor(
         .flowOn(Dispatchers.IO)
         .catch { emit(null) }
 
-    fun loadTopPlaylistSongs(): Flow<RespSongs?> = flow {
+    fun loadTopPlaylistSongs(): Flow<StateValue<out RespSongs?>> = flow {
         val playlistId = retrofitNeteaseApi.playlistHighQuality().run()?.body()?.playlists?.get(1)?.id ?: 0
         val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, 0, 10).run()
-        emit(if (resp.isSuccessful) resp.body() else null)
+        emit(if (resp.isSuccessful) StateValue.Succ(resp.body()) else StateValue.Fail(null))
     }
         .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+        .catch { emit(StateValue.Fail(null)) }
 
     fun loadPlaylistTrackAll(
         playlistId: Long,

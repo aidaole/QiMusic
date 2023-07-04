@@ -48,7 +48,6 @@ class LoginViewModel @Inject constructor(
             val qrParams = neteaseRepo.getQrImg().single()
             qrCheckParams = qrParams
             qrCheckParams?.let { it ->
-                StateValue.Succ<Bitmap>()
                 "refreshQr-> result: $it".logd(TAG, true)
                 it.base64Img.base64toBitmap()?.let {
                     _qrImgBitmap.value = StateValue.Succ(it)

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.aidaole.aimusic.databinding.FragmentPlayMusicBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
+import com.aidaole.base.datas.StateValue
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +22,11 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViews()
         initViewModels()
+        doAfterInit()
+    }
+
+    private fun doAfterInit() {
+        playMusicVM.loadHotPlayList()
     }
 
     private fun initViews() {
@@ -31,7 +37,15 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
 
     private fun initViewModels() {
         playMusicVM.playingSongs.observe(viewLifecycleOwner) {
-            playListViewAdapter.updateMusicItems(it)
+            when (it) {
+                is StateValue.Succ -> {
+                    playListViewAdapter.updateMusicItems(it.value!!)
+                }
+                else -> {
+                    playListViewAdapter.updateMusicItems(emptyList())
+                }
+            }
+
         }
     }
 }
