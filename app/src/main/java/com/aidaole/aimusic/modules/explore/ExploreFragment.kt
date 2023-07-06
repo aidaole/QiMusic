@@ -93,11 +93,9 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                             is StateValue.Succ -> {
                                 layout.topSongsText.toVisible()
                                 topSongsAdapter.updateDatas(it.value!!.songs)
-                                topSongsAdapter.onItemClick = {
-                                    launch {
-                                        playMusicVM.play(it)
-                                        mainViewModel.naviTo(MainPage.MUSIC)
-                                    }
+                                topSongsAdapter.onItemClick = { song ->
+                                    playMusicVM.play(song)
+                                    mainViewModel.naviTo(MainPage.MUSIC)
                                 }
                             }
                         }

@@ -9,8 +9,6 @@ import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.RespPlayList
 import com.aidaole.base.datas.entities.RespSongs
-import com.aidaole.utils.ext.mutableStateIn
-import com.aidaole.utils.ext.toStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
@@ -25,32 +23,41 @@ class PlayMusicViewModel @Inject constructor(
     private val _playingSongs = MutableLiveData<StateValue<MutableList<RespSongs.Song>?>>()
     val playingSongs = _playingSongs as LiveData<StateValue<MutableList<RespSongs.Song>?>>
 
-    val playingSongsList = neteaseApi.loadTopPlaylistSongs().mutableStateIn(null, viewModelScope)
-
     fun playList(playList: RespPlayList.PlaylistsEntity) {
         viewModelScope.launch {
-            val songs = neteaseApi.loadPlaylistTrackAll(playList.id).single()
-            val oldResp = playingSongsList.value!!
-            playingSongsList.emit(
-                StateValue.Succ(oldResp.value.apply {
-                    this!!.songs.addAll(songs!!)
-                })
-            )
+            val songs = neteaseApi.loadPlaylistTrackAll(playList.id).single() ?: emptyList()
+            val oldRespSongs = _playingSongs.value?.value ?: emptyList()
+            _playingSongs.value = StateValue.Succ(mutableListOf<RespSongs.Song>().apply {
+                addAll(oldRespSongs)
+                addAll(songs)
+            })
         }
     }
 
-    suspend fun play(song: RespSongs.Song) {
-        val oldResp = playingSongsList.value
-        val oldSongs = oldResp!!.value!!.songs
-        val inPlaylist = oldSongs.singleOrNull {
+    fun play(song: RespSongs.Song) {
+        val oldSongLists = _playingSongs.value?.value ?: emptyList()
+        val sameSongInList = oldSongLists.singleOrNull {
             it.id == song.id
         }
-        if (inPlaylist == null) {
-            playingSongsList.emit(
-                StateValue.Succ(oldResp.value.apply {
-                    this!!.songs.add(song)
-                })
-            )
+        if (sameSongInList == null) {
+            _playingSongs.value = StateValue.Succ(mutableListOf<RespSongs.Song>().apply {
+                addAll(oldSongLists)
+                add(song)
+            })
+        }
+    }
+
+    fun loadDefaultTopSongs() {
+        viewModelScope.launch {
+            val topSongs = neteaseApi.loadTopPlaylistSongs().single()
+            when (topSongs) {
+                is StateValue.Succ -> {
+                    _playingSongs.value = StateValue.Succ(topSongs.value!!.songs)
+                }
+                is StateValue.Fail -> {
+                    _playingSongs.value = StateValue.Fail(null)
+                }
+            }
         }
     }
 }

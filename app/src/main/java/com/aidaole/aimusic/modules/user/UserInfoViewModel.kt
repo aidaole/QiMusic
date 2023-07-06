@@ -1,5 +1,6 @@
 package com.aidaole.aimusic.modules.user
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,16 +25,17 @@ class UserInfoViewModel @Inject constructor(
         private const val TAG = "UserInfoViewModel"
     }
 
-    val userInfoData = MutableLiveData<RespUserInfo?>(RespUserInfo())
+    private val _userInfoData = MutableLiveData(RespUserInfo())
+    val userInfoData = _userInfoData as LiveData<RespUserInfo?>
 
     fun loadUserInfo() {
         viewModelScope.launch {
             coroutineIO {
                 var userinfo = UserInfoManager.getUserInfo(App.get())
                 if (userinfo == null) {
-                    userInfoData.postValue(null)
+                    _userInfoData.postValue(null)
                 }
-                userInfoData.postValue(userinfo)
+                _userInfoData.postValue(userinfo)
                 "loadUserInfo-> userInfo: $userinfo".logi(TAG)
             }
         }
