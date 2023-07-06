@@ -13,7 +13,8 @@ import com.aidaole.aimusic.utils.getPaletteColor
 import com.aidaole.base.datas.entities.RespSongs
 import com.aidaole.base.utils.logi
 
-class PlayListViewAdapter(val datas: MutableList<RespSongs.Song> = mutableListOf()) : RecyclerView.Adapter<MusicItemViewHolder>() {
+class PlayListViewAdapter(val datas: MutableList<RespSongs.Song> = mutableListOf()) :
+    RecyclerView.Adapter<MusicItemViewHolder>() {
     companion object {
         private const val TAG = "PlayListViewAdapter"
     }

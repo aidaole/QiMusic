@@ -12,6 +12,12 @@ class MusicListRecyclerView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
+
+    private var onPositionChangeListener: ((Int) -> Unit)? = null
+    fun setScrollPositionChangeListener(listener: (Int) -> Unit) {
+        this.onPositionChangeListener = listener
+    }
+
     companion object {
         private const val TAG = "MusicListRecyclerView"
     }
@@ -35,6 +41,7 @@ class MusicListRecyclerView @JvmOverloads constructor(
                                 "onScrollStateChanged-> $position".logi(TAG)
                             }
                             currentPosition = position
+                            onPositionChangeListener?.invoke(currentPosition)
                         }
                     }
                     SCROLL_STATE_DRAGGING -> {

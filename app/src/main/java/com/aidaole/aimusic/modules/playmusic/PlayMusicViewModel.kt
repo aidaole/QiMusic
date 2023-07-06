@@ -23,13 +23,19 @@ class PlayMusicViewModel @Inject constructor(
     private val _playingSongs = MutableLiveData<StateValue<MutableList<RespSongs.Song>?>>()
     val playingSongs = _playingSongs as LiveData<StateValue<MutableList<RespSongs.Song>?>>
 
+    private val _currentSongIndex = MutableLiveData(0)
+    private val currentSongIndex = _currentSongIndex as LiveData<Int>
+    fun setCurrentSongIndex(position: Int) {
+        _currentSongIndex.value = position
+    }
+
     fun playList(playList: RespPlayList.PlaylistsEntity) {
         viewModelScope.launch {
             val songs = neteaseApi.loadPlaylistTrackAll(playList.id).single() ?: emptyList()
             val oldRespSongs = _playingSongs.value?.value ?: emptyList()
             _playingSongs.value = StateValue.Succ(mutableListOf<RespSongs.Song>().apply {
                 addAll(oldRespSongs)
-                addAll(songs)
+                addAll(currentSongIndex.value!!, songs)
             })
         }
     }
@@ -42,7 +48,7 @@ class PlayMusicViewModel @Inject constructor(
         if (sameSongInList == null) {
             _playingSongs.value = StateValue.Succ(mutableListOf<RespSongs.Song>().apply {
                 addAll(oldSongLists)
-                add(song)
+                add(currentSongIndex.value!!, song)
             })
         }
     }

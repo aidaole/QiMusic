@@ -22,6 +22,9 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
         playListViewAdapter = PlayListViewAdapter()
         layout.playListView.adapter = playListViewAdapter
         playListViewAdapter.updateMusicItems(listOf())
+        layout.playListView.setScrollPositionChangeListener { position ->
+            playMusicVM.setCurrentSongIndex(position)
+        }
     }
 
     override fun initViewModels() {
