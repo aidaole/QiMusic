@@ -94,8 +94,10 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                                 layout.topSongsText.toVisible()
                                 topSongsAdapter.updateDatas(it.value!!.songs)
                                 topSongsAdapter.onItemClick = {
-                                    playMusicVM.play(it)
-                                    mainViewModel.naviTo(MainPage.MUSIC)
+                                    launch {
+                                        playMusicVM.play(it)
+                                        mainViewModel.naviTo(MainPage.MUSIC)
+                                    }
                                 }
                             }
                         }
