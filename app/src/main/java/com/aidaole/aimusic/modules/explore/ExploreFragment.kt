@@ -1,5 +1,9 @@
 package com.aidaole.aimusic.modules.explore
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -35,6 +39,11 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
     private val recommendPlayListAdapter = RecommendPlayListAdapter()
     private val topSongsAdapter = TopSongsAdapter()
     override fun getViewBinding(): FragmentExploreBinding = FragmentExploreBinding.inflate(layoutInflater)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        fitStatusBarHeight()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun initViews() {
         layout.hotPlayList.layoutManager = GridLayoutManager(

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.aidaole.utils.ext.getStatusBarHeight
 
 abstract class ViewBindingFragment<T : ViewBinding> : Fragment() {
     internal lateinit var layout: T
@@ -26,6 +27,10 @@ abstract class ViewBindingFragment<T : ViewBinding> : Fragment() {
         initViews()
         initViewModels()
         doAfterInit()
+    }
+
+    fun fitStatusBarHeight() {
+        layout.root.setPadding(0, requireContext().getStatusBarHeight(), 0, 0)
     }
 
     abstract fun initViews()

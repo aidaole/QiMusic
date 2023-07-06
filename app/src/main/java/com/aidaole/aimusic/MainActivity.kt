@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import com.aidaole.aimusic.databinding.ActivityMainBinding
 import com.aidaole.aimusic.framework.ViewBindingActivity
 import com.aidaole.aimusic.modules.playmusic.PlayMusicViewModel
+import com.aidaole.utils.ext.getStatusBarHeight
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,17 +22,6 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
 
     private fun fitStatusBarHeight() {
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        layout.rootLayout.setPadding(0, statusBarHeight(), 0, 0)
-    }
-
-    private fun statusBarHeight(): Int {
-        var height = 0
-        val resourceId = applicationContext.resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            height = applicationContext.resources.getDimensionPixelSize(resourceId)
-        } else {
-            height = resources.getDimensionPixelSize(R.dimen.default_statusbar_height)
-        }
-        return height
+//        layout.rootLayout.setPadding(0, getStatusBarHeight(), 0, 0)
     }
 }

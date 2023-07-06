@@ -22,6 +22,11 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
     override fun getViewBinding(): FragmentUserinfoBinding = FragmentUserinfoBinding.inflate(layoutInflater)
     private val userinfoVM: UserInfoViewModel by viewModels()
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        fitStatusBarHeight()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onStart() {
         super.onStart()
         userinfoVM.loadUserInfo()
