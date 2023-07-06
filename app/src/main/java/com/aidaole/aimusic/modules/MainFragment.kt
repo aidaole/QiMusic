@@ -1,9 +1,5 @@
 package com.aidaole.aimusic.modules
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.view.children
@@ -22,14 +18,7 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
         return FragmentMainBinding.inflate(layoutInflater)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
-        initViewModels()
-        doAfterInit()
-    }
-
-    private fun initViews() {
+    override fun initViews() {
         layout.pageContainer.apply {
             init(
                 parentFragmentManager, mapOf(
@@ -54,13 +43,13 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
         }
     }
 
-    private fun initViewModels() {
+    override fun initViewModels() {
         mainViewModel.pageTag.observe(viewLifecycleOwner) {
             naviToPage(it)
         }
     }
 
-    private fun doAfterInit() {
+    override fun doAfterInit() {
 
     }
 

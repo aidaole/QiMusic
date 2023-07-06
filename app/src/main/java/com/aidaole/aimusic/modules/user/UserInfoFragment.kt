@@ -18,34 +18,16 @@ import com.aidaole.base.datas.entities.RespUserInfo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class
-UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
+class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
     override fun getViewBinding(): FragmentUserinfoBinding = FragmentUserinfoBinding.inflate(layoutInflater)
     private val userinfoVM: UserInfoViewModel by viewModels()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initViews()
-        initViewModels()
-    }
 
     override fun onStart() {
         super.onStart()
         userinfoVM.loadUserInfo()
     }
 
-    private fun initViewModels() {
-        userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
-            if (userInfo == null) {
-                findNavController().navigate(R.id.action_global_login_graph)
-            } else {
-                if (userInfo.profile != null) {
-                    updateUserProfileUi(userInfo.profile)
-                }
-            }
-        }
-    }
-
-    private fun initViews() {
+    override fun initViews() {
         layout.loginPageBtn.setOnClickListener {
             findNavController().navigate(R.id.action_global_login_graph)
         }
@@ -62,6 +44,22 @@ UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
             add("9")
             add("10")
         })
+    }
+
+    override fun initViewModels() {
+        userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
+            if (userInfo == null) {
+                findNavController().navigate(R.id.action_global_login_graph)
+            } else {
+                if (userInfo.profile != null) {
+                    updateUserProfileUi(userInfo.profile)
+                }
+            }
+        }
+    }
+
+    override fun doAfterInit() {
+
     }
 
     private fun updateUserProfileUi(it: RespUserInfo.ProfileEntity) {

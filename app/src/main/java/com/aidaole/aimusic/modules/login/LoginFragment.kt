@@ -1,7 +1,5 @@
 package com.aidaole.aimusic.modules.login
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aidaole.aimusic.R
@@ -19,14 +17,15 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
     private val loginVM: LoginViewModel by viewModels()
     override fun getViewBinding(): FragmentLoginBinding = FragmentLoginBinding.inflate(layoutInflater)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initVM()
+    override fun initViews() {
         layout.qrLoginBtn.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_qrLoginFragment)
         }
     }
 
-    private fun initVM() {
+    override fun initViewModels() {
+    }
 
+    override fun doAfterInit() {
     }
 }

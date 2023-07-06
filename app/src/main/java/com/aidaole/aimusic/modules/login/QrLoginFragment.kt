@@ -1,7 +1,5 @@
 package com.aidaole.aimusic.modules.login
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -23,20 +21,13 @@ class QrLoginFragment : ViewBindingFragment<FragmentQrLoginBinding>() {
     private val loginVM: LoginViewModel by viewModels()
     override fun getViewBinding() = FragmentQrLoginBinding.inflate(layoutInflater)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initViews()
-        initVM()
-
-        loginVM.refreshQr()
-    }
-
-    private fun initViews() {
+    override fun initViews() {
         layout.refreshBtn.setOnClickListener {
             loginVM.refreshQr()
         }
     }
 
-    private fun initVM() {
+    override fun initViewModels() {
         loginVM.qrImgBitmap.observe(this.viewLifecycleOwner) { bitmapState ->
             when (bitmapState) {
                 is StateValue.Succ -> {
@@ -61,5 +52,9 @@ class QrLoginFragment : ViewBindingFragment<FragmentQrLoginBinding>() {
                 }
             }
         }
+    }
+
+    override fun doAfterInit() {
+        loginVM.refreshQr()
     }
 }

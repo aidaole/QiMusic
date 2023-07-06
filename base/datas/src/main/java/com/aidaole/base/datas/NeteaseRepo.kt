@@ -18,22 +18,22 @@ class NeteaseRepo @Inject constructor(
         private const val TAG = "NeteaseRepo"
     }
 
-    fun loadPlaylistHot(): Flow<HotPlayListTags?> = flow {
+    fun loadPlaylistHot(): Flow<StateValue<out HotPlayListTags?>> = flow {
         val resp = retrofitNeteaseApi.playlistHot().run()
-        emit(if (resp.isSuccessful) resp.body() else null)
+        emit(if (resp.isSuccessful) StateValue.Succ(resp.body()) else StateValue.Fail(null))
     }
         .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+        .catch { emit(StateValue.Exception(t = it)) }
 
     fun loadPlaylistHighQuality(
         limit: Int = 14,
         order: String = "new"
-    ): Flow<RespPlayList?> = flow {
+    ): Flow<StateValue<out RespPlayList?>> = flow {
         val resp = retrofitNeteaseApi.playlistHighQuality(limit, order).run()
-        emit(if (resp.isSuccessful) resp.body() else null)
+        emit(if (resp.isSuccessful) StateValue.Succ(resp.body()) else StateValue.Fail())
     }
         .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+        .catch { emit(StateValue.Exception(t = it)) }
 
     fun loadTopPlaylistSongs(): Flow<StateValue<out RespSongs?>> = flow {
         val playlistId = retrofitNeteaseApi.playlistHighQuality().run()?.body()?.playlists?.get(1)?.id ?: 0
@@ -41,7 +41,7 @@ class NeteaseRepo @Inject constructor(
         emit(if (resp.isSuccessful) StateValue.Succ(resp.body()) else StateValue.Fail(null))
     }
         .flowOn(Dispatchers.IO)
-        .catch { emit(StateValue.Fail(null)) }
+        .catch { emit(StateValue.Exception(t = it)) }
 
     fun loadPlaylistTrackAll(
         playlistId: Long,

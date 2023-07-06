@@ -1,7 +1,5 @@
 package com.aidaole.aimusic.modules.explore
 
-import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -19,6 +17,7 @@ import com.aidaole.base.datas.StateValue
 import com.aidaole.base.ext.toVisible
 import com.aidaole.base.utils.logi
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -37,12 +36,7 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
     private val topSongsAdapter = TopSongsAdapter()
     override fun getViewBinding(): FragmentExploreBinding = FragmentExploreBinding.inflate(layoutInflater)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initViews()
-        initVM()
-    }
-
-    private fun initViews() {
+    override fun initViews() {
         layout.hotPlayList.layoutManager = GridLayoutManager(
             requireContext(), 2, RecyclerView.HORIZONTAL, false
         )
@@ -61,36 +55,39 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
         layout.topSongs.adapter = topSongsAdapter
     }
 
-    private fun initVM() {
+    override fun initViewModels() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 "initVM-> launchWhenStarted".logi(TAG)
                 launch {
-                    exploreVM.hotplaylistTags.collect {
+                    exploreVM.hotplaylistTags.collectLatest {
                         "initVM-> hotplaylistTags.collect".logi(TAG)
-                        it?.let {
-                            layout.musicTagsText.toVisible()
-                            hotPlayListTagListAdapter.updateDatas(it.tags)
+                        when (it) {
+                            is StateValue.Succ -> {
+                                layout.musicTagsText.toVisible()
+                                hotPlayListTagListAdapter.updateDatas(it.value!!.tags)
+                            }
                         }
                     }
                 }
-
                 launch {
-                    exploreVM.recommendPlayList.collect {
+                    exploreVM.recommendPlayList.collectLatest {
                         "initVM-> recommendPlayList.collectLatest".logi(TAG)
-                        it?.let {
-                            layout.recommendPlaylistText.toVisible()
-                            recommendPlayListAdapter.updateDatas(it.playlists)
-                            recommendPlayListAdapter.onItemClick = {
-                                playMusicVM.playList(it)
-                                mainViewModel.naviTo(MainPage.MUSIC)
+                        when (it) {
+                            is StateValue.Succ -> {
+                                layout.recommendPlaylistText.toVisible()
+                                recommendPlayListAdapter.updateDatas(it.value!!.playlists)
+                                recommendPlayListAdapter.onItemClick = {
+                                    playMusicVM.playList(it)
+                                    mainViewModel.naviTo(MainPage.MUSIC)
+                                }
                             }
                         }
                     }
                 }
 
                 launch {
-                    exploreVM.topSongs.collect {
+                    exploreVM.topSongs.collectLatest {
                         "initVM-> topSongs.collect".logi(TAG)
                         when (it) {
                             is StateValue.Succ -> {
@@ -101,13 +98,14 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                                     mainViewModel.naviTo(MainPage.MUSIC)
                                 }
                             }
-                            else -> {
-                                "加载热门歌曲失败".logi(TAG)
-                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    override fun doAfterInit() {
+
     }
 }
