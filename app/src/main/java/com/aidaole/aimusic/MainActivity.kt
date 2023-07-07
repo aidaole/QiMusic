@@ -1,12 +1,12 @@
 package com.aidaole.aimusic
 
+import android.graphics.Color
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.core.view.WindowCompat
 import com.aidaole.aimusic.databinding.ActivityMainBinding
 import com.aidaole.aimusic.framework.ViewBindingActivity
 import com.aidaole.aimusic.modules.playmusic.PlayMusicViewModel
-import com.aidaole.utils.ext.getStatusBarHeight
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +21,11 @@ class MainActivity : ViewBindingActivity<ActivityMainBinding>() {
     }
 
     private fun fitStatusBarHeight() {
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //        layout.rootLayout.setPadding(0, getStatusBarHeight(), 0, 0)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
+        window.navigationBarColor = Color.TRANSPARENT
+
     }
 }

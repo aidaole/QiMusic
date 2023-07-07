@@ -14,6 +14,7 @@
         android:id="@+id/bottom_tabs"
         android:layout_width="match_parent"
         android:layout_height="@dimen/navbar_height"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
@@ -32,6 +33,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/menu_music">
 
@@ -54,6 +57,8 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/menu_music"
             app:layout_constraintRight_toRightOf="parent">
 
