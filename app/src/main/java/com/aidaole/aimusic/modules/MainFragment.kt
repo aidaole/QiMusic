@@ -1,6 +1,6 @@
 package com.aidaole.aimusic.modules
 
-import android.widget.FrameLayout
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
@@ -57,24 +57,32 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
     private fun naviToPage(tag: String) {
         layout.pageContainer.navigate(tag)
         layout.bottomTabsContainer.run {
+            // 清理选中状态
+            children.forEach {
+                if (it is ImageView) {
+                    it.isSelected = false
+                } else if (it is ViewGroup) {
+                    it.children.forEach {
+                        it.isSelected = false
+                    }
+                }
+            }
+            // 选中状态+navbar背景
             when (tag) {
                 PlayMusicFragment::class.java.simpleName -> {
                     background = null
+                    layout.menuMusic.isSelected = true
+                }
+                ExploreFragment::class.java.simpleName -> {
+                    setBackgroundResource(R.color.explore_bg_end_color)
+                    layout.menuExploreImg.isSelected = true
+                }
+                UserInfoFragment::class.java.simpleName -> {
+                    setBackgroundResource(R.color.explore_bg_end_color)
+                    layout.menuUserImg.isSelected = true
                 }
                 else -> {
-                    setBackgroundResource(R.color.explore_bg_end_color)
-                }
-            }
-
-            children.filter {
-                (it is FrameLayout) or (it is ImageView)
-            }.forEach {
-                if (it is ImageView) {
-                    it.isSelected = it == view
-                } else {
-                    (it as FrameLayout).children.forEach { item ->
-                        item.isSelected = item == view
-                    }
+                    throw RuntimeException("naviToPage error: $tag")
                 }
             }
         }
