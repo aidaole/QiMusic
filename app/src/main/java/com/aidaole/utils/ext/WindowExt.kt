@@ -1,4 +1,3 @@
-@file:JvmName("WindowExt")
 package com.aidaole.utils.ext
 
 import android.graphics.Color

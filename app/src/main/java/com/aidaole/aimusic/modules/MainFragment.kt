@@ -4,6 +4,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
+import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentMainBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
 import com.aidaole.aimusic.modules.explore.ExploreFragment
@@ -55,14 +56,25 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
 
     private fun naviToPage(tag: String) {
         layout.pageContainer.navigate(tag)
-        layout.bottomTabs.children.filter {
-            (it is FrameLayout) or (it is ImageView)
-        }.forEach {
-            if (it is ImageView) {
-                it.isSelected = it == view
-            } else {
-                (it as FrameLayout).children.forEach { item ->
-                    item.isSelected = item == view
+        layout.bottomTabsContainer.run {
+            when (tag) {
+                PlayMusicFragment::class.java.simpleName -> {
+                    background = null
+                }
+                else -> {
+                    setBackgroundResource(R.color.explore_bg_end_color)
+                }
+            }
+
+            children.filter {
+                (it is FrameLayout) or (it is ImageView)
+            }.forEach {
+                if (it is ImageView) {
+                    it.isSelected = it == view
+                } else {
+                    (it as FrameLayout).children.forEach { item ->
+                        item.isSelected = item == view
+                    }
                 }
             }
         }
