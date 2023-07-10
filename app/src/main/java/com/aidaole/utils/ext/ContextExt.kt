@@ -3,6 +3,7 @@ package com.aidaole.utils.ext
 import android.content.Context
 import com.aidaole.aimusic.R
 
+class ContextExt
 fun Context.getStatusBarHeight(): Int {
     var height = 0
     val resourceId = this.resources.getIdentifier("status_bar_height", "dimen", "android")
