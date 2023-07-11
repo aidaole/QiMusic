@@ -1,16 +1,16 @@
-package com.aidaole.utils.ext
+package com.aidaole.base.ext
 
 import android.content.Context
-import com.aidaole.aimusic.R
 
 class ContextExt
+
 fun Context.getStatusBarHeight(): Int {
     var height = 0
     val resourceId = this.resources.getIdentifier("status_bar_height", "dimen", "android")
     height = if (resourceId > 0) {
         this.resources.getDimensionPixelSize(resourceId)
     } else {
-        resources.getDimensionPixelSize(R.dimen.default_statusbar_height)
+        30.dp
     }
     return height
 }

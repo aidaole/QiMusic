@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.aidaole.utils.ext.getStatusBarHeight
+import com.aidaole.base.ext.getStatusBarHeight
 
 abstract class ViewBindingFragment<T : ViewBinding> : Fragment() {
     internal lateinit var layout: T

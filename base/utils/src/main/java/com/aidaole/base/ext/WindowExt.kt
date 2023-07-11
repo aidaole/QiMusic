@@ -1,4 +1,4 @@
-package com.aidaole.utils.ext
+package com.aidaole.base.ext
 
 import android.graphics.Color
 import android.view.Window
