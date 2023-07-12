@@ -133,7 +133,9 @@ class NeteaseRepo @Inject constructor(
         val resp = retrofitNeteaseApi.songUrl(ids).run()
         val body = resp.body()
         "getSongUrl-> $body".logi(TAG)
-        emit(if (resp.isSuccessful) resp.body() else null)
+        if (resp.isSuccessful) {
+            emit(if (resp.isSuccessful) body?.data?.get(0)?.url else null)
+        }
     }
         .flowOn(Dispatchers.IO)
         .catch { emit(null) }

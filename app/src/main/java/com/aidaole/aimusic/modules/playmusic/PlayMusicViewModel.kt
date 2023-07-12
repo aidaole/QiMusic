@@ -86,7 +86,8 @@ class PlayMusicViewModel @Inject constructor(
     fun playMusic(song: Song?) {
         song?.let {
             viewModelScope.launch {
-                val song = neteaseRepo.getSongUrl(song.id.toString()).single()
+                val songUrl = neteaseRepo.getSongUrl(song.id.toString()).single()
+                "playMusic-> $songUrl".logi(TAG)
             }
         } ?: run {
             "playMusic-> 要play的song为空，出错".logi(TAG)
