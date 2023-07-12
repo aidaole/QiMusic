@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.aidaole.base.datas.network.cookie.toCookieList
 import com.aidaole.base.datas.network.cookie.toJsonStr
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 import okhttp3.Cookie
 import okhttp3.HttpUrl
 import java.util.concurrent.atomic.AtomicBoolean

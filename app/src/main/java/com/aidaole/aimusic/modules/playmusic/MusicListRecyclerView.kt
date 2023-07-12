@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 
 class MusicListRecyclerView @JvmOverloads constructor(
     context: Context,

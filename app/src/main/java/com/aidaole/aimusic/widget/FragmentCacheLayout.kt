@@ -6,7 +6,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 
 class FragmentCacheLayout @JvmOverloads constructor(
     context: Context,

@@ -2,12 +2,9 @@ package com.aidaole.aimusic.modules.user.widget
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.NestedScrollingParent2
 import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
@@ -15,7 +12,7 @@ import com.aidaole.aimusic.App
 import com.aidaole.aimusic.R
 import com.aidaole.base.ext.toInvisible
 import com.aidaole.base.ext.toVisible
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 
 class UserProfileNestedScrollParent @JvmOverloads constructor(
     context: Context,

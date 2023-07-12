@@ -3,7 +3,7 @@ package com.aidaole.base.datas
 import android.content.Context
 import com.aidaole.base.datas.entities.*
 import com.aidaole.base.datas.network.RetrofitNeteaseApi
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -122,6 +122,17 @@ class NeteaseRepo @Inject constructor(
         qrKey: String
     ): Flow<RespCheckLoginQr?> = flow {
         val resp = retrofitNeteaseApi.getQrScannedCode(qrKey).run()
+        emit(if (resp.isSuccessful) resp.body() else null)
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
+
+    fun getSongUrl(
+        ids: String
+    ): Flow<String?> = flow<String?> {
+        val resp = retrofitNeteaseApi.songUrl(ids).run()
+        val body = resp.body()
+        "getSongUrl-> $body".logi(TAG)
         emit(if (resp.isSuccessful) resp.body() else null)
     }
         .flowOn(Dispatchers.IO)

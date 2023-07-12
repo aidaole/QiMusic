@@ -12,8 +12,8 @@ import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.QrCheckParams
 import com.aidaole.base.utils.base64toBitmap
-import com.aidaole.base.utils.logd
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logd
+import com.aidaole.base.ext.logi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

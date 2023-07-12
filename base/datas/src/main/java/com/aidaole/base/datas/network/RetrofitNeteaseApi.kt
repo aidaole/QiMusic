@@ -51,4 +51,10 @@ interface RetrofitNeteaseApi {
 
     @GET("/user/account")
     fun getUserInfo(): Resp<String?>
+
+    @GET("/song/url/v1")
+    fun songUrl(
+        @Query("id") songIds: String,
+        @Query("level") level: String = "standard"
+    ): Resp<String?>
 }

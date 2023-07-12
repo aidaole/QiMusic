@@ -4,7 +4,7 @@ import android.content.Context
 import com.aidaole.base.datas.CookieManager
 import com.aidaole.base.datas.network.retrofit.calladapter.RespCallAdapterFactory
 import com.aidaole.base.datas.network.retrofit.converter.StringConverterFactory
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

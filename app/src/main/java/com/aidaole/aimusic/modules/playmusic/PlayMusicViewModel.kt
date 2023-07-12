@@ -9,6 +9,7 @@ import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.RespPlayList
 import com.aidaole.base.datas.entities.RespSongs.Song
+import com.aidaole.base.ext.logi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
@@ -16,9 +17,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PlayMusicViewModel @Inject constructor(
-    private val neteaseApi: NeteaseRepo,
+    private val neteaseRepo: NeteaseRepo,
     application: Application
 ) : AndroidViewModel(application) {
+    companion object {
+        private const val TAG = "PlayMusicViewModel"
+    }
 
     private val _playingSongs = MutableLiveData<StateValue<MutableList<Song>?>>()
     val playingSongs = _playingSongs as LiveData<StateValue<MutableList<Song>?>>
@@ -36,7 +40,7 @@ class PlayMusicViewModel @Inject constructor(
 
     fun playList(playList: RespPlayList.PlaylistsEntity) {
         viewModelScope.launch {
-            val songs = neteaseApi.loadPlaylistTrackAll(playList.id).single() ?: emptyList()
+            val songs = neteaseRepo.loadPlaylistTrackAll(playList.id).single() ?: emptyList()
             val oldRespSongs = _playingSongs.value?.value ?: emptyList()
             _playingSongs.value = StateValue.Succ(mutableListOf<Song>().apply {
                 addAll(oldRespSongs)
@@ -64,7 +68,7 @@ class PlayMusicViewModel @Inject constructor(
 
     fun loadDefaultTopSongs() {
         viewModelScope.launch {
-            val topSongs = neteaseApi.loadTopPlaylistSongs().single()
+            val topSongs = neteaseRepo.loadTopPlaylistSongs().single()
             when (topSongs) {
                 is StateValue.Succ -> {
                     _playingSongs.value = StateValue.Succ(topSongs.value!!.songs)
@@ -76,6 +80,16 @@ class PlayMusicViewModel @Inject constructor(
                     _playingSongs.value = StateValue.Fail(null)
                 }
             }
+        }
+    }
+
+    fun playMusic(song: Song?) {
+        song?.let {
+            viewModelScope.launch {
+                val song = neteaseRepo.getSongUrl(song.id.toString()).single()
+            }
+        } ?: run {
+            "playMusic-> 要play的song为空，出错".logi(TAG)
         }
     }
 }

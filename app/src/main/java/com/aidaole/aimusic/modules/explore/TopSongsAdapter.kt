@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.TopPlaylistSongItemViewBinding
 import com.aidaole.base.datas.entities.RespSongs.Song
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 
 class TopSongsAdapter : RecyclerView.Adapter<SongViewHolder>() {
     companion object {

@@ -11,7 +11,7 @@ import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.PlayingItemSimpleViewBinding
 import com.aidaole.aimusic.utils.getPaletteColor
 import com.aidaole.base.datas.entities.RespSongs
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 
 class PlayListViewAdapter(val datas: MutableList<RespSongs.Song> = mutableListOf()) :
     RecyclerView.Adapter<MusicItemViewHolder>() {

@@ -19,7 +19,7 @@ import com.aidaole.aimusic.modules.MainViewModel
 import com.aidaole.aimusic.modules.playmusic.PlayMusicViewModel
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.ext.toVisible
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

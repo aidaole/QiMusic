@@ -8,7 +8,7 @@ import com.aidaole.aimusic.App
 import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.UserInfoManager
 import com.aidaole.base.datas.entities.RespUserInfo
-import com.aidaole.base.utils.logi
+import com.aidaole.base.ext.logi
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
