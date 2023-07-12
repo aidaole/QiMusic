@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.RespPlayList
-import com.aidaole.base.datas.entities.RespSongs
+import com.aidaole.base.datas.entities.RespSongs.Song
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
@@ -20,35 +20,44 @@ class PlayMusicViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val _playingSongs = MutableLiveData<StateValue<MutableList<RespSongs.Song>?>>()
-    val playingSongs = _playingSongs as LiveData<StateValue<MutableList<RespSongs.Song>?>>
+    private val _playingSongs = MutableLiveData<StateValue<MutableList<Song>?>>()
+    val playingSongs = _playingSongs as LiveData<StateValue<MutableList<Song>?>>
 
     private val _currentSongIndex = MutableLiveData(0)
-    private val currentSongIndex = _currentSongIndex as LiveData<Int>
+    val currentSongIndex = _currentSongIndex as LiveData<Int>
+
+    private val _curPlaySong = MutableLiveData<Song?>()
+    val curPlaySong = _curPlaySong as LiveData<Song?>
+
     fun setCurrentSongIndex(position: Int) {
         _currentSongIndex.value = position
+        _curPlaySong.value = _playingSongs.value?.value?.get(position)
     }
 
     fun playList(playList: RespPlayList.PlaylistsEntity) {
         viewModelScope.launch {
             val songs = neteaseApi.loadPlaylistTrackAll(playList.id).single() ?: emptyList()
             val oldRespSongs = _playingSongs.value?.value ?: emptyList()
-            _playingSongs.value = StateValue.Succ(mutableListOf<RespSongs.Song>().apply {
+            _playingSongs.value = StateValue.Succ(mutableListOf<Song>().apply {
                 addAll(oldRespSongs)
                 addAll(currentSongIndex.value!!, songs)
+
+                _curPlaySong.value = this[currentSongIndex.value!!]
             })
         }
     }
 
-    fun play(song: RespSongs.Song) {
+    fun play(song: Song) {
         val oldSongLists = _playingSongs.value?.value ?: emptyList()
         val sameSongInList = oldSongLists.singleOrNull {
             it.id == song.id
         }
         if (sameSongInList == null) {
-            _playingSongs.value = StateValue.Succ(mutableListOf<RespSongs.Song>().apply {
+            _playingSongs.value = StateValue.Succ(mutableListOf<Song>().apply {
                 addAll(oldSongLists)
                 add(currentSongIndex.value!!, song)
+
+                _curPlaySong.value = this[currentSongIndex.value!!]
             })
         }
     }
@@ -59,6 +68,9 @@ class PlayMusicViewModel @Inject constructor(
             when (topSongs) {
                 is StateValue.Succ -> {
                     _playingSongs.value = StateValue.Succ(topSongs.value!!.songs)
+
+                    _curPlaySong.value = topSongs.value!!.songs[0]
+                    _currentSongIndex.value = 0
                 }
                 is StateValue.Fail -> {
                     _playingSongs.value = StateValue.Fail(null)

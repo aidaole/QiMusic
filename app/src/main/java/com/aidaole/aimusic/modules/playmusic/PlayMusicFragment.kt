@@ -39,6 +39,9 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
                 }
             }
         }
+        playMusicVM.curPlaySong.observe(viewLifecycleOwner) { song ->
+            song?.name?.toast(context)
+        }
     }
 
     override fun doAfterInit() {
