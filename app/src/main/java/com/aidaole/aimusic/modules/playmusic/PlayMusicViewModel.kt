@@ -109,4 +109,8 @@ class PlayMusicViewModel @Inject constructor(
             "playMusic-> 要play的song为空，出错".logi(TAG)
         }
     }
+
+    fun setUserTrackProgress(progress: Int) {
+        musicPlayer.seekProgress(progress)
+    }
 }

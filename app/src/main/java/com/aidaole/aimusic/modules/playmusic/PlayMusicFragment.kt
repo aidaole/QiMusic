@@ -25,6 +25,9 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
         layout.playListView.setScrollPositionChangeListener { position ->
             playMusicVM.setCurrentSongIndex(position)
         }
+        layout.playListView.setSeekBarProgressChangeListener { progress ->
+            playMusicVM.setUserTrackProgress(progress)
+        }
     }
 
     override fun initViewModels() {

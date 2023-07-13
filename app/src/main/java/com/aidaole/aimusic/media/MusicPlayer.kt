@@ -49,6 +49,16 @@ class MusicPlayer : MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionList
         onProcessChangeListener?.onProcessChange(100)
     }
 
+    /**
+     * Seek progress
+     *
+     * @param progress
+     * max = 100
+     */
+    fun seekProgress(progress: Int) {
+        mediaPlayer.seekTo((mediaPlayer.duration * (progress * 1.0 / 100)).toInt())
+    }
+
     interface OnProcessChangeListener {
         fun onProcessChange(process: Int)
     }

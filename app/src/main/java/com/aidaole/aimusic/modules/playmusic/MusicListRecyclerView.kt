@@ -75,4 +75,8 @@ class MusicListRecyclerView @JvmOverloads constructor(
             }
         }
     }
+
+    fun setSeekBarProgressChangeListener(callback: ((Int) -> Unit)) {
+        playListAdapter.seekProgressChangeCallback = callback
+    }
 }

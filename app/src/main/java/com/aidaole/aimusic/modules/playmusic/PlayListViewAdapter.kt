@@ -3,6 +3,8 @@ package com.aidaole.aimusic.modules.playmusic
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
@@ -19,6 +21,8 @@ class PlayListViewAdapter(val datas: MutableList<RespSongs.Song> = mutableListOf
         private const val TAG = "PlayListViewAdapter"
     }
 
+    var seekProgressChangeCallback: ((Int) -> Unit)? = null
+
     fun updateMusicItems(musicItems: List<RespSongs.Song>) {
         datas.clear()
         datas.addAll(musicItems)
@@ -32,7 +36,7 @@ class PlayListViewAdapter(val datas: MutableList<RespSongs.Song> = mutableListOf
     }
 
     override fun onBindViewHolder(holder: MusicItemViewHolder, position: Int) {
-        holder.bind(datas[position])
+        holder.bind(datas[position], seekProgressChangeCallback)
     }
 
     override fun getItemCount(): Int = datas.size
@@ -45,7 +49,7 @@ class MusicItemViewHolder(itemView: View) : ViewHolder(itemView) {
 
     private val layout = PlayingItemSimpleViewBinding.bind(itemView)
 
-    fun bind(song: RespSongs.Song) {
+    fun bind(song: RespSongs.Song, seekChange: ((Int) -> Unit)?) {
         val lp = itemView.layoutParams
         if (lp == null) {
             itemView.layoutParams =
@@ -63,6 +67,19 @@ class MusicItemViewHolder(itemView: View) : ViewHolder(itemView) {
                 "加载图片颜色失败".logi(TAG)
             }
         }
+        layout.progressBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                "onStopTrackingTouch-> ${seekBar.progress}".logi(TAG)
+                seekChange?.invoke(seekBar.progress)
+            }
+        })
         layout.root.tag = song.id
     }
 }
