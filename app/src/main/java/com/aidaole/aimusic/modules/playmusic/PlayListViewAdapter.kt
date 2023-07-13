@@ -11,6 +11,7 @@ import coil.load
 import com.aidaole.aimusic.App
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.PlayingItemSimpleViewBinding
+import com.aidaole.aimusic.modules.playmusic.PlayListViewAdapter.Companion.isSeekBarTouching
 import com.aidaole.aimusic.utils.getPaletteColor
 import com.aidaole.base.datas.entities.RespSongs
 import com.aidaole.base.ext.logi
@@ -19,6 +20,7 @@ class PlayListViewAdapter(val datas: MutableList<RespSongs.Song> = mutableListOf
     RecyclerView.Adapter<MusicItemViewHolder>() {
     companion object {
         private const val TAG = "PlayListViewAdapter"
+        var isSeekBarTouching = false
     }
 
     var seekProgressChangeCallback: ((Int) -> Unit)? = null
@@ -73,10 +75,12 @@ class MusicItemViewHolder(itemView: View) : ViewHolder(itemView) {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                isSeekBarTouching = true
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 "onStopTrackingTouch-> ${seekBar.progress}".logi(TAG)
+                isSeekBarTouching = false
                 seekChange?.invoke(seekBar.progress)
             }
         })
