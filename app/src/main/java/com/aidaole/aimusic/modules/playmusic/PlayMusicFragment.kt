@@ -20,7 +20,7 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
 
     override fun initViews() {
         playListViewAdapter = PlayListViewAdapter()
-        layout.playListView.adapter = playListViewAdapter
+        layout.playListView.setAdapter(playListViewAdapter)
         playListViewAdapter.updateMusicItems(listOf())
         layout.playListView.setScrollPositionChangeListener { position ->
             playMusicVM.setCurrentSongIndex(position)
@@ -41,6 +41,9 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
         }
         playMusicVM.curPlaySong.observe(viewLifecycleOwner) { song ->
             playMusicVM.playMusic(song)
+        }
+        playMusicVM.curSongProgress.observe(viewLifecycleOwner) { progress ->
+            layout.playListView.updatePlayingProgress(playMusicVM.curPlaySong.value, progress)
         }
     }
 

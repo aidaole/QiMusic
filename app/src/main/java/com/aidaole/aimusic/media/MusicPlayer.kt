@@ -22,16 +22,11 @@ class MusicPlayer : MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionList
         }
         return@Handler true
     }
+    var onProcessChangeListener: OnProcessChangeListener? = null
 
     private fun sendProcessMessage() {
         msgHandler.sendEmptyMessageDelayed(NOTIFY_PROGRESS_MSG, NOTIFY_PROGRESS_DURATION)
     }
-
-
-    var onProcessChangeListener: OnProcessChangeListener? = null
-        set(value) {
-            field = value
-        }
 
     init {
         mediaPlayer.setOnPreparedListener(this)
@@ -51,6 +46,7 @@ class MusicPlayer : MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionList
 
     override fun onCompletion(mp: MediaPlayer?) {
         msgHandler.removeMessages(NOTIFY_PROGRESS_MSG)
+        onProcessChangeListener?.onProcessChange(100)
     }
 
     interface OnProcessChangeListener {

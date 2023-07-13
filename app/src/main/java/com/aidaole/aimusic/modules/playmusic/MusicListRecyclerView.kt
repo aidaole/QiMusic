@@ -2,9 +2,13 @@ package com.aidaole.aimusic.modules.playmusic
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.View
+import android.widget.SeekBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.aidaole.aimusic.R
+import com.aidaole.base.datas.entities.RespSongs
 import com.aidaole.base.ext.logi
 
 class MusicListRecyclerView @JvmOverloads constructor(
@@ -14,6 +18,7 @@ class MusicListRecyclerView @JvmOverloads constructor(
 ) : RecyclerView(context, attrs, defStyleAttr) {
 
     private var onPositionChangeListener: ((Int) -> Unit)? = null
+    private lateinit var playListAdapter: PlayListViewAdapter
     fun setScrollPositionChangeListener(listener: (Int) -> Unit) {
         this.onPositionChangeListener = listener
     }
@@ -53,5 +58,21 @@ class MusicListRecyclerView @JvmOverloads constructor(
                 }
             }
         })
+    }
+
+    fun setAdapter(adapter: PlayListViewAdapter) {
+        super.setAdapter(adapter)
+        playListAdapter = adapter
+    }
+
+    fun updatePlayingProgress(song: RespSongs.Song?, progress: Int) {
+        playListAdapter.datas[currentPosition].progress = progress
+        song?.let {
+            val progressBar = findViewWithTag<View>(song.id).findViewById<SeekBar>(R.id.progress_bar)
+            progressBar?.let {
+                it.progress = progress
+                it.invalidate()
+            }
+        }
     }
 }

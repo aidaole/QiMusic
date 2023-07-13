@@ -35,10 +35,13 @@ class PlayMusicViewModel @Inject constructor(
     private val _curPlaySong = MutableLiveData<Song?>()
     val curPlaySong = _curPlaySong as LiveData<Song?>
 
+    private val _curSongProgress = MutableLiveData<Int>()
+    val curSongProgress = _curSongProgress as LiveData<Int>
+
     init {
         musicPlayer.onProcessChangeListener = object : MusicPlayer.OnProcessChangeListener {
             override fun onProcessChange(process: Int) {
-                "onProcessChange-> $process".logi(TAG)
+                _curSongProgress.value = process
             }
         }
     }

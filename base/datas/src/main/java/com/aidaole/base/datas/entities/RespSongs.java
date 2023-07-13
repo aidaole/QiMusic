@@ -16,6 +16,8 @@ public class RespSongs {
         @SerializedName("al")
         public Al al;
 
+        public int progress;
+
         public static class Al {
             @SerializedName("id")
             public int id;

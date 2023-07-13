@@ -55,6 +55,7 @@ class MusicItemViewHolder(itemView: View) : ViewHolder(itemView) {
         }
         layout.songName.text = song.name
         layout.songPic.load(song.al.picUrl)
+        layout.progressBar.progress = song.progress
         App.get().loadImage(song.al.picUrl) {
             it?.let {
                 layout.root.setBackgroundColor(getPaletteColor(it))
@@ -62,5 +63,6 @@ class MusicItemViewHolder(itemView: View) : ViewHolder(itemView) {
                 "加载图片颜色失败".logi(TAG)
             }
         }
+        layout.root.tag = song.id
     }
 }
