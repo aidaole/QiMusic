@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.aidaole.aimusic.media.MusicPlayer
 import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.RespPlayList
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayMusicViewModel @Inject constructor(
     private val neteaseRepo: NeteaseRepo,
+    private val musicPlayer: MusicPlayer,
     application: Application
 ) : AndroidViewModel(application) {
     companion object {
@@ -32,6 +34,14 @@ class PlayMusicViewModel @Inject constructor(
 
     private val _curPlaySong = MutableLiveData<Song?>()
     val curPlaySong = _curPlaySong as LiveData<Song?>
+
+    init {
+        musicPlayer.onProcessChangeListener = object : MusicPlayer.OnProcessChangeListener {
+            override fun onProcessChange(process: Int) {
+                "onProcessChange-> $process".logi(TAG)
+            }
+        }
+    }
 
     fun setCurrentSongIndex(position: Int) {
         _currentSongIndex.value = position
@@ -87,6 +97,9 @@ class PlayMusicViewModel @Inject constructor(
         song?.let {
             viewModelScope.launch {
                 val songUrl = neteaseRepo.getSongUrl(song.id.toString()).single()
+                songUrl?.let {
+                    musicPlayer.play(it)
+                }
                 "playMusic-> $songUrl".logi(TAG)
             }
         } ?: run {

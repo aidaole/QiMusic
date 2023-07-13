@@ -40,7 +40,6 @@ class PlayMusicFragment : ViewBindingFragment<FragmentPlayMusicBinding>() {
             }
         }
         playMusicVM.curPlaySong.observe(viewLifecycleOwner) { song ->
-            song?.name?.toast(context)
             playMusicVM.playMusic(song)
         }
     }
