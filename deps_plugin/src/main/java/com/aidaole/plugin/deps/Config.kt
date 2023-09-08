@@ -1,4 +1,4 @@
-package com.aidaole.plugin.version
+package com.aidaole.plugin.deps
 
 object Config {
     const val applicationId = "com.aidaole.aimusic"

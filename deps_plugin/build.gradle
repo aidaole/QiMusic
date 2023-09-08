@@ -24,9 +24,9 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("versionControl") {
-            id = "com.aidaole.plugin.version"
-            implementationClass = "com.aidaole.plugin.version.VersionPlugin"
+        create("depsControl") {
+            id = "com.aidaole.plugin.deps"
+            implementationClass = "com.aidaole.plugin.deps.DepsPlugin"
         }
     }
 }

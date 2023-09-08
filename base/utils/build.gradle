@@ -1,10 +1,10 @@
-import com.aidaole.plugin.version.Config
-import com.aidaole.plugin.version.Deps
+import com.aidaole.plugin.deps.Config
+import com.aidaole.plugin.deps.Deps
 
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'com.aidaole.plugin.version'
+    id 'com.aidaole.plugin.deps'
 }
 
 android {

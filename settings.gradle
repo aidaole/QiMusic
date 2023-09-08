@@ -24,4 +24,4 @@ rootProject.name = "AiMusic"
 include ':app'
 include ':base:datas'
 include ':base:utils'
-includeBuild('plugin-version')
+includeBuild('deps_plugin')

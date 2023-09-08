@@ -61,7 +61,7 @@ class MusicItemViewHolder(itemView: View) : ViewHolder(itemView) {
         }
         layout.songName.text = song.name
         layout.songPic.load(song.al.picUrl)
-        layout.progressBar.progress = song.progress
+        layout.progressBar.progress = 0
         App.get().loadImage(song.al.picUrl) {
             it?.let {
                 layout.root.setBackgroundColor(getPaletteColor(it))

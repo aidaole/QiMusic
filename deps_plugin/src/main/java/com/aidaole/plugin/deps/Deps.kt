@@ -1,4 +1,4 @@
-package com.aidaole.plugin.version
+package com.aidaole.plugin.deps
 
 object Deps {
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"

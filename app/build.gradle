@@ -1,12 +1,12 @@
-import com.aidaole.plugin.version.Config
-import com.aidaole.plugin.version.Deps
+import com.aidaole.plugin.deps.Config
+import com.aidaole.plugin.deps.Deps
 
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
-    id 'com.aidaole.plugin.version'
+    id 'com.aidaole.plugin.deps'
 }
 
 android {
