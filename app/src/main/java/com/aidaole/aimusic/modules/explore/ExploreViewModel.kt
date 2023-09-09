@@ -1,8 +1,9 @@
 package com.aidaole.aimusic.modules.explore
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.aidaole.base.datas.NeteaseRepo
-import com.aidaole.utils.ext.toStateFlow
+import com.aidaole.aimusic.utils.toStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class ExploreViewModel @Inject constructor(
         private const val TAG = "ExploreViewModel"
     }
 
-    val recommendPlayList = neteaseRepo.loadPlaylistHighQuality().toStateFlow(null)
-    val hotplaylistTags = neteaseRepo.loadPlaylistHot().toStateFlow(null)
-    val topSongs = neteaseRepo.loadTopPlaylistSongs().toStateFlow(null)
+    val recommendPlayList = neteaseRepo.loadPlaylistHighQuality().toStateFlow(null, viewModelScope)
+    val hotplaylistTags = neteaseRepo.loadPlaylistHot().toStateFlow(null, viewModelScope)
+    val topSongs = neteaseRepo.loadTopPlaylistSongs().toStateFlow(null, viewModelScope)
 }

@@ -1,4 +1,4 @@
-package com.aidaole.utils.ext
+package com.aidaole.aimusic.utils
 
 import com.aidaole.aimusic.App
 import kotlinx.coroutines.CoroutineScope
