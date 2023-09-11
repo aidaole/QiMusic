@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/padding_10"
-    android:paddingRight="@dimen/padding_10">
+    tools:background="@color/black">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/action_bar_height"
+        android:paddingLeft="@dimen/padding_10"
+        android:paddingRight="@dimen/padding_10"
         android:translationZ="1dp">
 
         <TextView
@@ -25,7 +26,6 @@
         <ImageView
             android:layout_width="@dimen/icon_size_24"
             android:layout_height="@dimen/icon_size_24"
-            android:layout_margin="@dimen/padding_20"
             android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -33,9 +33,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
-        android:layout_marginTop="@dimen/action_bar_height"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/action_bar_height"
+        android:paddingLeft="@dimen/padding_10"
+        android:paddingRight="@dimen/padding_10">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +59,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hot_play_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:itemCount="8"
+                app:spanCount="4"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/hot_playlist_item_view" />
 
             <TextView
                 android:id="@+id/recommend_playlist_text"
@@ -73,7 +79,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recommend_play_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:itemCount="8"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/recommend_playlist_item_view"
+                tools:spanCount="4" />
 
             <TextView
                 android:id="@+id/top_songs_text"
@@ -89,7 +99,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/top_songs"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/top_song_list_height" />
+                android:layout_height="@dimen/top_song_list_height"
+                tools:itemCount="2"
+                tools:listitem="@layout/top_playlist_song_item_view" />
 
             <View
                 android:layout_width="match_parent"

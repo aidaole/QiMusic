@@ -57,14 +57,14 @@ class UserProfileNestedScrollParent @JvmOverloads constructor(
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
         val newHeightSpec = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.UNSPECIFIED)
 
-        ("onMeasure-> " +
-                "screenHeight: ${App.getScreenHeight()}, " +
-                "parent: ${this@UserProfileNestedScrollParent.measuredHeight}, " +
-                "actionbar: ${actionBarLayout.measuredHeight}, " +
-                "topBg: ${topBg.measuredHeight}, " +
-                "userInfoLayout: ${userInfoLayout.measuredHeight}, " +
-                "bottomContentContainer: ${bottomContentContainer.measuredHeight}")
-            .logi(TAG)
+//        ("onMeasure-> " +
+//                "screenHeight: ${App.getScreenHeight()}, " +
+//                "parent: ${this@UserProfileNestedScrollParent.measuredHeight}, " +
+//                "actionbar: ${actionBarLayout.measuredHeight}, " +
+//                "topBg: ${topBg.measuredHeight}, " +
+//                "userInfoLayout: ${userInfoLayout.measuredHeight}, " +
+//                "bottomContentContainer: ${bottomContentContainer.measuredHeight}")
+//            .logi(TAG)
         super.onMeasure(widthMeasureSpec, newHeightSpec)
     }
 
