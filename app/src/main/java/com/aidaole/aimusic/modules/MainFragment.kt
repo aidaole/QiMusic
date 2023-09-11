@@ -1,8 +1,5 @@
 package com.aidaole.aimusic.modules
 
-import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentMainBinding
@@ -11,8 +8,10 @@ import com.aidaole.aimusic.media.MusicPlayer
 import com.aidaole.aimusic.modules.explore.ExploreFragment
 import com.aidaole.aimusic.modules.playmusic.PlayMusicFragment
 import com.aidaole.aimusic.modules.user.UserInfoFragment
+import com.aidaole.base.ext.toGone
+import com.aidaole.base.ext.toVisible
 
-class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
+class MainFragment : ViewBindingFragment<FragmentMainBinding>(), MusicPlayer.StateListener {
 
     private val mainViewModel by activityViewModels<MainViewModel>()
 
@@ -56,40 +55,66 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
     }
 
     override fun doAfterInit() {
+        MusicPlayer.registerStateListener(this)
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        MusicPlayer.unRegisterStateListener(this)
     }
 
     private fun naviToPage(tag: String) {
         layout.pageContainer.navigate(tag)
         layout.bottomTabsContainer.run {
             // 清理选中状态
-            children.forEach {
-                if (it is ImageView) {
-                    it.isSelected = false
-                } else if (it is ViewGroup) {
-                    it.children.forEach {
-                        it.isSelected = false
-                    }
-                }
+            listOf(layout.menuUserImg, layout.menuExploreImg, layout.menuUserImg).forEach {
+                it.isSelected = false
             }
             // 选中状态+navbar背景
             when (tag) {
                 PlayMusicFragment::class.java.simpleName -> {
                     background = null
-                    layout.menuMusic.isSelected = true
+                    layout.menuMusicImg.isSelected = true
+                    toggleMusicPlayState(true)
                 }
+
                 ExploreFragment::class.java.simpleName -> {
                     setBackgroundResource(R.color.explore_bg_end_color)
                     layout.menuExploreImg.isSelected = true
+                    toggleMusicPlayState(false)
                 }
+
                 UserInfoFragment::class.java.simpleName -> {
                     setBackgroundResource(R.color.explore_bg_end_color)
                     layout.menuUserImg.isSelected = true
-                }
-                else -> {
-                    throw RuntimeException("naviToPage error: $tag")
+                    toggleMusicPlayState(false)
                 }
             }
         }
+    }
+
+    private fun toggleMusicPlayState(isMusicMenuSelected: Boolean) {
+        if (isMusicMenuSelected) {
+            layout.musicPlayLottie.toGone()
+            layout.menuMusicImg.toVisible()
+            if (MusicPlayer.state == MusicPlayer.State.PLAYING) {
+                layout.menuMusicImg.setImageResource(R.drawable.ic_music_pause)
+            } else {
+                layout.menuMusicImg.setImageResource(R.drawable.ic_music_play)
+            }
+        } else {
+            if (MusicPlayer.state == MusicPlayer.State.PLAYING) {
+                layout.musicPlayLottie.toVisible()
+                layout.menuMusicImg.toGone()
+            } else {
+                layout.musicPlayLottie.toGone()
+                layout.menuMusicImg.toVisible()
+                layout.menuMusicImg.setImageResource(R.drawable.ic_music_play)
+            }
+        }
+    }
+
+    override fun onStateChange(state: MusicPlayer.State) {
+        toggleMusicPlayState(mainViewModel.isPage(MainPage.MUSIC))
     }
 }

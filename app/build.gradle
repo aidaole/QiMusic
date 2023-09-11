@@ -54,6 +54,7 @@ dependencies {
     implementation Deps.naviFragmentExt
     implementation Deps.coil
     implementation Deps.gson
+    implementation Deps.lottie
 
     implementation Deps.ktxCore
     implementation Deps.appcompat

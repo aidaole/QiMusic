@@ -8,7 +8,7 @@ object MusicPlayer : MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionLis
     private const val NOTIFY_PROGRESS_MSG = 1
     private const val NOTIFY_PROGRESS_DURATION = 1000L
     private val stateListeners = mutableSetOf<StateListener>()
-    private var state = State.STOP
+    var state = State.STOP
         set(value) {
             field = value
             notifyStateListeners()

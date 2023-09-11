@@ -23,18 +23,35 @@
             android:layout_height="@dimen/navbar_bottom_padding"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/menu_music"
             android:layout_width="94dp"
             android:layout_height="@dimen/play_icon_size"
-            android:padding="@dimen/click_icon_default_padding"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:src="@drawable/selector_play_music"
             app:layout_constraintBottom_toTopOf="@id/navi_bar_placeholder"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/menu_music_img"
+                android:layout_width="94dp"
+                android:layout_height="@dimen/play_icon_size"
+                android:padding="@dimen/click_icon_default_padding"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:src="@drawable/selector_play_music" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/music_play_lottie"
+                android:layout_width="60dp"
+                android:layout_height="34dp"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/music_playing" />
+        </FrameLayout>
+
 
         <LinearLayout
             android:id="@+id/menu_explore"
