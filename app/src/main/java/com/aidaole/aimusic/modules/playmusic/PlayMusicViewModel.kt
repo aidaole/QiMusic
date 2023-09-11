@@ -19,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class PlayMusicViewModel @Inject constructor(
     private val neteaseRepo: NeteaseRepo,
-    private val musicPlayer: MusicPlayer,
     application: Application
 ) : AndroidViewModel(application) {
     companion object {
@@ -39,7 +38,7 @@ class PlayMusicViewModel @Inject constructor(
     val curSongProgress = _curSongProgress as LiveData<Int>
 
     init {
-        musicPlayer.onProcessChangeListener = object : MusicPlayer.OnProcessChangeListener {
+        MusicPlayer.onProcessChangeListener = object : MusicPlayer.OnProcessChangeListener {
             override fun onProcessChange(process: Int) {
                 _curSongProgress.value = process
             }
@@ -101,7 +100,7 @@ class PlayMusicViewModel @Inject constructor(
             viewModelScope.launch {
                 val songUrl = neteaseRepo.getSongUrl(song.id.toString()).single()
                 songUrl?.let {
-                    musicPlayer.play(it)
+                    MusicPlayer.play(it)
                 }
                 "playMusic-> $songUrl".logi(TAG)
             }
@@ -111,6 +110,6 @@ class PlayMusicViewModel @Inject constructor(
     }
 
     fun setUserTrackProgress(progress: Int) {
-        musicPlayer.seekProgress(progress)
+        MusicPlayer.seekProgress(progress)
     }
 }

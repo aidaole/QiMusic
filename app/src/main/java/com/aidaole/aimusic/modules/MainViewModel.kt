@@ -19,9 +19,14 @@ class MainViewModel @Inject constructor() : ViewModel() {
             MainPage.EXPLORE -> ExploreFragment::class.java.simpleName
             MainPage.MUSIC -> PlayMusicFragment::class.java.simpleName
             MainPage.USER -> UserInfoFragment::class.java.simpleName
-            else -> {
-                throw RuntimeException("Wrong page: $page")
-            }
+        }
+    }
+
+    fun isPage(page: MainPage): Boolean {
+        return _pageTag.value == when (page) {
+            MainPage.EXPLORE -> ExploreFragment::class.java.simpleName
+            MainPage.MUSIC -> PlayMusicFragment::class.java.simpleName
+            MainPage.USER -> UserInfoFragment::class.java.simpleName
         }
     }
 }

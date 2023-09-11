@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentMainBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
+import com.aidaole.aimusic.media.MusicPlayer
 import com.aidaole.aimusic.modules.explore.ExploreFragment
 import com.aidaole.aimusic.modules.playmusic.PlayMusicFragment
 import com.aidaole.aimusic.modules.user.UserInfoFragment
@@ -33,7 +34,11 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>() {
             layout.menuUser.tag = UserInfoFragment::class.java.simpleName
 
             layout.menuMusic.setOnClickListener {
-                mainViewModel.naviTo(MainPage.MUSIC)
+                if (!mainViewModel.isPage(MainPage.MUSIC)) {
+                    mainViewModel.naviTo(MainPage.MUSIC)
+                } else {
+                    MusicPlayer.pauseOrStartMusic()
+                }
             }
             layout.menuExplore.setOnClickListener {
                 mainViewModel.naviTo(MainPage.EXPLORE)
