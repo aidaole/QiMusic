@@ -49,9 +49,11 @@ class MusicListRecyclerView @JvmOverloads constructor(
                             onPositionChangeListener?.invoke(currentPosition)
                         }
                     }
+
                     SCROLL_STATE_DRAGGING -> {
 
                     }
+
                     SCROLL_STATE_SETTLING -> {
 
                     }

@@ -1,5 +1,6 @@
 package com.aidaole.aimusic.media
 
+import android.media.MediaParser
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,7 @@ object MusicPlayer : MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionLis
     private const val NOTIFY_PROGRESS_MSG = 1
     private const val NOTIFY_PROGRESS_DURATION = 1000L
     private val stateListeners = mutableSetOf<StateListener>()
+    private var curSongUrl: String? = null
     var state = State.STOP
         set(value) {
             field = value
@@ -39,11 +41,13 @@ object MusicPlayer : MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionLis
     fun play(songUrl: String) {
         mediaPlayer.reset()
         mediaPlayer.setDataSource(songUrl)
+        curSongUrl = songUrl
         mediaPlayer.prepare()
         state = State.PREPARING
     }
 
     fun pauseOrStartMusic() {
+        if (curSongUrl == null) return
         if (state == State.PLAYING) {
             mediaPlayer.pause()
             state = State.PAUSE

@@ -94,7 +94,6 @@ class ExploreFragment : ViewBindingFragment<FragmentExploreBinding>() {
                         }
                     }
                 }
-
                 launch {
                     exploreVM.topSongs.collectLatest {
                         "initVM-> topSongs.collect".logi(TAG)
