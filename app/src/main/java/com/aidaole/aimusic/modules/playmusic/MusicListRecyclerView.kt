@@ -71,7 +71,7 @@ class MusicListRecyclerView @JvmOverloads constructor(
         playListAdapter.datas[currentPosition].progress = progress
         if (PlayListViewAdapter.isSeekBarTouching) return
         song?.let {
-            val progressBar = findViewWithTag<View>(song.id).findViewById<SeekBar>(R.id.progress_bar)
+            val progressBar = findViewWithTag<View>(song.id)?.findViewById<SeekBar>(R.id.progress_bar)
             progressBar?.let {
                 it.progress = progress
                 it.invalidate()

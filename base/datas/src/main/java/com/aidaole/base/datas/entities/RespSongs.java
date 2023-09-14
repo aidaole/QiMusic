@@ -13,6 +13,8 @@ public class RespSongs {
         public String name;
         @SerializedName("id")
         public long id;
+        @SerializedName("dt")
+        public long dt; // 时长
         @SerializedName("al")
         public Al al;
 
@@ -47,6 +49,7 @@ public class RespSongs {
             return "Song{" +
                     "name='" + name + '\'' +
                     ", id=" + id +
+                    ", dt=" + dt +
                     ", al=" + al +
                     '}';
         }
