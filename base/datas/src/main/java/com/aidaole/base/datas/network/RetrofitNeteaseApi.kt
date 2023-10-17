@@ -1,5 +1,6 @@
 package com.aidaole.base.datas.network
 
+import android.app.appsearch.ReportSystemUsageRequest
 import com.aidaole.base.datas.entities.*
 import com.aidaole.base.datas.network.retrofit.calladapter.Resp
 import retrofit2.http.GET
@@ -57,4 +58,10 @@ interface RetrofitNeteaseApi {
         @Query("id") songIds: String,
         @Query("level") level: String = "standard"
     ): Resp<RespSongUrl?>
+
+    @GET("/login/status")
+    fun checkUserLoginStatus(): Resp<LoginStatus?>
+
+    @GET("/logout")
+    fun logout(): Resp<String?>
 }

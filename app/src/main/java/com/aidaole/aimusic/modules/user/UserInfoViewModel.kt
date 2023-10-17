@@ -1,5 +1,7 @@
 package com.aidaole.aimusic.modules.user
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +14,7 @@ import com.aidaole.base.ext.logi
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -19,25 +22,31 @@ import javax.inject.Inject
 @HiltViewModel
 class UserInfoViewModel @Inject constructor(
     private val neteaseRepo: NeteaseRepo,
-    private val gson: Gson
-) : ViewModel() {
+    private val gson: Gson,
+    private val app: Application
+) : AndroidViewModel(app) {
     companion object {
         private const val TAG = "UserInfoViewModel"
+        private const val LOGIN_OUT_FLAG = -10
     }
 
     private val _userInfoData = MutableLiveData(RespUserInfo())
     val userInfoData = _userInfoData as LiveData<RespUserInfo?>
 
     fun loadUserInfo() {
-        viewModelScope.launch {
-            coroutineIO {
-                var userinfo = UserInfoManager.getUserInfo(App.get())
-                if (userinfo == null) {
-                    _userInfoData.postValue(null)
-                }
-                _userInfoData.postValue(userinfo)
-                "loadUserInfo-> userInfo: $userinfo".logi(TAG)
+        viewModelScope.launch(Dispatchers.IO) {
+            val loginStatus = neteaseRepo.checkUserLoginStatus().single()
+            if (loginStatus?.status == LOGIN_OUT_FLAG) {
+                "loadUserInfo-> 登录失效".logi(TAG)
+                neteaseRepo.logout()
+                UserInfoManager.clearUserInfo(app)
             }
+            var userinfo = UserInfoManager.getUserInfo(App.get())
+            if (userinfo == null) {
+                _userInfoData.postValue(null)
+            }
+            _userInfoData.postValue(userinfo)
+            "loadUserInfo-> userInfo: $userinfo".logi(TAG)
         }
     }
 }

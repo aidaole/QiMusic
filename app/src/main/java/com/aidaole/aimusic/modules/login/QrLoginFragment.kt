@@ -1,5 +1,9 @@
 package com.aidaole.aimusic.modules.login
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -20,6 +24,11 @@ class QrLoginFragment : ViewBindingFragment<FragmentQrLoginBinding>() {
 
     private val loginVM: LoginViewModel by viewModels()
     override fun getViewBinding() = FragmentQrLoginBinding.inflate(layoutInflater)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        fitStatusBarHeight()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun initViews() {
         layout.refreshBtn.setOnClickListener {

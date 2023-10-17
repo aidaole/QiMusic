@@ -2,6 +2,7 @@ package com.aidaole.base.datas
 
 import android.content.Context
 import com.aidaole.base.datas.entities.*
+import com.aidaole.base.datas.entities.LoginStatus.Data.Account
 import com.aidaole.base.datas.network.RetrofitNeteaseApi
 import com.aidaole.base.ext.logi
 import kotlinx.coroutines.Dispatchers
@@ -135,6 +136,28 @@ class NeteaseRepo @Inject constructor(
         "getSongUrl-> $body".logi(TAG)
         if (resp.isSuccessful) {
             emit(if (resp.isSuccessful) body?.data?.get(0)?.url else null)
+        }
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
+
+    fun checkUserLoginStatus(): Flow<Account?> = flow {
+        val resp = retrofitNeteaseApi.checkUserLoginStatus().run()
+        val body = resp.body()
+        "checkUserLoginStatus-> $body".logi(TAG)
+        if (resp.isSuccessful) {
+            emit(if (resp.isSuccessful) body?.data?.account else null)
+        }
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
+
+    fun logout(): Flow<String?> = flow {
+        val resp = retrofitNeteaseApi.logout().run()
+        val body = resp.body()
+        "logout-> $body".logi(TAG)
+        if (resp.isSuccessful) {
+            emit(if (resp.isSuccessful) body else null)
         }
     }
         .flowOn(Dispatchers.IO)

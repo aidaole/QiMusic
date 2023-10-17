@@ -37,6 +37,10 @@ object UserInfoManager {
         return null
     }
 
+    fun clearUserInfo(context: Context) {
+        writeUserInfoToSp(context, null)
+    }
+
     private fun getUserInfoFromSp(context: Context): String {
         return getSp(context).getString(KEY_USER, "") ?: ""
     }
