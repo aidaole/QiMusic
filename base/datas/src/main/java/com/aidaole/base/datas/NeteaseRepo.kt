@@ -1,8 +1,12 @@
 package com.aidaole.base.datas
 
 import android.content.Context
-import com.aidaole.base.datas.entities.*
+import com.aidaole.base.datas.entities.HotPlayListTags
 import com.aidaole.base.datas.entities.LoginStatus.Data.Account
+import com.aidaole.base.datas.entities.QrCheckParams
+import com.aidaole.base.datas.entities.RespCheckLoginQr
+import com.aidaole.base.datas.entities.RespPlayList
+import com.aidaole.base.datas.entities.RespSongs
 import com.aidaole.base.datas.network.RetrofitNeteaseApi
 import com.aidaole.base.ext.logi
 import kotlinx.coroutines.Dispatchers
@@ -75,15 +79,12 @@ class NeteaseRepo @Inject constructor(
         .flowOn(Dispatchers.IO)
         .catch { emit(null) }
 
-    fun updateUserInfo(context: Context): Flow<String?> = flow {
+    fun updateUserInfo(context: Context) {
         val resp = retrofitNeteaseApi.getUserInfo().run()
         if (resp.isSuccessful) {
             UserInfoManager.writeUserInfoToSp(context, resp.body())
         }
-        emit(if (resp.isSuccessful) resp.body() else null)
     }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
 
     fun getQrImg(): Flow<QrCheckParams?> = flow {
         val qrKeyResp = retrofitNeteaseApi.getLoginQrKey().run()

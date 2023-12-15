@@ -2,10 +2,8 @@ package com.aidaole.base.datas
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
 import com.aidaole.base.datas.entities.RespUserInfo
 import com.google.gson.Gson
-import java.util.concurrent.atomic.AtomicBoolean
 
 object UserInfoManager {
 
@@ -13,18 +11,21 @@ object UserInfoManager {
     private const val KEY_USER = "key_user"
     private val gson = Gson()
     private var memoryUserInfo: RespUserInfo? = null
-    private var updated = AtomicBoolean(false)
 
     fun writeUserInfoToSp(context: Context, userInfo: String?) {
-        getSp(context).edit {
+        getSp(context).edit().run {
             putString(KEY_USER, userInfo ?: "")
-            updated.set(true)
             commit()
+        }
+        userInfo?.let {
+            memoryUserInfo = gson.fromJson(it, RespUserInfo::class.java)
+        } ?: run {
+            memoryUserInfo = null
         }
     }
 
     fun getUserInfo(context: Context): RespUserInfo? {
-        if (!updated.get() && memoryUserInfo != null) {
+        if (memoryUserInfo != null) {
             return memoryUserInfo
         }
         getUserInfoFromSp(context).run {
