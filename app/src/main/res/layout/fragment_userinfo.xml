@@ -5,8 +5,8 @@
     android:id="@+id/user_profile_scroll_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:background="@color/black"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:background="@color/black">
 
     <View
         android:id="@+id/top_bg"
@@ -51,19 +51,23 @@
                 android:layout_marginTop="10dp"
                 android:text="未登录" />
 
+            <Button
+                android:id="@+id/goto_login_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/normal_btn_bg"
+                android:text="去登陆"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
             <TextView
                 android:id="@+id/user_signature"
                 style="@style/TextSize12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp" />
-
-            <Button
-                android:id="@+id/login_page_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="跳转到登录界面"
-                android:visibility="gone" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,11 +92,13 @@
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:itemCount="10"
-            tools:listitem="@layout/test_string_item_view"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_info_layout" />
+            app:layout_constraintTop_toBottomOf="@id/user_info_layout"
+            tools:itemCount="10"
+            tools:listitem="@layout/test_string_item_view"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.aidaole.aimusic.modules.user.widget.UserProfileNestedScrollParent>

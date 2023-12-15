@@ -10,6 +10,7 @@ import com.aidaole.aimusic.modules.playmusic.PlayMusicFragment
 import com.aidaole.aimusic.modules.user.UserInfoFragment
 import com.aidaole.base.ext.toGone
 import com.aidaole.base.ext.toVisible
+import java.util.TreeSet
 
 class MainFragment : ViewBindingFragment<FragmentMainBinding>(), MusicPlayer.StateListener {
 
@@ -21,13 +22,7 @@ class MainFragment : ViewBindingFragment<FragmentMainBinding>(), MusicPlayer.Sta
 
     override fun initViews() {
         layout.pageContainer.apply {
-            init(
-                parentFragmentManager, mapOf(
-                    ExploreFragment::class.java.simpleName to ExploreFragment(),
-                    PlayMusicFragment::class.java.simpleName to PlayMusicFragment(),
-                    UserInfoFragment::class.java.simpleName to UserInfoFragment()
-                )
-            )
+            init(childFragmentManager)
             layout.menuMusic.tag = PlayMusicFragment::class.java.simpleName
             layout.menuExplore.tag = ExploreFragment::class.java.simpleName
             layout.menuUser.tag = UserInfoFragment::class.java.simpleName

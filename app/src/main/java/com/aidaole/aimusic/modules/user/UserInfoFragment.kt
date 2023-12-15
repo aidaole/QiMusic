@@ -15,12 +15,15 @@ import com.aidaole.aimusic.databinding.FragmentUserinfoBinding
 import com.aidaole.aimusic.databinding.TestStringItemViewBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
 import com.aidaole.base.datas.entities.RespUserInfo
+import com.aidaole.base.ext.toGone
+import com.aidaole.base.ext.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
     override fun getViewBinding(): FragmentUserinfoBinding = FragmentUserinfoBinding.inflate(layoutInflater)
     private val userinfoVM: UserInfoViewModel by viewModels()
+    private var autoJumpOnce = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         fitStatusBarHeight()
@@ -33,7 +36,7 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
     }
 
     override fun initViews() {
-        layout.loginPageBtn.setOnClickListener {
+        layout.gotoLoginBtn.setOnClickListener {
             findNavController().navigate(R.id.action_global_login_graph)
         }
         layout.recyclerview.layoutManager = LinearLayoutManager(context)
@@ -54,8 +57,14 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
     override fun initViewModels() {
         userinfoVM.userInfoData.observe(viewLifecycleOwner) { userInfo ->
             if (userInfo == null) {
-                findNavController().navigate(R.id.action_global_login_graph)
+                if (autoJumpOnce) {
+                    findNavController().navigate(R.id.action_global_login_graph)
+                    autoJumpOnce = false
+                }
+                layout.gotoLoginBtn.toVisible()
+                layout.recyclerview.toGone()
             } else {
+                layout.gotoLoginBtn.toGone()
                 if (userInfo.profile != null) {
                     updateUserProfileUi(userInfo.profile)
                 }
