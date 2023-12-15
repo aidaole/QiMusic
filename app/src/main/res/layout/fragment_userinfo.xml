@@ -49,15 +49,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Suger" />
+                android:text="未登录" />
 
             <TextView
                 android:id="@+id/user_signature"
                 style="@style/TextSize12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="爱听音乐的人" />
+                android:layout_marginTop="4dp" />
 
             <Button
                 android:id="@+id/login_page_btn"
