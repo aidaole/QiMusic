@@ -35,12 +35,13 @@ class UserInfoViewModel @Inject constructor(
 
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            val loginStatus = neteaseRepo.checkUserLoginStatus().single()
-            if (loginStatus?.status == LOGIN_OUT_FLAG) {
-                "loadUserInfo-> 登录失效".logi(TAG)
-                neteaseRepo.logout()
-                UserInfoManager.clearUserInfo(app)
-            }
+            // TODO: 检查登录失效，暂时不要不要
+//            val loginStatus = neteaseRepo.checkUserLoginStatus().single()
+//            if (loginStatus?.status == LOGIN_OUT_FLAG) {
+//                "loadUserInfo-> 登录失效".logi(TAG)
+//                neteaseRepo.logout()
+//                UserInfoManager.clearUserInfo(app)
+//            }
             var userinfo = UserInfoManager.getUserInfo(App.get())
             if (userinfo == null) {
                 _userInfoData.postValue(null)
