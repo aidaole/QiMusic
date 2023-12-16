@@ -1,10 +1,9 @@
 package com.aidaole.base.datas.network
 
 import android.content.Context
-import com.aidaole.base.datas.CookieManager
+import com.aidaole.base.datas.network.cookie.CookieJarImpl
 import com.aidaole.base.datas.network.retrofit.calladapter.RespCallAdapterFactory
 import com.aidaole.base.datas.network.retrofit.converter.StringConverterFactory
-import com.aidaole.base.ext.logi
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -49,24 +48,7 @@ object NetworkModule {
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BASIC
             })
-            .cookieJar(cookieJar = object : CookieJar {
-                override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-                    "saveFromResponse-> url: ${url.host}".logi(TAG)
-                    cookies.forEachIndexed { index, cookie ->
-                        "saveFromResponse->$index cookie: $cookie".logi(TAG)
-                    }
-                    CookieManager.saveCookies(url, cookies, context)
-                }
-
-                override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                    val cookies = CookieManager.getCookies(context, url.host)
-                    "loadForRequest-> url: ${url.host}, cookies: $cookies".logi(TAG)
-                    cookies?.forEachIndexed { index, cookie ->
-                        "loadForRequest->$index cookie: $cookie".logi(TAG)
-                    }
-                    return cookies ?: emptyList()
-                }
-            })
+            .cookieJar(CookieJarImpl(context))
             .build()
     }
 

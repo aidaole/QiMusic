@@ -34,7 +34,6 @@ class UserInfoViewModel @Inject constructor(
 
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            // TODO: 检查登录失效，暂时不要不要
             val loginStatus = neteaseRepo.checkUserLoginStatus().single()
             if (loginStatus?.status == LOGIN_OUT_FLAG) {
                 "loadUserInfo-> 登录失效".logi(TAG)

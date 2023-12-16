@@ -30,6 +30,9 @@ object CookieManager {
     fun saveCookies(url: HttpUrl, cookies: List<Cookie>, context: Context) {
         init(context)
         sp.edit(true) {
+            cookies.forEach {
+                "saveCookies-> ${it}".logi(TAG)
+            }
             "saveCookies-> ${cookies.toJsonStr()}".logi(TAG)
             putString(url.host, cookies.toJsonStr())
             changed.set(true)
