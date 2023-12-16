@@ -11,13 +11,14 @@ import com.aidaole.aimusic.R
 import com.aidaole.base.datas.NeteaseRepo
 import com.aidaole.base.datas.StateValue
 import com.aidaole.base.datas.entities.QrCheckParams
-import com.aidaole.base.utils.base64toBitmap
 import com.aidaole.base.ext.logd
 import com.aidaole.base.ext.logi
+import com.aidaole.base.utils.base64toBitmap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.flow.singleOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -42,6 +43,7 @@ class LoginViewModel @Inject constructor(
 
     private var qrCheckParams: QrCheckParams? = null
     val finalQrLoginState = MutableLiveData(StateValue<Int>())
+    val phonePasswordLoginState = MutableLiveData(StateValue<Int>())
 
     fun refreshQr() {
         viewModelScope.launch {
@@ -75,15 +77,18 @@ class LoginViewModel @Inject constructor(
                                 finalQrLoginState.postValue(StateValue.Succ(QR_SUCC_803))
                                 break
                             }
+
                             800 -> {
                                 // 过期，需要刷新
                                 finalQrLoginState.postValue(StateValue.Fail(QR_FAILED_800))
                                 break
                             }
+
                             801, 802 -> {
                                 // 待扫码，待确认
                                 delay(5 * 1000)
                             }
+
                             else -> {
                                 "checkQrScanned-> code: $code".logi(TAG)
                                 finalQrLoginState.postValue(StateValue.Fail(code))
@@ -100,6 +105,18 @@ class LoginViewModel @Inject constructor(
             } ?: run {
                 "checkQrScanned-> qrCheckParams:$qrCheckParams".logi(TAG)
                 finalQrLoginState.value = StateValue.Fail(-1)
+            }
+        }
+    }
+
+    fun doPhonePasswordLogin(phone: String, password: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val loginResult = neteaseRepo.doPhonePasswordLogin(phone, password).singleOrNull()
+            loginResult?.let {
+                neteaseRepo.updateUserInfo(App.get())
+                phonePasswordLoginState.postValue(StateValue.Succ(1))
+            } ?: run {
+                "doPhonePasswordLogin-> 登录失败".logi(TAG)
             }
         }
     }

@@ -5,6 +5,7 @@ import com.aidaole.base.datas.entities.HotPlayListTags
 import com.aidaole.base.datas.entities.LoginStatus.Data.Account
 import com.aidaole.base.datas.entities.QrCheckParams
 import com.aidaole.base.datas.entities.RespCheckLoginQr
+import com.aidaole.base.datas.entities.RespPhonePasswordLogin
 import com.aidaole.base.datas.entities.RespPlayList
 import com.aidaole.base.datas.entities.RespSongs
 import com.aidaole.base.datas.network.RetrofitNeteaseApi
@@ -163,4 +164,17 @@ class NeteaseRepo @Inject constructor(
     }
         .flowOn(Dispatchers.IO)
         .catch { emit(null) }
+
+    fun doPhonePasswordLogin(phone: String, password: String): Flow<RespPhonePasswordLogin?> = flow {
+        val resp = retrofitNeteaseApi.phonePasswordLogin(phone, password).run()
+        if (resp.isSuccessful) {
+            "${resp.body()}".logi(TAG)
+            emit(resp.body())
+        } else {
+            emit(null)
+        }
+    }
+        .flowOn(Dispatchers.IO)
+        .catch { emit(null) }
+
 }

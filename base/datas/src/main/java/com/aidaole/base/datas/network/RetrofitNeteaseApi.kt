@@ -1,6 +1,5 @@
 package com.aidaole.base.datas.network
 
-import android.app.appsearch.ReportSystemUsageRequest
 import com.aidaole.base.datas.entities.*
 import com.aidaole.base.datas.network.retrofit.calladapter.Resp
 import retrofit2.http.GET
@@ -64,4 +63,10 @@ interface RetrofitNeteaseApi {
 
     @GET("/logout")
     fun logout(): Resp<String?>
+
+    @GET("/login/cellphone")
+    fun phonePasswordLogin(
+        @Query("phone") phone: String,
+        @Query("password") password: String
+    ): Resp<RespPhonePasswordLogin?>
 }

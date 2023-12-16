@@ -21,6 +21,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    private const val TAG = "NetworkModule"
+
     @Provides
     fun provideNeteaseApi(retrofit: Retrofit): RetrofitNeteaseApi {
         return retrofit.create(RetrofitNeteaseApi::class.java)
@@ -49,18 +51,18 @@ object NetworkModule {
             })
             .cookieJar(cookieJar = object : CookieJar {
                 override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-                    "saveFromResponse-> url: ${url.host}".logi()
+                    "saveFromResponse-> url: ${url.host}".logi(TAG)
                     cookies.forEachIndexed { index, cookie ->
-                        "saveFromResponse->$index cookie: $cookie".logi()
+                        "saveFromResponse->$index cookie: $cookie".logi(TAG)
                     }
                     CookieManager.saveCookies(url, cookies, context)
                 }
 
                 override fun loadForRequest(url: HttpUrl): List<Cookie> {
                     val cookies = CookieManager.getCookies(context, url.host)
-                    "loadForRequest-> url: ${url.host}, cookies: $cookies".logi()
+                    "loadForRequest-> url: ${url.host}, cookies: $cookies".logi(TAG)
                     cookies?.forEachIndexed { index, cookie ->
-                        "loadForRequest->$index cookie: $cookie".logi()
+                        "loadForRequest->$index cookie: $cookie".logi(TAG)
                     }
                     return cookies ?: emptyList()
                 }

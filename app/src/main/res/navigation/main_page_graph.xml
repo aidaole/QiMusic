@@ -19,7 +19,7 @@
         app:destination="@+id/login_nav_graph" />
     <navigation
         android:id="@+id/login_nav_graph"
-        app:startDestination="@id/qrLoginFragment">
+        app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/loginFragment"
             android:name="com.aidaole.aimusic.modules.login.LoginFragment"
