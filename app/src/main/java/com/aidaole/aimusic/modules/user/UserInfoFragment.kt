@@ -65,6 +65,7 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
                 layout.recyclerview.toGone()
             } else {
                 layout.gotoLoginBtn.toGone()
+                layout.recyclerview.toVisible()
                 if (userInfo.profile != null) {
                     updateUserProfileUi(userInfo.profile)
                 }
