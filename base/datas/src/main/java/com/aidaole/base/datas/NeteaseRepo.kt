@@ -5,6 +5,7 @@ import com.aidaole.base.datas.entities.HotPlayListTags
 import com.aidaole.base.datas.entities.LoginStatus.Data.Account
 import com.aidaole.base.datas.entities.QrCheckParams
 import com.aidaole.base.datas.entities.RespCheckLoginQr
+import com.aidaole.base.datas.entities.RespGetCaptcha
 import com.aidaole.base.datas.entities.RespPhonePasswordLogin
 import com.aidaole.base.datas.entities.RespPlayList
 import com.aidaole.base.datas.entities.RespSongs
@@ -27,58 +28,41 @@ class NeteaseRepo @Inject constructor(
     fun loadPlaylistHot(): Flow<StateValue<out HotPlayListTags?>> = flow {
         val resp = retrofitNeteaseApi.playlistHot().run()
         emit(if (resp.isSuccessful) StateValue.Succ(resp.body()) else StateValue.Fail(null))
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(StateValue.Exception(t = it)) }
+    }.flowOn(Dispatchers.IO).catch { emit(StateValue.Exception(t = it)) }
 
     fun loadPlaylistHighQuality(
-        limit: Int = 14,
-        order: String = "new"
+        limit: Int = 14, order: String = "new"
     ): Flow<StateValue<out RespPlayList?>> = flow {
         val resp = retrofitNeteaseApi.playlistHighQuality(limit, order).run()
         emit(if (resp.isSuccessful) StateValue.Succ(resp.body()) else StateValue.Fail())
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(StateValue.Exception(t = it)) }
+    }.flowOn(Dispatchers.IO).catch { emit(StateValue.Exception(t = it)) }
 
     fun loadTopPlaylistSongs(): Flow<StateValue<out RespSongs?>> = flow {
         val playlistId = retrofitNeteaseApi.playlistHighQuality().run()?.body()?.playlists?.get(1)?.id ?: 0
         val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, 0, 10).run()
         emit(if (resp.isSuccessful) StateValue.Succ(resp.body()) else StateValue.Fail(null))
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(StateValue.Exception(t = it)) }
+    }.flowOn(Dispatchers.IO).catch { emit(StateValue.Exception(t = it)) }
 
     fun loadPlaylistTrackAll(
-        playlistId: Long,
-        offset: Int = 0,
-        limit: Int = 20
+        playlistId: Long, offset: Int = 0, limit: Int = 20
     ): Flow<MutableList<RespSongs.Song>?> = flow {
         val resp = retrofitNeteaseApi.playlistTrackAll(playlistId, offset, limit).run()
         emit(if (resp.isSuccessful) resp.body()?.songs else null)
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
 
     fun loadSongUrl(
-        id: Int,
-        level: String = "standard",
-        timestamp: Long = System.currentTimeMillis()
+        id: Int, level: String = "standard", timestamp: Long = System.currentTimeMillis()
     ): Flow<String?> = flow {
         val resp = retrofitNeteaseApi.songUrl(id, level, timestamp).run()
         emit(if (resp.isSuccessful) resp.body() else null)
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
 
     fun loadSongDetail(
         ids: String
     ): Flow<RespSongs?> = flow {
         val resp = retrofitNeteaseApi.songDetail(ids).run()
         emit(if (resp.isSuccessful) resp.body() else null)
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
 
     fun updateUserInfo(context: Context) {
         val resp = retrofitNeteaseApi.getUserInfo().run()
@@ -117,18 +101,14 @@ class NeteaseRepo @Inject constructor(
         "getQrImg-> 2. 请求qrImg成功".logi(TAG)
 
         emit(QrCheckParams(qrImg, qrKey))
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
 
     fun getQrScannedCode(
         qrKey: String
     ): Flow<RespCheckLoginQr?> = flow {
         val resp = retrofitNeteaseApi.getQrScannedCode(qrKey).run()
         emit(if (resp.isSuccessful) resp.body() else null)
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
 
     fun getSongUrl(
         ids: String
@@ -139,9 +119,7 @@ class NeteaseRepo @Inject constructor(
         if (resp.isSuccessful) {
             emit(if (resp.isSuccessful) body?.data?.get(0)?.url else null)
         }
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
 
     fun checkUserLoginStatus(): Flow<Account?> = flow {
         val resp = retrofitNeteaseApi.checkUserLoginStatus().run()
@@ -173,8 +151,25 @@ class NeteaseRepo @Inject constructor(
         } else {
             emit(null)
         }
-    }
-        .flowOn(Dispatchers.IO)
-        .catch { emit(null) }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
+
+    fun getCaptchaCode(phone: String): Flow<RespGetCaptcha?> = flow {
+        val resp = retrofitNeteaseApi.getChapchaCode(phone).run()
+        if (resp.isSuccessful) {
+            "${resp.body()}".logi(TAG)
+            emit(RespGetCaptcha())
+        } else {
+            emit(null)
+        }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
+
+    fun doCaptchaLogin(phone: String, captchaCode: String): Flow<RespPhonePasswordLogin?> = flow {
+        val resp = retrofitNeteaseApi.doCaptchaLogin(phone, captchaCode).run()
+        if (resp.isSuccessful) {
+            emit(resp.body())
+        } else {
+            emit(null)
+        }
+    }.flowOn(Dispatchers.IO).catch { emit(null) }
 
 }

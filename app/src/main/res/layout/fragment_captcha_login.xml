@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@drawable/bg_explore"
-    tools:context=".modules.login.LoginFragment">
+    tools:context="com.aidaole.aimusic.modules.login.CaptchaLoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/phone_login_layout"
@@ -29,12 +29,13 @@
 
         <EditText
             android:id="@+id/input_phone"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:theme="@style/EditTextNormalStyle"
             app:layout_constraintBottom_toBottomOf="@id/tv_phone"
             app:layout_constraintLeft_toRightOf="@id/tv_phone"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_phone" />
 
         <TextView
@@ -42,22 +43,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="密    码："
+            android:text="验证码："
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_16"
             app:layout_constraintRight_toRightOf="@id/tv_phone"
             app:layout_constraintTop_toBottomOf="@id/tv_phone" />
 
         <EditText
-            android:id="@+id/input_password"
-            android:layout_width="200dp"
+            android:id="@+id/input_captcha"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:textColor="@color/white"
             android:theme="@style/EditTextNormalStyle"
             app:layout_constraintBottom_toBottomOf="@id/tv_password"
             app:layout_constraintLeft_toRightOf="@id/tv_password"
+            app:layout_constraintRight_toLeftOf="@id/get_captcha_btn"
             app:layout_constraintTop_toTopOf="@id/tv_password" />
+
+        <TextView
+            android:id="@+id/get_captcha_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取验证码"
+            android:textColor="@color/teal_200"
+            android:textSize="@dimen/font_size_14"
+            app:layout_constraintBottom_toBottomOf="@id/input_captcha"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/input_captcha" />
 
         <Button
             android:id="@+id/login_btn"
@@ -71,31 +84,4 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_password" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/qr_login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="扫码登录"
-        android:textColor="@color/white"
-        android:textFontWeight="500"
-        android:textSize="@dimen/font_size_16"
-        app:layout_constraintLeft_toLeftOf="@id/phone_login_layout"
-        app:layout_constraintTop_toBottomOf="@id/phone_login_layout" />
-
-    <TextView
-        android:id="@+id/captcha_login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:text="验证码登录"
-        android:textColor="@color/white"
-        android:textFontWeight="500"
-        android:textSize="@dimen/font_size_16"
-        app:layout_constraintRight_toRightOf="@id/phone_login_layout"
-        app:layout_constraintTop_toBottomOf="@id/phone_login_layout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

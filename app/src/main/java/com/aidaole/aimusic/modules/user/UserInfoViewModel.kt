@@ -48,6 +48,12 @@ class UserInfoViewModel @Inject constructor(
             "loadUserInfo-> userInfo: $userinfo".logi(TAG)
         }
     }
+
+    fun logout() {
+        neteaseRepo.logout()
+        UserInfoManager.clearUserInfo(app)
+        _userInfoData.postValue(null)
+    }
 }
 
 suspend inline fun coroutineIO(crossinline runBody: () -> Unit) {

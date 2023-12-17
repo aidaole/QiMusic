@@ -52,6 +52,9 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
             add("9")
             add("10")
         })
+        layout.logoutBtn.setOnClickListener {
+            userinfoVM.logout()
+        }
     }
 
     override fun initViewModels() {
@@ -63,9 +66,11 @@ class UserInfoFragment : ViewBindingFragment<FragmentUserinfoBinding>() {
                 }
                 layout.gotoLoginBtn.toVisible()
                 layout.recyclerview.toGone()
+                layout.logoutBtn.toGone()
             } else {
                 layout.gotoLoginBtn.toGone()
                 layout.recyclerview.toVisible()
+                layout.logoutBtn.toVisible()
                 if (userInfo.profile != null) {
                     updateUserProfileUi(userInfo.profile)
                 }

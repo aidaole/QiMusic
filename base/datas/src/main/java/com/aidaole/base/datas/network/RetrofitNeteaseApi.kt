@@ -69,4 +69,15 @@ interface RetrofitNeteaseApi {
         @Query("phone") phone: String,
         @Query("md5_password") md5Password: String
     ): Resp<RespPhonePasswordLogin?>
+
+    @GET("/captcha/sent")
+    fun getChapchaCode(
+        @Query("phone") phone: String
+    ): Resp<RespGetCaptcha?>
+
+    @GET("/login/cellphone")
+    fun doCaptchaLogin(
+        @Query("phone") phone: String,
+        @Query("captcha") code: String
+    ): Resp<RespPhonePasswordLogin?>
 }

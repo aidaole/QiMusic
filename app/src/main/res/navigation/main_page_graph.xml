@@ -28,6 +28,9 @@
             <action
                 android:id="@+id/action_loginFragment_to_qrLoginFragment"
                 app:destination="@id/qrLoginFragment" />
+            <action
+                android:id="@+id/action_loginFragment_to_captchaLoginFragment"
+                app:destination="@id/captchaLoginFragment" />
         </fragment>
 
         <fragment
@@ -35,6 +38,12 @@
             android:name="com.aidaole.aimusic.modules.login.QrLoginFragment"
             android:label="fragment_qr_login"
             tools:layout="@layout/fragment_qr_login" />
+
+        <fragment
+            android:id="@+id/captchaLoginFragment"
+            android:name="com.aidaole.aimusic.modules.login.CaptchaLoginFragment"
+            android:label="fragment_captcha_login"
+            tools:layout="@layout/fragment_captcha_login" />
     </navigation>
 
 </navigation>

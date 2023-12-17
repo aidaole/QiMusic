@@ -43,7 +43,7 @@ class LoginViewModel @Inject constructor(
 
     private var qrCheckParams: QrCheckParams? = null
     val finalQrLoginState = MutableLiveData(StateValue<Int>())
-    val phonePasswordLoginState = MutableLiveData(StateValue<Int>())
+    val loginResultState = MutableLiveData(StateValue<Int>())
 
     fun refreshQr() {
         viewModelScope.launch {
@@ -114,7 +114,28 @@ class LoginViewModel @Inject constructor(
             val loginResult = neteaseRepo.doPhonePasswordLogin(phone, md5Password).singleOrNull()
             loginResult?.let {
                 neteaseRepo.updateUserInfo(App.get())
-                phonePasswordLoginState.postValue(StateValue.Succ(1))
+                loginResultState.postValue(StateValue.Succ(1))
+            } ?: run {
+                "doPhonePasswordLogin-> 登录失败".logi(TAG)
+            }
+        }
+    }
+
+    fun getCaptcha(phone: String) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                val result = neteaseRepo.getCaptchaCode(phone).singleOrNull()
+                "getCaptcha-> $result".logi(TAG)
+            }
+        }
+    }
+
+    fun doCaptchaLogin(phone: String, captchaCode: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val loginResult = neteaseRepo.doCaptchaLogin(phone, captchaCode).singleOrNull()
+            loginResult?.let {
+                neteaseRepo.updateUserInfo(App.get())
+                loginResultState.postValue(StateValue.Succ(1))
             } ?: run {
                 "doPhonePasswordLogin-> 登录失败".logi(TAG)
             }
