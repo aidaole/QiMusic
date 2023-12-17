@@ -67,6 +67,6 @@ interface RetrofitNeteaseApi {
     @GET("/login/cellphone")
     fun phonePasswordLogin(
         @Query("phone") phone: String,
-        @Query("password") password: String
+        @Query("md5_password") md5Password: String
     ): Resp<RespPhonePasswordLogin?>
 }

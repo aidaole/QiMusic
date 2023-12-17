@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.aidaole.aimusic.R
 import com.aidaole.aimusic.databinding.FragmentLoginBinding
 import com.aidaole.aimusic.framework.ViewBindingFragment
+import com.aidaole.aimusic.utils.md5
 import com.aidaole.base.ext.logi
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,7 @@ class LoginFragment : ViewBindingFragment<FragmentLoginBinding>() {
         layout.loginBtn.setOnClickListener {
             loginVM.doPhonePasswordLogin(
                 layout.inputPhone.text.toString(),
-                layout.inputPassword.text.toString()
+                layout.inputPassword.text.toString().md5()
             )
         }
     }

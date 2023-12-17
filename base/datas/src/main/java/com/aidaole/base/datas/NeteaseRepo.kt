@@ -165,8 +165,8 @@ class NeteaseRepo @Inject constructor(
         .flowOn(Dispatchers.IO)
         .catch { emit(null) }
 
-    fun doPhonePasswordLogin(phone: String, password: String): Flow<RespPhonePasswordLogin?> = flow {
-        val resp = retrofitNeteaseApi.phonePasswordLogin(phone, password).run()
+    fun doPhonePasswordLogin(phone: String, md5Password: String): Flow<RespPhonePasswordLogin?> = flow {
+        val resp = retrofitNeteaseApi.phonePasswordLogin(phone, md5Password).run()
         if (resp.isSuccessful) {
             "${resp.body()}".logi(TAG)
             emit(resp.body())

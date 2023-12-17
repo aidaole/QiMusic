@@ -109,9 +109,9 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun doPhonePasswordLogin(phone: String, password: String) {
+    fun doPhonePasswordLogin(phone: String, md5Password: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val loginResult = neteaseRepo.doPhonePasswordLogin(phone, password).singleOrNull()
+            val loginResult = neteaseRepo.doPhonePasswordLogin(phone, md5Password).singleOrNull()
             loginResult?.let {
                 neteaseRepo.updateUserInfo(App.get())
                 phonePasswordLoginState.postValue(StateValue.Succ(1))

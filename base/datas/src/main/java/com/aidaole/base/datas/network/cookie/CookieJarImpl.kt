@@ -38,8 +38,6 @@ class CookieJarImpl(val context: Context) : CookieJar {
             val findCookie = newCookies.find { newCookie -> it.path == newCookie.path && it.name == newCookie.name }
             if (findCookie == null) {
                 newCookies.add(it)
-            } else {
-                // 如果找到相通的，newcookies已经添加过，这里就不再添加
             }
         }
         cookieStore[host] = newCookies
