@@ -1,6 +1,6 @@
 # AiMusic
 
-一款音乐app，练手项目。[项目地址](https://github.com/aidaole/AiMusic)
+一款音乐app，交互模仿汽水音乐，练手项目。[项目地址](https://github.com/aidaole/AiMusic)
 
 **做此项目的目标**
 
@@ -32,5 +32,18 @@ const val BASE_URL = "http://192.168.31.148:3000"
 
 ## 内容展示
 
-![内容展示](./images/aimusic/2024-01-06-20-39-10.gif ':size=300')
+1. 首页三tab布局
+2. 音乐播放主控界面，滑动切歌
+3. 发现页面，选择不同的音乐歌单
+4. 登录页面，包含账号密码登录，二维码登录，验证码登录（请使用`网易云音乐`账号登录）
+
+后续还有新功能，陆续添加
+
+![](./images/aimusic/Snipaste_2024-01-06_20-23-16.png ':size=200')
+![](./images/aimusic/Snipaste_2024-01-06_20-24-02.png ':size=200')
+![](./images/aimusic/Snipaste_2024-01-06_20-24-37.png ':size=200')
+![](./images/aimusic/Snipaste_2024-01-06_21-32-52.png ':size=200')
+![](./images/aimusic/Snipaste_2024-01-06_21-33-12.png ':size=200')
+
+
 
