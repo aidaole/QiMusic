@@ -1,8 +1,8 @@
 # AiMusic
 
-一款音乐app，交互模仿汽水音乐，练手项目。[项目地址](https://github.com/aidaole/AiMusic)
+一款音乐app，交互模仿汽水音乐，练手项目。[更多内容](https://aidaole.github.io/#/)
 
-**做此项目的目标**
+**做此项目的目的**
 
 使用Hilt，Navigation，Lifecycle组件等Jetpack组件，使用MVVM，单Activity架构，使用协程，FLow加载做异步操作，探索各种组件的最佳实践。
 
