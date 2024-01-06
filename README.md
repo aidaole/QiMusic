@@ -39,6 +39,6 @@ const val BASE_URL = "http://192.168.31.148:3000"
 
 后续还有新功能，陆续添加
 
-<img src="./images/aimusic/Snipaste_2024-01-06_20-23-16.png" width="200" /><img src="./images/aimusic/Snipaste_2024-01-06_20-24-02.png" width="200" /><img src="./images/aimusic/Snipaste_2024-01-06_20-24-37.png" width="200" /><img src="./images/aimusic/Snipaste_2024-01-06_21-32-52.png" width="200" /><img src="./images/aimusic/Snipaste_2024-01-06_21-33-12.png" width="200" />
+<img src="./images/aimusic/Snipaste_2024-01-06_20-23-16.png" width="200" /> <img src="./images/aimusic/Snipaste_2024-01-06_20-24-02.png" width="200" /> <img src="./images/aimusic/Snipaste_2024-01-06_20-24-37.png" width="200" /> <img src="./images/aimusic/Snipaste_2024-01-06_21-32-52.png" width="200" /> <img src="./images/aimusic/Snipaste_2024-01-06_21-33-12.png" width="200" />
 
 
